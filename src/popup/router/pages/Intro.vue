@@ -143,6 +143,12 @@ export default {
         publicKey: address,
         privateKey: seed,
       };
+
+      //// HS_TODO::
+      // Register DID. PublicKey: keypair.publicKey
+      // https://ssi.hypermine.in/core/api/did/create
+      // Store the DID
+
       await this.$store.dispatch('setLogin', { keypair });
       this.next();
     },

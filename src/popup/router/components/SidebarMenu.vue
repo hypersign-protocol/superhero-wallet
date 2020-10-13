@@ -20,6 +20,16 @@
       </router-link>
     </li>
     <li>
+      <router-link to="/profile" data-cy="profile">
+        {{ $t('pages.appVUE.profile') }}
+      </router-link>
+    </li>
+    <li>
+      <router-link to="/credential" data-cy="credential">
+        {{ $t('pages.appVUE.credential') }}
+      </router-link>
+    </li>
+    <li>
       <router-link to="/send" data-cy="send">
         {{ $t('pages.appVUE.withdraw') }}
       </router-link>

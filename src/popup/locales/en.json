@@ -237,7 +237,9 @@
       "mint-burn-token": "Mint/Burn token",
       "allowances": "Allowances",
       "sign-message": "Sign Message",
-      "invite": "Invite"
+      "invite": "Invite",
+      "profile": "Profile",
+      "credential": "Credentials"
     },
     "appVUE": {
       "systemName": "Superhero",
@@ -274,7 +276,8 @@
       "donateErrorReports": "Submit error reports",
       "tokens": "Fungible tokens",
       "manageTokens": "Manage tokens",
-      "invite": "Invite"
+      "invite": "Invite",
+      "credential": "Credentials"
     },
     "aboutSettings": {
       "heading": "About",

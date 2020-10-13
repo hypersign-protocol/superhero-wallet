@@ -46,6 +46,12 @@ import InviteClaim from '../pages/InviteClaim';
 
 import webIframePopups from './web-iframe-popups';
 
+
+// Hypersign related
+import Credentials from '../pages/Credentials';
+import Profile from '../pages/Profile';
+
+
 export default [
   {
     path: '/',
@@ -415,6 +421,24 @@ export default [
     meta: {
       title: 'invite',
       notPersist: true,
+    },
+  },
+  {
+    name: 'profile',
+    path: '/profile',
+    component: Profile,
+    props: true,
+    meta: {
+      title: 'profile',
+    },
+  },
+  {
+    name: 'credential',
+    path: '/credential',
+    component: Credentials,
+    props: true,
+    meta: {
+      title: 'credential',
     },
   },
   ...webIframePopups,
