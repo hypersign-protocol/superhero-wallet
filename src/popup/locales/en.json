@@ -651,6 +651,10 @@
       "seedConfirmed": "Seed phrase confirmed.",
       "toDashboard": "Back to Dashboard"
     },
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scan": "Scan QR"
+    },
     "send": {
       "backToAccount": "Back to account",
       "heading": "New Transfer from",
