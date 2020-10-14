@@ -6,6 +6,11 @@
     <Input size="m-0 sm" v-model="url" :error="!normalizedUrl" /> -->
 
     <p class="primary-title text-left mb-8 f-16">
+      DID
+    </p>
+    <div class="ae-address">{{ hypersign.did }}</div>
+
+    <p class="primary-title text-left mb-8 f-16">
       Name
     </p>
     <Input size="m-0 sm" v-model="name" />
@@ -37,16 +42,19 @@ import axios from 'axios';
 import { aettosToAe, toURL, validateTipUrl } from '../../utils/helper';
 import { TIP_SERVICE, BACKEND_URL } from '../../utils/constants';
 import Input from '../components/Input';
+import { catchError } from 'rxjs/operators';
 
 export default {
   components: { Input },
   data: () => ({
     url: '',
     loading: false,
+    email: "",
+    name: "",
   }),
   computed: {
     ...mapState(['sdk', 'tipping']),
-    ...mapGetters(['account', 'allowTipping']),
+    ...mapGetters(['account', 'allowTipping', 'hypersign']),
     normalizedUrl() {
       if (!validateTipUrl(this.url)) return '';
       return toURL(this.url).toString();
@@ -62,11 +70,32 @@ export default {
   },
   methods: {
     async setupProfile(){
-      //// HS_TODO::
-      // Fetch email, name from text box
-      // Fetch did from localstore
-      // Call studio register api to get a hypersign credentials
-      // Once you get the credential, store it in the localstore. - this we need to think a bit, how will user store it, either in browser storage or how?
+      try{
+        //// HS_TODO::
+        // Fetch email, name from text box
+        // Fetch did from localstore
+        // Call studio register api to get a hypersign credentials
+        // Once you get the credential, store it in the localstore. - this we need to think a bit, how will user store it, either in browser storage or how
+        const HS_STUDIO_REGISTER_URL = "http://192.168.43.43:9000/api/auth/register"
+        const body = {
+          fname	: this.name,
+          email	: this.email,  
+          publicKey: this.hypersign.did
+        }
+        console.log(body)
+        await axios.post(HS_STUDIO_REGISTER_URL, body)
+        .then(res => {
+          res = res.data;
+          if(!res) throw new Error("Could not register for hsauth credential");
+          if(res && res.status != 200) throw new Error(res.error);          
+          if (res.message) this.$store.dispatch('modals/open', { name: 'default', msg: 'An email has been sent to you. Please scan the QR code to download the HypersignAuth credentials' });
+        })
+        .catch(e => {
+          if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+        })
+      }catch(e){
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
     },
     async claimTips() {
       const url = this.normalizedUrl;
@@ -117,4 +146,10 @@ export default {
 .claim-tips .input-wrapper {
   margin: 20px 0;
 }
+
+.ae-address {
+    color: lightgray;
+    font-size: 20px;
+    letter-spacing: -0.2px;
+  }
 </style>

@@ -11,6 +11,9 @@ export default {
     }
     return state.account;
   },
+  hypersign(state){
+    return state.hypersign;
+  },
   currentCurrencyRate: ({ current: { currency }, currencies }) => currencies[currency] || 0,
   balanceCurrency({ balance }, { currentCurrencyRate }) {
     return (currentCurrencyRate * balance).toFixed(2);
