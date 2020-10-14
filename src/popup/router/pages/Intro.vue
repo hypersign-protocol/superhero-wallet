@@ -154,16 +154,18 @@ export default {
       const HS_CORE_DID_REGISTER = "http://192.168.43.43:5000/api/did/register"
       await axios.get(`${HS_CORE_DID_REGISTER}?publicKey=${keypair.publicKey}`)
       .then(result => {
+        result = result.data;
         if(!result) throw new Error("Could not fetch from hypersign")
         if(result && result.error) throw new Error(result.error)
-        const { keys } = result.message;
+        const { keys, did } = result.message;
         keys['privateKeyBase58'] = keypair.privateKey;
-        this.$store.commit('setHSkeys', keys);
+        this.$store.commit('setHSkeys', {
+          keys,
+          did
+        });
       })
       .catch(console.error);
-
-
-
+      
       await this.$store.dispatch('setLogin', { keypair });
       this.next();
     },

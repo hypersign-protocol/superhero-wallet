@@ -102,6 +102,7 @@ export default new Vuex.Store({
         tokens: { all },
         invites,
         notificationSettings,
+        hypersign
       }) => ({
         migrations,
         current,
@@ -121,6 +122,7 @@ export default new Vuex.Store({
         tokens: { all },
         invites,
         notificationSettings,
+        hypersign
       }),
     ),
     observables,

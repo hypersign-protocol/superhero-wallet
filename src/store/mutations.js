@@ -93,7 +93,8 @@ export default {
   },
   setHSkeys(state, payload){
     ////HS_TODO
-    state.hypersign.keys = payload;
+    state.hypersign.keys = payload.keys;
+    state.hypersign.did = payload.did;
   },
   addHSVerifiableCredential(state, payload){
     ////HS_TODO
