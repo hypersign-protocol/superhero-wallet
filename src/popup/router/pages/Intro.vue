@@ -114,6 +114,8 @@ import Button from '../components/Button';
 import CheckBox from '../components/CheckBox';
 import Platforms from '../components/Platforms';
 
+import axios from 'axios';
+
 export default {
   components: {
     Claim,
@@ -148,6 +150,19 @@ export default {
       // Register DID. PublicKey: keypair.publicKey
       // https://ssi.hypermine.in/core/api/did/create
       // Store the DID
+      // http://192.168.43.43:5000/api/did/register?publicKey=5tW1ZDEwEKZC1aszbqL19sut8e4MJDYXBgkRqLy8mBcS
+      const HS_CORE_DID_REGISTER = "http://192.168.43.43:5000/api/did/register"
+      await axios.get(`${HS_CORE_DID_REGISTER}?publicKey=${keypair.publicKey}`)
+      .then(result => {
+        if(!result) throw new Error("Could not fetch from hypersign")
+        if(result && result.error) throw new Error(result.error)
+        const { keys } = result.message;
+        keys['privateKeyBase58'] = keypair.privateKey;
+        this.$store.commit('setHSkeys', keys);
+      })
+      .catch(console.error);
+
+
 
       await this.$store.dispatch('setLogin', { keypair });
       this.next();

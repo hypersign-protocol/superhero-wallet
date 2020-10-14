@@ -56,6 +56,11 @@ const initialState = {
   tourStartBar: true,
   saveErrorLog: true,
   loginTargetLocation: { name: 'account' },
+  hypersign: {
+    did: "",
+    keys: {},
+    credentials: []
+  },
 };
 
 export default new Vuex.Store({

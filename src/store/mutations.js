@@ -91,6 +91,14 @@ export default {
   addConnectedAepp(state, { host, account }) {
     state.connectedAepps = { ...state.connectedAepps, [host]: [account] };
   },
+  setHSkeys(state, payload){
+    ////HS_TODO
+    state.hypersign.keys = payload;
+  },
+  addHSVerifiableCredential(state, payload){
+    ////HS_TODO
+    state.hypersign.credentials.push(payload)
+  },
   updateConnectedAepp(state, { host, account }) {
     state.connectedAepps = {
       ...state.connectedAepps,
