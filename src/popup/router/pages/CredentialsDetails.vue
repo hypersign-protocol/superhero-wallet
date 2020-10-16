@@ -1,0 +1,208 @@
+<template>
+  <div class="popup">
+    <div class="cred-card">
+      <div class="cred-card-header">
+        <span>{{ verifiableCredential.type[1] }}</span>
+      </div>
+      <div class="cred-card-body">
+        <span class="cred-card-body-detail">{{ verifiableCredential.issuer }}</span
+        ><br />
+        <span class="cred-card-body-detail">Issued: {{ verifiableCredential.issuanceDate }}</span
+        ><br />
+        <span class="cred-card-body-detail">Expires: {{ verifiableCredential.issuanceDate }}</span
+        ><br />
+      </div>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" v-for="claim in claims" :key="claim">
+        <span class="list-title">{{ claim }}: </span>
+        {{ verifiableCredential.credentialSubject[claim] }}
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+import { mapGetters } from 'vuex';
+export default {
+  data() {
+    return {
+      verifiableCredential: {},
+      claims: [],
+    };
+  },
+  created() {
+    console.log(this.$route.params);
+    const credentialId = this.$route.params.credentialId;
+    if (credentialId) {
+      this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
+      this.claims = Object.keys(this.verifiableCredential.credentialSubject);
+      console.log(this.verifiableCredential);
+    }
+  },
+  computed: {
+    ...mapGetters(['hypersign']),
+  },
+  methods: {},
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../../../common/variables';
+.cred-card-body {
+  padding-left: 10px;
+  margin-top: 27%;
+  padding-bottom: 5%;
+}
+.cred-card {
+  background: #21222a !important;
+  box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
+  border-radius: 14px;
+  margin-top: 7%;
+  text-align: left;
+  font-size: small;
+  color: gray;
+  padding-top: 7%;
+}
+.cred-card-header {
+  color: #fff;
+
+  border-bottom: 1px solid #80808061;
+  border-top: 1px solid gray;
+
+  background-color: #808080f0;
+
+  font-size: larger;
+  text-align: right;
+  padding-right: 8px;
+}
+// .list-title{
+//     color: black;
+//     font-weight: bolder;
+// }
+.list-title {
+  color: #fff;
+  font-size: 12px;
+}
+// .list-group {
+//     color: gray;
+// font-size: small;
+// text-align: left;
+//         padding-left: 10%;
+//     padding-top: 2%;
+//     display: -ms-flexbox;
+//     display: -webkit-box;
+//     display: flex;
+//     -ms-flex-direction: column;
+//     -webkit-box-orient: vertical;
+//     -webkit-box-direction: normal;
+//     flex-direction: column;
+//     padding-left: 0;
+//     margin-bottom: 0;
+//     border-radius: .25rem;
+// }
+.list-group {
+  padding: 0 !important;
+  // background: #21222a !important;
+  box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
+  border-radius: 4px;
+  margin-top: 30px;
+}
+.list-group-item {
+  text-decoration: none;
+  transition: 0.4s;
+  position: relative;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  display: block;
+  font-size: 12px;
+  border-bottom: 1px solid #cccccc2e;
+  text-align: left;
+  border-left: 2px solid transparent;
+  color: gray;
+}
+// .list-group-item {
+//     position: relative;
+//     display: block;
+//     padding: .75rem 1.25rem;
+//     background-color: #fff;
+//     border: 1px solid rgba(0,0,0,.125);
+//         border-top-width: 1px;
+// }
+.d-flex {
+  display: flex;
+}
+
+.withdraw.step1 {
+  textarea {
+    width: 250px;
+    min-height: 60px !important;
+    margin: 0 20px 0 0;
+    font-size: 11px;
+  }
+
+  small {
+    color: $accent-color;
+    display: block;
+    width: 100%;
+    padding-top: 5px;
+    font-size: 12px;
+  }
+}
+
+.withdraw.step2 {
+  p {
+    display: flex;
+    justify-content: center;
+    line-height: 2rem;
+  }
+
+  p:not(:first-of-type) {
+    color: $text-color;
+  }
+
+  p > svg {
+    margin-right: 10px;
+  }
+
+  .info-group {
+    text-align: left;
+    display: block;
+    margin: 20px 0;
+
+    .info-label {
+      display: block;
+      padding: 10px 0;
+    }
+
+    .info-span {
+      color: $accent-color;
+      font-size: 11px;
+      display: inline-block;
+      width: 300px;
+      white-space: nowrap;
+      // overflow: hidden !important;
+      // text-overflow: ellipsis;
+      letter-spacing: -0.3px;
+      cursor: pointer;
+    }
+
+    .amount {
+      font-size: 26px;
+      color: $secondary-color;
+    }
+
+    .currencyamount {
+      font-size: 18px;
+      display: block;
+
+      span {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+}
+</style>

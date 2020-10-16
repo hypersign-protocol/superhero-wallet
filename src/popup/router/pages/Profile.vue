@@ -69,7 +69,7 @@ export default {
     }
   },
   methods: {
-    async setupProfile(){
+    setupProfile(){
       try{
         //// HS_TODO::
         // Fetch email, name from text box
@@ -83,12 +83,16 @@ export default {
           publicKey: this.hypersign.did
         }
         console.log(body)
-        await axios.post(HS_STUDIO_REGISTER_URL, body)
+        axios.post(HS_STUDIO_REGISTER_URL, body)
         .then(res => {
           res = res.data;
           if(!res) throw new Error("Could not register for hsauth credential");
           if(res && res.status != 200) throw new Error(res.error);          
-          if (res.message) this.$store.dispatch('modals/open', { name: 'default', msg: 'An email has been sent to you. Please scan the QR code to download the HypersignAuth credentials' });
+          const msg = `
+              An email with a QR code has been sent to the address you provided.
+              Scan the code with your Hypersign Wallet to complete your registration.
+          `
+          if (res.message) this.$store.dispatch('modals/open', { name: 'default', msg });
         })
         .catch(e => {
           if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });

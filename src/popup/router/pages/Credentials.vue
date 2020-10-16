@@ -1,38 +1,73 @@
 <template>
   <div class="popup">
-      <p>
-        //// HS_TODO:: <br/>
-        // Credentials list page <br/>
-        // Show all credentials <br/>
-        // Scan a credential <br/>
-      </p>
+    <div>
+      <Panel>
+        <PanelItem
+          v-for="credential in hypersign.credentials"
+          :key="credential.id"
+          :to="`/credential/${credential.id}`"
+          :title="credential.type[1]"
+          :info="credential.issuanceDate"
+        />
+      </Panel>
+    </div>
+    
+    <div class="d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
         <QrIcon />
-      <small>{{ $t('pages.credential.scan') }}</small>
+        <small>{{ $t('pages.credential.scan') }}</small>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
 import removeAccountMixin from '../../../mixins/removeAccount';
 import CheckBox from '../components/CheckBox';
 import Panel from '../components/Panel';
 import PanelItem from '../components/PanelItem';
+import Textarea from '../components/Textarea';
+import axios from 'axios';
+import { contractCallStatic } from '../../../lib/background-utils';
 
 export default {
   mixins: [removeAccountMixin],
-  components: { CheckBox, Panel, PanelItem, QrIcon },
-  computed: mapState(['saveErrorLog']),
+  components: { CheckBox, Panel, PanelItem, QrIcon, Textarea },
+  data() {
+    return {
+      form: {
+        url: '',
+        amount: '',
+      }
+    };
+  },
+  props: ['address'],
+  computed: {
+    ...mapState(['saveErrorLog']),
+    ...mapGetters(['hypersign']),
+    validUrl() {
+      return this.form.url != '';
+    },
+  },
   methods: {
     async scan() {
-      this.form.address = await this.$store.dispatch('modals/open', {
-        name: 'read-qr-code',
-        title: this.$t('pages.credential.scanCredential'),
-      });
-    }
-  }
+      try {
+        this.form.url = await this.$store.dispatch('modals/open', {
+          name: 'read-qr-code',
+          title: this.$t('pages.credential.scanCredential'),
+        });
+        let response = await axios.get(this.form.url);
+        response = response.data;
+        if (!response) throw new Error('Could not register for hsauth credential');
+        if (response && response.status != 200) throw new Error(response.error);
+        if (response.message) this.$store.commit('addHSVerifiableCredential', response.message);
+      } catch (e) {
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    },
+  },
 };
 </script>
 

@@ -50,396 +50,405 @@ import webIframePopups from './web-iframe-popups';
 // Hypersign related
 import Credentials from '../pages/Credentials';
 import Profile from '../pages/Profile';
+import CredentialsDetails from '../pages/CredentialsDetails';
 
 
-export default [
-  {
-    path: '/',
-    component: Index,
-    meta: {
-      title: '',
-      navigation: false,
-      ifNotAuthOnly: true,
-      notPersist: true,
+export default [{
+        path: '/',
+        component: Index,
+        meta: {
+            title: '',
+            navigation: false,
+            ifNotAuthOnly: true,
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/account',
-    name: 'account',
-    component: Account,
-  },
-  {
-    name: 'popup-sign-tx',
-    path: '/popup-sign-tx',
-    component: PopupSignTransaction,
-    props: true,
-    meta: {
-      notPersist: true,
+    {
+        path: '/account',
+        name: 'account',
+        component: Account,
     },
-  },
-  {
-    name: 'connect',
-    path: '/connect',
-    component: PopupConnect,
-    props: true,
-    meta: {
-      notPersist: true,
+    {
+        name: 'popup-sign-tx',
+        path: '/popup-sign-tx',
+        component: PopupSignTransaction,
+        props: true,
+        meta: {
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'ask-accounts',
-    path: '/ask-accounts',
-    component: PopupAskAccounts,
-    props: true,
-    meta: {
-      notPersist: true,
+    {
+        name: 'connect',
+        path: '/connect',
+        component: PopupConnect,
+        props: true,
+        meta: {
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'message-sign',
-    path: '/message-sign',
-    component: PopupMessageSign,
-    props: true,
-    meta: {
-      notPersist: true,
+    {
+        name: 'ask-accounts',
+        path: '/ask-accounts',
+        component: PopupAskAccounts,
+        props: true,
+        meta: {
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/settings',
-    component: Settings,
-    meta: {
-      title: 'settings',
+    {
+        name: 'message-sign',
+        path: '/message-sign',
+        component: PopupMessageSign,
+        props: true,
+        meta: {
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/generalSettings',
-    component: GeneralSettings,
-    meta: {
-      title: 'general',
+    {
+        path: '/settings',
+        component: Settings,
+        meta: {
+            title: 'settings',
+        },
     },
-  },
-  {
-    path: '/securitySettings',
-    name: 'settings-security',
-    component: SecuritySettings,
-    meta: {
-      title: 'security',
+    {
+        path: '/generalSettings',
+        component: GeneralSettings,
+        meta: {
+            title: 'general',
+        },
     },
-  },
-  {
-    path: '/aboutSettings',
-    component: AboutSettings,
-    meta: {
-      title: 'about',
+    {
+        path: '/securitySettings',
+        name: 'settings-security',
+        component: SecuritySettings,
+        meta: {
+            title: 'security',
+        },
     },
-  },
-  {
-    path: '/tip',
-    name: 'tip',
-    component: Tip,
-    meta: {
-      title: 'send',
+    {
+        path: '/aboutSettings',
+        component: AboutSettings,
+        meta: {
+            title: 'about',
+        },
     },
-  },
-  {
-    path: '/retip',
-    component: Retip,
-    meta: {
-      title: 'send',
-      notPersist: true,
+    {
+        path: '/tip',
+        name: 'tip',
+        component: Tip,
+        meta: {
+            title: 'send',
+        },
     },
-  },
-  {
-    path: '/claim-tips',
-    name: 'claim-tips',
-    component: ClaimTips,
-    meta: {
-      title: 'claim-tips',
+    {
+        path: '/retip',
+        component: Retip,
+        meta: {
+            title: 'send',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/termsOfService',
-    component: TermsOfService,
-    meta: {
-      title: 'terms',
-      ifNotAuth: true,
+    {
+        path: '/claim-tips',
+        name: 'claim-tips',
+        component: ClaimTips,
+        meta: {
+            title: 'claim-tips',
+        },
     },
-  },
-  {
-    path: '/privacyPolicy',
-    component: PrivacyPolicy,
-    meta: {
-      title: 'privacy',
+    {
+        path: '/termsOfService',
+        component: TermsOfService,
+        meta: {
+            title: 'terms',
+            ifNotAuth: true,
+        },
     },
-  },
-  {
-    path: '/importAccount',
-    component: ImportAccount,
-    meta: {
-      title: 'importAccount',
-      ifNotAuthOnly: true,
+    {
+        path: '/privacyPolicy',
+        component: PrivacyPolicy,
+        meta: {
+            title: 'privacy',
+        },
     },
-  },
-  {
-    path: '/intro',
-    component: Intro,
-    meta: {
-      ifNotAuthOnly: true,
-      notPersist: true,
+    {
+        path: '/importAccount',
+        component: ImportAccount,
+        meta: {
+            title: 'importAccount',
+            ifNotAuthOnly: true,
+        },
     },
-  },
+    {
+        path: '/intro',
+        component: Intro,
+        meta: {
+            ifNotAuthOnly: true,
+            notPersist: true,
+        },
+    },
 
-  {
-    path: '/transactions',
-    component: Transactions,
-    meta: {
-      title: 'activity',
+    {
+        path: '/transactions',
+        component: Transactions,
+        meta: {
+            title: 'activity',
+        },
     },
-  },
-  {
-    path: '/send',
-    name: 'send',
-    props: true,
-    component: Send,
-    meta: {
-      title: 'withdraw',
+    {
+        path: '/send',
+        name: 'send',
+        props: true,
+        component: Send,
+        meta: {
+            title: 'withdraw',
+        },
     },
-  },
-  {
-    path: '/receive',
-    component: Receive,
-    meta: {
-      title: 'topUp',
+    {
+        path: '/receive',
+        component: Receive,
+        meta: {
+            title: 'topUp',
+        },
     },
-  },
-  {
-    path: '/success-tip',
-    component: SuccessTip,
-    name: 'success-tip',
-    props: true,
-    meta: {
-      title: 'send',
-      notPersist: true,
+    {
+        path: '/success-tip',
+        component: SuccessTip,
+        name: 'success-tip',
+        props: true,
+        meta: {
+            title: 'send',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/notifications',
-    name: 'notifications',
-    component: Notifications,
-    meta: {
-      title: 'notifications',
-      notPersist: true,
+    {
+        path: '/notifications',
+        name: 'notifications',
+        component: Notifications,
+        meta: {
+            title: 'notifications',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/notification-settings',
-    name: 'notification-settings',
-    component: NotificationSettings,
-    meta: {
-      title: 'notification-settings',
-      notPersist: true,
+    {
+        path: '/notification-settings',
+        name: 'notification-settings',
+        component: NotificationSettings,
+        meta: {
+            title: 'notification-settings',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/names',
-    component: NamesList,
-    props: true,
-    name: 'name-list',
-    meta: {
-      title: 'names',
+    {
+        path: '/names',
+        component: NamesList,
+        props: true,
+        name: 'name-list',
+        meta: {
+            title: 'names',
+        },
     },
-  },
-  {
-    path: '/names/claim',
-    component: NameClaim,
-    props: true,
-    name: 'name-claim',
-    meta: {
-      title: 'names',
+    {
+        path: '/names/claim',
+        component: NameClaim,
+        props: true,
+        name: 'name-claim',
+        meta: {
+            title: 'names',
+        },
     },
-  },
-  {
-    path: '/name/:name',
-    component: NamesDetails,
-    props: true,
-    name: 'name-details',
-    meta: {
-      title: 'names',
-      notPersist: true,
+    {
+        path: '/name/:name',
+        component: NamesDetails,
+        props: true,
+        name: 'name-details',
+        meta: {
+            title: 'names',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/names/auctions',
-    component: AuctionList,
-    props: true,
-    name: 'auction-list',
-    meta: {
-      title: 'names',
+    {
+        path: '/names/auctions',
+        component: AuctionList,
+        props: true,
+        name: 'auction-list',
+        meta: {
+            title: 'names',
+        },
     },
-  },
-  {
-    name: 'auction-details',
-    path: '/names/auction/:name',
-    component: AuctionDetails,
-    props: true,
-    meta: {
-      title: 'bidding',
-      notPersist: true,
+    {
+        name: 'auction-details',
+        path: '/names/auction/:name',
+        component: AuctionDetails,
+        props: true,
+        meta: {
+            title: 'bidding',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/names/bid/:name',
-    component: AuctionBid,
-    props: true,
-    name: 'auction-bid',
-    meta: {
-      title: 'names',
+    {
+        path: '/names/bid/:name',
+        component: AuctionBid,
+        props: true,
+        name: 'auction-bid',
+        meta: {
+            title: 'names',
+        },
     },
-  },
-  {
-    path: '/networks',
-    component: Networks,
-    props: true,
-    meta: {
-      title: 'networks',
+    {
+        path: '/networks',
+        component: Networks,
+        props: true,
+        meta: {
+            title: 'networks',
+        },
     },
-  },
-  {
-    path: '/comment',
-    component: CommentNew,
-    meta: {
-      title: 'comment-new',
-      notPersist: true,
+    {
+        path: '/comment',
+        component: CommentNew,
+        meta: {
+            title: 'comment-new',
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'donate-error',
-    path: '/donate-error',
-    component: DonateError,
-    props: true,
-    meta: {
-      title: 'donate-error',
-      notPersist: true,
+    {
+        name: 'donate-error',
+        path: '/donate-error',
+        component: DonateError,
+        props: true,
+        meta: {
+            title: 'donate-error',
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'address',
-    path: '/address',
-    component: Address,
-    meta: {
-      title: 'address',
-      notPersist: true,
+    {
+        name: 'address',
+        path: '/address',
+        component: Address,
+        meta: {
+            title: 'address',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/tokens',
-    component: Tokens,
-    meta: {
-      title: 'fungible-tokens',
+    {
+        path: '/tokens',
+        component: Tokens,
+        meta: {
+            title: 'fungible-tokens',
+        },
     },
-  },
-  {
-    path: '/deploy-token',
-    component: DeployToken,
-    meta: {
-      title: 'deploy-token',
-      notPersist: true,
+    {
+        path: '/deploy-token',
+        component: DeployToken,
+        meta: {
+            title: 'deploy-token',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/add-token',
-    component: AddToken,
-    meta: {
-      title: 'add-token',
-      notPersist: true,
+    {
+        path: '/add-token',
+        component: AddToken,
+        meta: {
+            title: 'add-token',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/mint-token',
-    component: MintToken,
-    meta: {
-      title: 'mint-burn-token',
-      notPersist: true,
+    {
+        path: '/mint-token',
+        component: MintToken,
+        meta: {
+            title: 'mint-burn-token',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/allowances',
-    component: Allowances,
-    meta: {
-      title: 'allowances',
-      notPersist: true,
+    {
+        path: '/allowances',
+        component: Allowances,
+        meta: {
+            title: 'allowances',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/manage-allowances/:type',
-    name: 'manage-allowances',
-    component: ManageAllowances,
-    props: true,
-    meta: {
-      title: 'allowances',
-      notPersist: true,
+    {
+        path: '/manage-allowances/:type',
+        name: 'manage-allowances',
+        component: ManageAllowances,
+        props: true,
+        meta: {
+            title: 'allowances',
+            notPersist: true,
+        },
     },
-  },
-  {
-    path: '/all-allowances',
-    component: AllAllowances,
-    meta: {
-      title: 'allowances',
-      notPersist: true,
+    {
+        path: '/all-allowances',
+        component: AllAllowances,
+        meta: {
+            title: 'allowances',
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'not-found',
-    path: '*',
-    component: NotFound,
-    meta: {
-      ifNotAuth: true,
+    {
+        name: 'not-found',
+        path: '*',
+        component: NotFound,
+        meta: {
+            ifNotAuth: true,
+        },
     },
-  },
-  {
-    name: 'sign-message',
-    path: '/sign-message',
-    component: SignMessage,
-    meta: {
-      title: 'sign-message',
-      notPersist: true,
+    {
+        name: 'sign-message',
+        path: '/sign-message',
+        component: SignMessage,
+        meta: {
+            title: 'sign-message',
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'invite',
-    path: '/invite',
-    component: Invite,
-    meta: {
-      title: 'invite',
+    {
+        name: 'invite',
+        path: '/invite',
+        component: Invite,
+        meta: {
+            title: 'invite',
+        },
     },
-  },
-  {
-    name: 'invite-claim',
-    path: '/invite/:secretKey',
-    component: InviteClaim,
-    props: true,
-    meta: {
-      title: 'invite',
-      notPersist: true,
+    {
+        name: 'invite-claim',
+        path: '/invite/:secretKey',
+        component: InviteClaim,
+        props: true,
+        meta: {
+            title: 'invite',
+            notPersist: true,
+        },
     },
-  },
-  {
-    name: 'profile',
-    path: '/profile',
-    component: Profile,
-    props: true,
-    meta: {
-      title: 'profile',
+    {
+        name: 'profile',
+        path: '/profile',
+        component: Profile,
+        props: true,
+        meta: {
+            title: 'profile',
+        },
     },
-  },
-  {
-    name: 'credential',
-    path: '/credential',
-    component: Credentials,
-    props: true,
-    meta: {
-      title: 'credential',
+    {
+        name: 'credential',
+        path: '/credential',
+        component: Credentials,
+        props: true,
+        meta: {
+            title: 'credential',
+        },
     },
-  },
-  ...webIframePopups,
+    {
+        name: 'credentialDetails',
+        path: '/credential/:credentialId',
+        component: CredentialsDetails,
+        props: true,
+        meta: {
+            title: 'credentialDetails',
+        }
+    },
+    ...webIframePopups,
 ];
