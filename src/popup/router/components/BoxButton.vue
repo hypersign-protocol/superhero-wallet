@@ -51,7 +51,7 @@ export default {
     }
 
     .button-text {
-      font-size: 15px;
+      font-size: 13px;
       display: block;
       font-weight: bold;
       margin-top: 5px;

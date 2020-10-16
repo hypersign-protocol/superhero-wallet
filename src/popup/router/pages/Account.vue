@@ -49,6 +49,12 @@
         <BoxButton :text="$t('pages.appVUE.settings')" to="/settings" class="tour__step8">
           <Settings slot="icon" />
         </BoxButton>
+        <BoxButton :text="$t('pages.appVUE.profile')" to="/profile" class="tour__step9">
+          <Profile width="24.5" height="24.5"  slot="icon" />
+        </BoxButton>
+        <BoxButton :text="$t('pages.appVUE.credential')" style="font-size: smaller;" to="/credential" class="tour__step10">
+          <Credential width="24.5" height="24.5" slot="icon" />
+        </BoxButton>
       </div>
       <RecentTransactions />
     </div>
@@ -64,6 +70,10 @@ import Topup from '../../../icons/topup-icon.svg?vue-component';
 import Invite from '../../../icons/invite.svg?vue-component';
 import Withdraw from '../../../icons/withdraw-icon.svg?vue-component';
 import Settings from '../../../icons/settings-icon.svg?vue-component';
+
+import Profile from '../../../icons/profile.svg?vue-component';
+import Credential from '../../../icons/credential.svg?vue-component';
+
 import RecentTransactions from '../components/RecentTransactions';
 import BalanceInfo from '../components/BalanceInfo';
 import AccountInfo from '../components/AccountInfo';
@@ -83,6 +93,8 @@ export default {
     AccountInfo,
     BoxButton,
     Invite,
+    Credential,
+    Profile
   },
   computed: {
     ...mapState(['tourRunning', 'backedUpSeed']),

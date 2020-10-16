@@ -14,8 +14,7 @@
     
     <div class="d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
-        <QrIcon />
-        <small>{{ $t('pages.credential.scan') }}</small>
+        <QrIcon width="30" height="30" /><br/><small>{{ $t('pages.credential.scan') }}</small>
       </div>
     </div>
   </div>
@@ -77,6 +76,15 @@ export default {
 
 .d-flex {
   display: flex;
+  float: right;
+  padding: 5px;
+}
+
+.d-flex:hover {
+    background: #8080802b;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 1px 1px #80808087;
 }
 
 .withdraw.step1 {
