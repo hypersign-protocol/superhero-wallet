@@ -19,18 +19,36 @@
         {{ verifiableCredential.credentialSubject[claim] }}
       </li>
     </ul>
+    <div class="d-flex">
+      <div class="scan" data-cy="scan-button" @click="scan">
+        <QrIcon width="30" height="30" /><br/><small>{{ $t('pages.credential.scan') }}</small>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import QrIcon from '../../../icons/qr-code.svg?vue-component';
+import Url from 'url-parse';
+import axios from 'axios';
+const hsdk = require('lds-sdk');
 export default {
+  components: { QrIcon},
   data() {
     return {
       verifiableCredential: {},
       claims: [],
+      hypersignSDK: null,
     };
   },
-  created() {
+  created() { 
+    // TODO:  set the hypersign network url in the network setting.
+    const options = { nodeUrl: "http://localhost:5000/", didScheme: "did:hs" }
+    this.hypersignSDK = {
+        did: hsdk.did(options),
+        credential: hsdk.credential(options)
+    }
+
     console.log(this.$route.params);
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
@@ -42,7 +60,51 @@ export default {
   computed: {
     ...mapGetters(['hypersign']),
   },
-  methods: {},
+  methods: {
+    async scan() {
+      try {
+        const qrData = await this.$store.dispatch('modals/open', {
+          name: 'read-qr-code',
+          title: this.$t('pages.credential.scanToPresent'),
+        });
+        const url = Url(qrData, true);
+        console.log(url)
+        console.log(url.query)
+        const challenge = url.query.challenge;
+        console.log(challenge)
+        // const credentialSchema = url.query.schemaId;
+        const verifyUrl = url.origin + url.pathname;
+        console.log(verifyUrl)
+
+        const vp_unsigned = await this.hypersignSDK.credential.generatePresentation(
+          this.verifiableCredential, this.hypersign.did);
+        console.log("Unsigned vp created..")
+        // this.hypersign.keys.privateKeyBase58 = "B3uLZR4FxY2192JWXT7aoQZXFAvE18G27XFymE7kqdzXEQDvaUgGYDWnxpscwDt5AfBQWxv9iLvL7z7TeGmn598atzpCGLtvarhYty8JPA4evoF3H2tfqm4fD5yD5t2fU94dshAN8fXTyvMaqG5uJrEbP418SQe4HLcJHykDVpjS7im"
+        console.log(this.hypersign.keys.privateKeyBase58)
+        const vp_signed = await this.hypersignSDK.credential.signPresentation(
+          vp_unsigned, 
+          this.hypersign.did, 
+          this.hypersign.keys.privateKeyBase58, 
+          challenge)
+        console.log("Signed vp created..")
+
+        const body = {
+          challenge,
+          vp: JSON.stringify(vp_signed)
+        }
+        
+        let response = await axios.post(verifyUrl, body);
+        console.log(response)
+        response = response.data;
+        if (!response) throw new Error('Could not verify the presentation');
+        if (response && response.status != 200) throw new Error(response.error);
+        if (response.message) this.$store.dispatch('modals/open', { name: 'default', msg: "Credential successfully verified" }); 
+
+      } catch (e) {
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    },
+  },
 };
 </script>
 
