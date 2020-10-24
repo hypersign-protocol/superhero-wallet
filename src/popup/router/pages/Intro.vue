@@ -100,6 +100,8 @@
         </Platforms>
       </div>
     </div>
+
+    <Loader v-if="loading" />
   </div>
 </template>
 
@@ -114,8 +116,8 @@ import Button from '../components/Button';
 import CheckBox from '../components/CheckBox';
 import Platforms from '../components/Platforms';
 import axios from 'axios';
-import { hypersignSDK } from '../../utils/hypersign'
-import { HS_NODE_BASE_URL, HS_NODE_DID_REGISTER_API} from '../../utils/hsConstants'
+import { hypersignSDK } from '../../utils/hypersign';
+import { HS_NODE_BASE_URL, HS_NODE_DID_REGISTER_API } from '../../utils/hsConstants';
 
 export default {
   components: {
@@ -133,12 +135,11 @@ export default {
       totalsteps: 4,
       mnemonic: null,
       understood: !IN_FRAME,
-      iframe: IN_FRAME
+      iframe: IN_FRAME,
+      loading: false,
     };
   },
-  created() {
-    
-  },
+  created() {},
   methods: {
     async createWallet() {
       this.mnemonic = generateMnemonic();
@@ -150,11 +151,11 @@ export default {
         privateKey: seed,
       };
 
-      
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
-        
-        // We will not use native aeternity keys, instead will use hypersign keys. 
+      try {
+        this.loading = true;
+        // We will not use native aeternity keys, instead will use hypersign keys.
         // The reason to do this, because giving flexibility to use different algorithm for keys
         const newKeyPair = await hypersignSDK.did.generateKeys();
         const hskeys = {
@@ -163,7 +164,7 @@ export default {
         };
 
         const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
-        console.log(HS_CORE_DID_REGISTER)
+        console.log(HS_CORE_DID_REGISTER);
         await axios
           .get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)
           .then(result => {
@@ -176,12 +177,14 @@ export default {
               keys,
               did,
             });
+            this.loading = false;
           })
           .catch(console.error);
-          
+      } catch (e) {
+        this.loading = false;
+      }
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
-      
 
       await this.$store.dispatch('setLogin', { keypair });
       this.next();

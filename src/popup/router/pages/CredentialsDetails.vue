@@ -1,27 +1,30 @@
 <template>
   <div class="popup">
-    <div class="cred-card">
-      <div class="cred-card-header">
-        <span>{{ verifiableCredential.type[1] }}</span>
+    <div class="credential-list">
+      <div class="cred-card">
+        <div class="cred-card-header">
+          <span>{{ verifiableCredential.type[1] }}</span>
+        </div>
+        <div class="cred-card-body">
+          <span class="cred-card-body-detail">{{ verifiableCredential.issuer }}</span
+          ><br />
+          <span class="cred-card-body-detail">Issued: {{ verifiableCredential.issuanceDate }}</span
+          ><br />
+          <span class="cred-card-body-detail">Expires: {{ verifiableCredential.issuanceDate }}</span
+          ><br />
+        </div>
       </div>
-      <div class="cred-card-body">
-        <span class="cred-card-body-detail">{{ verifiableCredential.issuer }}</span
-        ><br />
-        <span class="cred-card-body-detail">Issued: {{ verifiableCredential.issuanceDate }}</span
-        ><br />
-        <span class="cred-card-body-detail">Expires: {{ verifiableCredential.issuanceDate }}</span
-        ><br />
-      </div>
+      <ul class="list-group">
+        <li class="list-group-item" v-for="claim in claims" :key="claim">
+          <span class="list-title">{{ claim }}: </span>
+          {{ verifiableCredential.credentialSubject[claim] }}
+        </li>
+      </ul>
+      <Loader v-if="loading" />
     </div>
-    <ul class="list-group">
-      <li class="list-group-item" v-for="claim in claims" :key="claim">
-        <span class="list-title">{{ claim }}: </span>
-        {{ verifiableCredential.credentialSubject[claim] }}
-      </li>
-    </ul>
-    <div class="d-flex">
+    <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
-        <QrIcon width="30" height="30" /><br/><small>{{ $t('pages.credential.scan') }}</small>
+        <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
       </div>
     </div>
   </div>
@@ -31,21 +34,21 @@ import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
 import Url from 'url-parse';
 import axios from 'axios';
-import { hypersignSDK } from '../../utils/hypersign'
+import { hypersignSDK } from '../../utils/hypersign';
 export default {
-  components: { QrIcon},
+  components: { QrIcon },
   data() {
     return {
       verifiableCredential: {},
-      claims: []
+      claims: [],
+      loading: false
     };
   },
-  created() { 
+  created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
       this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
       this.claims = Object.keys(this.verifiableCredential.credentialSubject);
-      console.log(this.verifiableCredential);
     }
   },
   computed: {
@@ -60,35 +63,40 @@ export default {
         });
         const url = Url(qrData, true);
         const challenge = url.query.challenge;
-        console.log(challenge)
+
         // const credentialSchema = url.query.schemaId;
+        // HS_TODO: verfiy the schema
+        this.loading= true;
         const verifyUrl = url.origin + url.pathname;
-        console.log(verifyUrl)
-
         const vp_unsigned = await hypersignSDK.credential.generatePresentation(
-          this.verifiableCredential, this.hypersign.did);
-        console.log("Unsigned vp created..")
+          this.verifiableCredential,
+          this.hypersign.did,
+        );
+        console.log('Unsigned vp created..');
         const vp_signed = await hypersignSDK.credential.signPresentation(
-          vp_unsigned, 
-          this.hypersign.did, 
-          this.hypersign.keys.privateKeyBase58, 
-          challenge)
-        console.log("Signed vp created..")
-
+          vp_unsigned,
+          this.hypersign.did,
+          this.hypersign.keys.privateKeyBase58,
+          challenge,
+        );
+        console.log('Signed vp created..');
         const body = {
           challenge,
-          vp: JSON.stringify(vp_signed)
-        }
-        
+          vp: JSON.stringify(vp_signed),
+        };
         let response = await axios.post(verifyUrl, body);
-        console.log(response)
         response = response.data;
         if (!response) throw new Error('Could not verify the presentation');
         if (response && response.status != 200) throw new Error(response.error);
-        if (response.message) this.$store.dispatch('modals/open', { name: 'default', msg: "Credential successfully verified" }); 
-
+        if (response.message)
+          this.$store.dispatch('modals/open', {
+            name: 'default',
+            msg: 'Credential successfully verified',
+          });
+        this.loading=false;
       } catch (e) {
-        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+        this.loading=false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       }
     },
   },
@@ -101,6 +109,27 @@ export default {
   padding-left: 10px;
   margin-top: 27%;
   padding-bottom: 5%;
+}
+.scan-text{
+margin-left: 20px;
+float: right;
+}
+.scanner.d-flex {
+    margin-top: 3%;
+width: 59%;
+background: #0d73cd;
+margin-right: 23%;
+border-radius: 49px;
+padding-left: 20px;
+padding-top: 9px;
+}
+.credential-list {
+    min-height: 700px;
+overflow-y: auto;
+border-radius: 5px;
+overflow-x: hidden;
+max-height: 700px;
+    
 }
 .cred-card {
   background: #21222a !important;
@@ -179,8 +208,9 @@ export default {
 // }
 .d-flex {
   display: flex;
+  float: right;
+  padding: 5px;
 }
-
 .withdraw.step1 {
   textarea {
     width: 250px;
