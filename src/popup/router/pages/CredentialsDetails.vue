@@ -31,25 +31,16 @@ import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
 import Url from 'url-parse';
 import axios from 'axios';
-const hsdk = require('lds-sdk');
+import { hypersignSDK } from '../../utils/hypersign'
 export default {
   components: { QrIcon},
   data() {
     return {
       verifiableCredential: {},
-      claims: [],
-      hypersignSDK: null,
+      claims: []
     };
   },
   created() { 
-    // TODO:  set the hypersign network url in the network setting.
-    const options = { nodeUrl: "http://localhost:5000/", didScheme: "did:hs" }
-    this.hypersignSDK = {
-        did: hsdk.did(options),
-        credential: hsdk.credential(options)
-    }
-
-    console.log(this.$route.params);
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
       this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
@@ -68,20 +59,16 @@ export default {
           title: this.$t('pages.credential.scanToPresent'),
         });
         const url = Url(qrData, true);
-        console.log(url)
-        console.log(url.query)
         const challenge = url.query.challenge;
         console.log(challenge)
         // const credentialSchema = url.query.schemaId;
         const verifyUrl = url.origin + url.pathname;
         console.log(verifyUrl)
 
-        const vp_unsigned = await this.hypersignSDK.credential.generatePresentation(
+        const vp_unsigned = await hypersignSDK.credential.generatePresentation(
           this.verifiableCredential, this.hypersign.did);
         console.log("Unsigned vp created..")
-        // this.hypersign.keys.privateKeyBase58 = "B3uLZR4FxY2192JWXT7aoQZXFAvE18G27XFymE7kqdzXEQDvaUgGYDWnxpscwDt5AfBQWxv9iLvL7z7TeGmn598atzpCGLtvarhYty8JPA4evoF3H2tfqm4fD5yD5t2fU94dshAN8fXTyvMaqG5uJrEbP418SQe4HLcJHykDVpjS7im"
-        console.log(this.hypersign.keys.privateKeyBase58)
-        const vp_signed = await this.hypersignSDK.credential.signPresentation(
+        const vp_signed = await hypersignSDK.credential.signPresentation(
           vp_unsigned, 
           this.hypersign.did, 
           this.hypersign.keys.privateKeyBase58, 

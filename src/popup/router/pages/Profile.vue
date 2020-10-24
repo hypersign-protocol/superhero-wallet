@@ -1,38 +1,42 @@
 <template>
-  <div class="claim-tips popup">
-    <!-- <p class="primary-title text-left mb-8 f-16">
-      {{ $t('pages.claimTips.urlToClaim') }}
-    </p>
-    <Input size="m-0 sm" v-model="url" :error="!normalizedUrl" /> -->
+  <div class="popup">
+    <div class="mt-10"> 
+      
+      <Input
+        label="DID"
+        :value="profile.did"
+        disabled
+       />
+      <Input
+        placeholder="Enter name"
+        label="Name"
+        v-model="profile.name"
+        :disabled="ifAllDisabled"
+      />
+      <Input
+        placeholder="Enter email id"
+        label="Email Id"
+        v-model="profile.email"
+        :disabled="ifAllDisabled"
+      />
+      
+      <Button half :to="{ name: 'account' }">
+        {{ $t('pages.tipPage.cancel') }}
+      </Button>
 
-    <p class="primary-title text-left mb-8 f-16">
-      DID
-    </p>
-    <div class="ae-address">{{ hypersign.did }}</div>
+      <Button half @click="setupProfile"
+      :disabled="!profile.name || !profile.did ||  !profile.email"
+      v-if ="ifCreate"
+      >
+        {{ $t('pages.tipPage.confirm') }}
+      </Button>
 
-    <p class="primary-title text-left mb-8 f-16">
-      Name
-    </p>
-    <Input size="m-0 sm" v-model="name" />
-
-    <p class="primary-title text-left mb-8 f-16">
-      Email
-    </p>
-    <Input size="m-0 sm" v-model="email" />
-
-    <!-- <Button @click="claimTips" :disabled="!normalizedUrl || !allowTipping"> 
-      {{ $t('pages.tipPage.confirm') }}
-    </Button>-->
-    
-    <Button @click="setupProfile">
-      {{ $t('pages.tipPage.confirm') }}
-    </Button>
-    
-    <Button :to="{ name: 'account' }">
-      {{ $t('pages.tipPage.cancel') }}
-    </Button>
-
-    <Loader v-if="loading" />
+      <Button half @click="edit" v-if="ifEdit" >
+        Edit
+      </Button>
+      
+      <Loader v-if="loading" />
+    </div>
   </div>
 </template>
 
@@ -43,14 +47,22 @@ import { aettosToAe, toURL, validateTipUrl } from '../../utils/helper';
 import { TIP_SERVICE, BACKEND_URL } from '../../utils/constants';
 import Input from '../components/Input';
 import { catchError } from 'rxjs/operators';
+import { SUPERHERO_HS_AUTH_BASE_URL, SUPERHERO_HS_AUTH_CREDENTIAL_ISSUE_API} from '../../utils/hsConstants'
 
 export default {
   components: { Input },
   data: () => ({
     url: '',
     loading: false,
-    email: "",
-    name: "",
+    ifEdit: false,
+    ifCreate: true,
+    ifAllDisabled: false,
+    profile: {
+      email: "",
+      name: "",
+      did: ""
+    },
+    copied: false,
   }),
   computed: {
     ...mapState(['sdk', 'tipping']),
@@ -61,27 +73,39 @@ export default {
     },
   },
   async created() {
-    if (process.env.IS_EXTENSION) {
-      const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
-      if (tab && validateTipUrl(tab.url)) {
-        this.url = tab.url;
-      }
+    if(Object.keys(this.hypersign.profile).length == 0)
+    {
+      this.profile.did  = this.hypersign.did
+      
+    }else{
+      this.profile = { ...this.hypersign.profile }
+      this.ifEdit = true;
+      this.ifCreate = false;
+      this.ifAllDisabled = true;
     }
   },
   methods: {
+    edit() {
+      this.ifAllDisabled = false;
+      this.ifEdit = false;
+      this.ifCreate = true;
+    },
     setupProfile(){
       try{
+        this.loading = true;
         //// HS_TODO::
         // Fetch email, name from text box
         // Fetch did from localstore
         // Call studio register api to get a hypersign credentials
         // Once you get the credential, store it in the localstore. - this we need to think a bit, how will user store it, either in browser storage or how
-        const HS_STUDIO_REGISTER_URL = "http://192.168.43.43:9000/api/auth/register"
+        const HS_STUDIO_REGISTER_URL = `${SUPERHERO_HS_AUTH_BASE_URL}${SUPERHERO_HS_AUTH_CREDENTIAL_ISSUE_API}`
+        
         const body = {
-          fname	: this.name,
-          email	: this.email,  
-          publicKey: this.hypersign.did
+          fname	: this.profile.name,
+          email	: this.profile.email,  
+          publicKey: this.profile.did
         }
+
         console.log(body)
         axios.post(HS_STUDIO_REGISTER_URL, body)
         .then(res => {
@@ -89,57 +113,25 @@ export default {
           if(!res) throw new Error("Could not register for hsauth credential");
           if(res && res.status != 200) throw new Error(res.error);          
           const msg = `
-              An email with a QR code has been sent to the address you provided.
-              Scan the code with your Hypersign Wallet to complete your registration.
+              An email with a QR code has been sent to the address you provided. \
+              Scan the code with your Superhero Wallet to get the credential. \
+              You can use this credential to authenticate yourself in any website which \
+              supports Superhero login.
           `
+          this.loading = false;
           if (res.message) this.$store.dispatch('modals/open', { name: 'default', msg });
+          this.$store.commit('addHSProfile', this.profile);
+          this.ifEdit = true;
+          this.ifCreate = false;
+          this.ifAllDisabled = true;
         })
         .catch(e => {
+          this.loading = false;
           if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
         })
       }catch(e){
-        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
-      }
-    },
-    async claimTips() {
-      const url = this.normalizedUrl;
-      this.loading = true;
-      await this.$watchUntilTruly(() => this.sdk && this.tipping);
-      try {
-        const claimAmount = parseFloat(
-          aettosToAe(
-            await this.tipping.methods
-              .unclaimed_for_url(url)
-              .then(r => r.decodedResult)
-              .catch(() => 1),
-          ),
-        );
-        if (!claimAmount) throw new Error('NO_ZERO_AMOUNT_PAYOUT');
-        await axios.post(TIP_SERVICE, { url, address: this.account.publicKey });
-        await axios.get(`${BACKEND_URL}/cache/invalidate/tips`).catch(console.error);
-        await axios.get(`${BACKEND_URL}/cache/invalidate/oracle`).catch(console.error);
-        this.$store.dispatch('modals/open', { name: 'claim-success', url, claimAmount });
-        this.$router.push({ name: 'account' });
-      } catch (e) {
-        const { error = '' } = e.response ? e.response.data : {};
-        let msg;
-        if (error.includes('MORE_ORACLES_NEEDED')) msg = this.$t('pages.claim.moreOracles');
-        else if (error.includes('URL_NOT_EXISTING')) msg = this.$t('pages.claim.urlNotExisting');
-        else if (
-          error.includes('NO_ZERO_AMOUNT_PAYOUT') ||
-          e.message.includes('NO_ZERO_AMOUNT_PAYOUT')
-        )
-          msg = this.$t('pages.claim.noZeroClaim');
-        else if (error.includes('ORACLE_SEVICE_CHECK_CLAIM_FAILED'))
-          msg = this.$t('pages.claim.oracleFailed');
-        else if (error) msg = error;
-        if (msg) this.$store.dispatch('modals/open', { name: 'default', msg });
-        else {
-          e.payload = { url };
-          throw e;
-        }
-      } finally {
         this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     },
   },
@@ -150,6 +142,7 @@ export default {
 .claim-tips .input-wrapper {
   margin: 20px 0;
 }
+
 
 .ae-address {
     color: lightgray;

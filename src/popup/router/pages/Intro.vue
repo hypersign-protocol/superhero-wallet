@@ -113,8 +113,9 @@ import RightArrow from '../../../icons/right-arrow.svg?vue-component';
 import Button from '../components/Button';
 import CheckBox from '../components/CheckBox';
 import Platforms from '../components/Platforms';
-const hsdk = require('lds-sdk');
 import axios from 'axios';
+import { hypersignSDK } from '../../utils/hypersign'
+import { HS_NODE_BASE_URL, HS_NODE_DID_REGISTER_API} from '../../utils/hsConstants'
 
 export default {
   components: {
@@ -132,16 +133,11 @@ export default {
       totalsteps: 4,
       mnemonic: null,
       understood: !IN_FRAME,
-      iframe: IN_FRAME,
-      hypersignSDK: null,
+      iframe: IN_FRAME
     };
   },
   created() {
-    const options = { nodeUrl: 'http://localhost:5000/', didScheme: 'did:hs' };
-    this.hypersignSDK = {
-      did: hsdk.did(options),
-      credential: hsdk.credential(options),
-    };
+    
   },
   methods: {
     async createWallet() {
@@ -158,21 +154,16 @@ export default {
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
         
-        //// HS_TODO::
-        // Register DID. PublicKey: keypair.publicKey
-        // https://ssi.hypermine.in/core/api/did/create
-        // Store the DID
-        // http://192.168.43.43:5000/api/did/register?publicKey=5tW1ZDEwEKZC1aszbqL19sut8e4MJDYXBgkRqLy8mBcS
-        
         // We will not use native aeternity keys, instead will use hypersign keys. 
         // The reason to do this, because giving flexibility to use different algorithm for keys
-        const newKeyPair = await this.hypersignSDK.did.generateKeys();
+        const newKeyPair = await hypersignSDK.did.generateKeys();
         const hskeys = {
           publicKey: newKeyPair.publicKey.publicKeyBase58,
           privateKey: newKeyPair.privateKeyBase58,
         };
 
-        const HS_CORE_DID_REGISTER = 'http://localhost:5000/api/did/register';
+        const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
+        console.log(HS_CORE_DID_REGISTER)
         await axios
           .get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)
           .then(result => {
