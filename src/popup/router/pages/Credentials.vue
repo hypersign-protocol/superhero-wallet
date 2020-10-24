@@ -1,6 +1,7 @@
 <template>
   <div class="popup">
-    <div>
+    <div class="credential-list">
+    
       <Panel>
         <PanelItem
           v-for="credential in hypersign.credentials"
@@ -10,13 +11,17 @@
           :info="credential.issuanceDate"
         />
       </Panel>
+      <span class="altText" v-if="hypersign.credentials.length == 0">No credential found. Scan QR to get credentials.</span>
+      <Loader v-if="loading" />
     </div>
     
-    <div class="d-flex">
+    <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
-        <QrIcon width="30" height="30" /><br/><small>{{ $t('pages.credential.scan') }}</small>
+        <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
       </div>
     </div>
+
+    
   </div>
 </template>
 
@@ -39,7 +44,8 @@ export default {
       form: {
         url: '',
         amount: '',
-      }
+      },
+      loading: false
     };
   },
   props: ['address'],
@@ -57,12 +63,15 @@ export default {
           name: 'read-qr-code',
           title: this.$t('pages.credential.scanCredential'),
         });
+        this.loading = true;
         let response = await axios.get(this.form.url);
         response = response.data;
         if (!response) throw new Error('Could not register for hsauth credential');
         if (response && response.status != 200) throw new Error(response.error);
         if (response.message) this.$store.commit('addHSVerifiableCredential', response.message);
+        this.loading = false;
       } catch (e) {
+        this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     },
@@ -73,18 +82,36 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../../common/variables';
-
+.altText{
+  color: #80808091;
+  font-size: larger;
+}
 .d-flex {
   display: flex;
   float: right;
   padding: 5px;
 }
 
-.d-flex:hover {
-    background: #8080802b;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 1px 1px #80808087;
+.credential-list {
+    min-height: 700px;
+overflow-y: auto;
+border-radius: 5px;
+overflow-x: hidden;
+max-height: 700px;
+    
+}
+.scan-text{
+margin-left: 20px;
+float: right;
+}
+.scanner.d-flex {
+    margin-top: 3%;
+width: 59%;
+background: #0d73cd;
+margin-right: 23%;
+border-radius: 49px;
+padding-left: 20px;
+padding-top: 9px;
 }
 
 .withdraw.step1 {
