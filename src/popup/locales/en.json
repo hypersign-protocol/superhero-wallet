@@ -2,39 +2,23 @@
     "ok": "OK",
     "onboarding": {
         "step_1": {
-            "title": "Your Account Info",
-            "content": "This block contains information about your wallet account and its status:<br> 1. Your account address and .chain name ( if you already have one ).<br>2. Your current wallet balance. "
+            "title": "Home",
+            "content": "This block contains information about your identity wallet and its status:<br> 1. Your DID.<br>2. Your name (if you already created a profile)."
         },
         "step_2": {
-            "title": "Send Tip",
-            "content": "To send tips, go to the URL you want to tip and open the wallet. You can also copy the URL, click Send Tip, and paste this URL into the wallet. Fill in how much you want to tip and add a message along with that tip. Hit Send and confirm."
+            "title": "Profile",
+            "content": "To create your profile, enter name, email and hit submit. You will get a Hypersign credential in your email."
         },
         "step_3": {
-            "title": "What is a \"Verified\" URL",
-            "content": "This simply means that the owner of this URL is already a fellow Superhero — and that is awesome! An AE address has been included in the URL and the profile owner can instantly claim tips."
+            "title": "Credentials",
+            "content": "This page is responsible for managing list of credential issued by different issuers. Click on 'Scan QR' button to receive a new credential."
         },
         "step_4": {
-            "title": "Claim Tip",
-            "content": "Hit this button to trigger tip collection—all tips you’ve received from URLs where you’ve added your AE address will then be added to your balance."
-        },
-        "step_5": {
-            "title": "Activity",
-            "content": "This tab will show you a full log of your previous activity using the Superhero Wallet."
-        },
-        "step_6": {
-            "title": "Top Up",
-            "content": "You can top up your wallet by swapping ETH or BTC into AE, by purchasing AE using your credit card, or by sending AE to your Superhero wallet address from another AE account. It’s very easy."
-        },
-        "step_7": {
-            "title": "Withdraw",
-            "content": "You can easily withdraw your tips by sending them out to AE wallet addresses from your accounts in exchanges or external wallets, provided that they support AE tokens."
-        },
-        "step_8": {
             "title": "Settings",
             "content": "You can view your security phrase (also referred to as seedphrase or private keys) and change your language and other settings."
         },
-        "heading": "Hey superhero! Welcome onboard",
-        "sub-heading": "This short guide will walk you through the Superhero Wallet DApp and its features.",
+        "heading": "Hey! Welcome onboard",
+        "sub-heading": "This short guide will walk you through the Hypersign Wallet DApp and its features.",
         "skip": "Skip",
         "back": "Back",
         "next": "Next",
@@ -59,7 +43,7 @@
             "msg": "This name is already registered."
         },
         "name-length": {
-            "msg": "Names on SUPERHERO have to be a minimum of 13 characters."
+            "msg": "Names on Hypersign have to be a minimum of 13 characters."
         },
         "incorrect-address": {
             "msg": "Please make sure that you have entered a valid public address."
@@ -76,19 +60,19 @@
         },
         "verified": {
             "title": "What is a \"Verified\" URL?",
-            "msg": "If a URL is marked as verified, it means the owner of this URL is already a fellow Superhero — and that is awesome! An AE address has been found on the page and tips can be claimed easily."
+            "msg": "If a URL is marked as verified, it means the owner of this URL is already a fellow Hypersign — and that is awesome! An AE address has been found on the page and tips can be claimed easily."
         },
         "not-verified": {
             "title": "What does it mean when a URL is \"Not Verified\"?",
-            "msg": "This means that the owner of the URL has not created a Superhero wallet yet. They can claim their tips as soon as they make one and add their wallet address to their website. "
+            "msg": "This means that the owner of the URL has not created a Hypersign wallet yet. They can claim their tips as soon as they make one and add their wallet address to their website. "
         },
         "blacklisted": {
             "title": "What is an \"Inaccessible\" URL?",
-            "msg": "The Superhero wallet can tip any public URL. Currently, web pages that require logging in to view information cannot be tipped. We're still working on solutions for this."
+            "msg": "The Hypersign wallet can tip any public URL. Currently, web pages that require logging in to view information cannot be tipped. We're still working on solutions for this."
         },
         "confirm-tip": {
             "title": "Send Tip Confirmation",
-            "msg": "The webpage owner has not added a SUPERHERO wallet yet. We cannot guarantee that they will claim their tips.",
+            "msg": "The webpage owner has not added a Hypersign wallet yet. We cannot guarantee that they will claim their tips.",
             "sub-message": "You can still tip them—let them know so they can claim it. Would you like to proceed?",
             "send": "Send Tip"
         },
@@ -193,7 +177,7 @@
             "step1text": "for creating and curating great content, engaging in meaningful discussions, launching causes for humanity, and for just being a wonderful human being.",
             "step2text": "to great content creators online, humanitarian causes, and other awesome human beings—for whatever reason.",
             "step3text-1": "This wallet does not—and will never take commissions off the",
-            "step3text-2": "you send or receive. Superhero was created specifically so that no one but you will have control over your funds.",
+            "step3text-2": "you send or receive. Hypersign was created specifically so that no one but you will have control over your funds.",
             "createdWallet": "Your wallet has been created!",
             "step4text-0": "Welcome to the free web.",
             "step4text-1": "Trustless: no third-party intervention. Transactions are fully P2P.",
@@ -201,7 +185,7 @@
             "step4text-3": "Immortalize messages on the blockchain: comments and messages are timestamped and recorded on the blockchain—forever.",
             "step4text-4": "Instant, borderless, transactions at near-zero fees.",
             "step4text-iframe-1": "But that's not all.",
-            "step4text-iframe-2": "Superhero wallet is also available as browser extension and mobile app so you can use it on your preferred platforms and devices.",
+            "step4text-iframe-2": "Hypersign wallet is also available as browser extension and mobile app so you can use it on your preferred platforms and devices.",
             "toHome": "Proceed to your Wallet",
             "send": "Send",
             "ever": "Ever.",
@@ -228,7 +212,7 @@
             "bidding": "Bidding",
             "networks": "Networks",
             "comment-new": "Add comment",
-            "home": "Superhero Home",
+            "home": "Home",
             "donate-error": "Donate Data",
             "address": "Send Address",
             "fungible-tokens": "Fungible tokens",
@@ -262,7 +246,7 @@
             "activity": "Activity",
             "dashboard": "Dashboard",
             "aeid": "AE",
-            "walletName": "Superhero Wallet",
+            "walletName": "Hypersign Wallet",
             "general": "General",
             "security": "Security",
             "seedPhrase": "Seed Phrase",
@@ -305,7 +289,7 @@
             "yourSeedPhrase": "your seed phrase",
             "updateExtension": "New version available! Please update your extension.",
             "updateAvailable": "New version is available in the store!",
-            "claim-name": "Register a name"
+            "claim-name": "Register a profile name"
         },
         "claim": {
             "claim": "Claim tips",
@@ -519,13 +503,13 @@
             "currentLanguage": "Current language"
         },
         "index": {
-            "term1": "I agree to the Superhero ",
+            "term1": "I agree to the Hypersign ",
             "term2": "Terms of Use",
             "term3": "Privacy Policy",
             "termsAndConditions": "Terms of Use",
-            "heading": "Social platform with no hidden agenda.",
+            "heading": "Keep your data in your own control.",
             "platforms": {
-                "heading": "Superhero wallet is available as browser extension and mobile app so you can use it on your preferred platforms and devices.",
+                "heading": "Hypersign wallet is available as browser extension and mobile app so you can use it on your preferred platforms and devices.",
                 "browser-extension": "Browser extension",
                 "mobile-app": "Mobile app"
             },
@@ -632,7 +616,7 @@
         },
         "seedPhrase": {
             "securingAccount": "Securing your account",
-            "attentionMsg": "Please make sure to keep your seed phrase safe! Superhero does not store and cannot recover your seed phrase for you. It is your responsibility to keep it safe. If you lose access to your seed phrase, you will lose access to your wallet and all your funds.",
+            "attentionMsg": "Please make sure to keep your seed phrase safe! Hypersign does not store and cannot recover your seed phrase for you. It is your responsibility to keep it safe. If you lose access to your seed phrase, you will lose access to your wallet and all your funds.",
             "tips": "Tips on protecting your funds",
             "tip1": "Save a backup in multiple places",
             "tip2": "Remember your password to decrypt your wallet",
@@ -754,10 +738,10 @@
             "section0Content": "{superhero.com} reserves its right to modify and update these {terms-of-use} according to the policy and practice of the {company}. The new version of thе {terms-of-use} becomes effective from the day it is announced on {our-superhero-wallet} unless stated otherwise.",
             "superhero-com": "Superhero.com LVC",
             "company": "company",
-            "our-superhero-wallet": "Our Superhero Wallet",
+            "our-superhero-wallet": "Our Hypersign Wallet",
             "section01Content": "THE SOFTWARE IS PROVIDED BY SUPERHERO.COM LVC “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
             "section02Content": "These {terms-of-use} {terms-with-quotes} apply exclusively for the {superHero-wallet} (hereinafter referred to as the “{wallet}“ or the “{application}”) and all the content available on the {website-extension}. Please make sure that you have carefully read the {terms} before using the {application}. Otherwise, by using it, we consider these actions implicit agreement to the {terms-of-use}. These {terms-of-use} represent a binding agreement between you, the legal entity you represent and the legal entity that registered you (collectively „{you}“) and Superhero.com LVC {superhero-we-us-with-quotes} or {our-with-quotes} in connection to your use of the {superHero-wallet} {website-extension}.",
-            "superHero-wallet": "Superhero Wallet",
+            "superHero-wallet": "Hypersign Wallet",
             "wallet": "Wallet",
             "application": "application",
             "website-extension": "website extension",
@@ -765,7 +749,7 @@
             "superhero-we-us-with-quotes": "(“Superhero”, “we”, “us”",
             "our-with-quotes": "“our”)",
             "section1Title": "1. Definitions",
-            "section1Content": "1.1. Superhero.com Establishment (Superhero.com ”, “we”, “us”, “our” or “the company”) ​is a company with email address for communication related to Superhero Wallet: superherowallet@protonmail.com. Superhero.com ​is the company, which created and developed Superhero Wallet​. \n 1.2. ​„USER“ or ​„YOU“ means a natural or legal person, who has downloaded and uses the Superhero Wallet ​website extension. \n 1.3. „​Blockchain​“ means the list of records, also known as ​blocks,​ which are linked with the method of cryptography. The technology allows large groups of people to connect and reach agreement on data, which is afterwards permanently recorded without the presence of central authority. ​USERS can access, create and save information on the aeternity blockchain. The decentralized, distributed and public digital ledger is used for the purpose of recording transactions in blocks of information with the help of ​Validators​, which cannot be altered retroactively. \n 1.4. Superhero Wallet​” (“​WALLET​” or “​the application​”) is a website extension, which allows supporters to send value to content creators, causes, charities, groups, or regular individuals online as a reward for contributing accurate information, relevant insights, quality content. The website extension is a piece of software which acts as an add-on to the web browser Firefox and contributes to the browser’s additional functionality. The application is available at: https://addons.mozilla.org/en-US/firefox/addon/superhero-wallet-extension/ . The results of the donations and comments are published on the website ​https://superhero.com/​ . \n 1.5. “​Validators​” are independent physical persons or entities, which are not in any way part of Superhero.com . ​Their function in the system includes responsibility for ​blocks constitution and broadcast of these ​blocks​ with the​ aeternity ​network. \n 1.6. “​Account address​” is a hashed version of the ​USER’s ​public key​, used to identify USERS​ on ​the application​. \n 1.7. “​Keys​” represent uniquely related private and public cryptographic keys of random numbers used for encryption and decryption of information.",
+            "section1Content": "1.1. Superhero.com Establishment (Superhero.com ”, “we”, “us”, “our” or “the company”) ​is a company with email address for communication related to Hypersign Wallet: superherowallet@protonmail.com. Superhero.com ​is the company, which created and developed Hypersign Wallet​. \n 1.2. ​„USER“ or ​„YOU“ means a natural or legal person, who has downloaded and uses the Hypersign Wallet ​website extension. \n 1.3. „​Blockchain​“ means the list of records, also known as ​blocks,​ which are linked with the method of cryptography. The technology allows large groups of people to connect and reach agreement on data, which is afterwards permanently recorded without the presence of central authority. ​USERS can access, create and save information on the aeternity blockchain. The decentralized, distributed and public digital ledger is used for the purpose of recording transactions in blocks of information with the help of ​Validators​, which cannot be altered retroactively. \n 1.4. Hypersign Wallet​” (“​WALLET​” or “​the application​”) is a website extension, which allows supporters to send value to content creators, causes, charities, groups, or regular individuals online as a reward for contributing accurate information, relevant insights, quality content. The website extension is a piece of software which acts as an add-on to the web browser Firefox and contributes to the browser’s additional functionality. The application is available at: https://addons.mozilla.org/en-US/firefox/addon/superhero-wallet-extension/ . The results of the donations and comments are published on the website ​https://superhero.com/​ . \n 1.5. “​Validators​” are independent physical persons or entities, which are not in any way part of Superhero.com . ​Their function in the system includes responsibility for ​blocks constitution and broadcast of these ​blocks​ with the​ aeternity ​network. \n 1.6. “​Account address​” is a hashed version of the ​USER’s ​public key​, used to identify USERS​ on ​the application​. \n 1.7. “​Keys​” represent uniquely related private and public cryptographic keys of random numbers used for encryption and decryption of information.",
             "section2Title": "2. GENERAL PROVISIONS",
             "section2Content": "Superhero.com ​designed and built ​the application as a cryptocurrency wallet through which ​USERS can store and send Superhero.com tokens for the purpose of conducting donations to creators, causes, charities, groups, or regular individuals online as a reward for contributing accurate information, relevant insights, quality content​. USERS can donate to different websites through the application. The application automatically searches for the public key of the website for the purpose of the donation. The donations can be oriented in two flows as it follows- ​USERS can tip the owner of the whole website or ​USERS can choose specific creators and authors on the website who have written the news to whom to send the tokens. \n After that, the website ​https://superhero.com/ reflects the ​USERS’ donations and comments and gives the possibility for other ​USERS to actively donate and comment on the news available on the newsfeed of the Website. \n USERS ​can browse through their transaction history. ​The Wallet displays the ​USER’s tokens​. ​USERS​ are in charge of the safe storage, sending and receiving of funds. \n The application is built for small transactions. High volume transactions or storage can be undertaken via the application at the ​USER’s​ own risk.",
             "section3Title": "3. USERS IDENTIFICATION",
@@ -828,7 +812,7 @@
             "enterUrl": "Type the URL you want to tip",
             "notClaimableUrlInfo": "Third party issues prevent us from enabling direct delivery of tips to the URL owner. You are sending this tip at your own risk.",
             "notVerifiedUrlInfo": "This URL has not yet been verified. The owner of the URL has to create account to claim their tokens.",
-            "verifiedUrlInfo": "If a URL is marked as verified, it means the owner of this URL is already a fellow Superhero — and that is awesome! An AE address has been included in the URL and tips can be claimed.",
+            "verifiedUrlInfo": "If a URL is marked as verified, it means the owner of this URL is already a fellow Hypersign — and that is awesome! An AE address has been included in the URL and tips can be claimed.",
             "minAmountError": "Tips should be over 0.01 USD in tokens in order to push through."
         },
         "successTip": {
@@ -1002,13 +986,13 @@
         }
     },
     "phishing": {
-        "detection": "Superhero Phishing Detection",
+        "detection": "Hypersign Phishing Detection",
         "sections": [{
-                "text": "This domain is currently on the Superhero domain warning list. This means that based on information available to us, Superhero believes this domain could currently compromise your security and, as an added safety feature, Superhero has restricted access to the site. To override this, please read the rest of this warning for instructions on how to continue at your own risk."
+                "text": "This domain is currently on the Hypersign domain warning list. This means that based on information available to us, Hypersign believes this domain could currently compromise your security and, as an added safety feature, Hypersign has restricted access to the site. To override this, please read the rest of this warning for instructions on how to continue at your own risk."
             },
             {
                 "text": "There are many reasons sites can appear on our warning list, and our warning list compiles from other widely used industry lists. Such reasons can include known fraud or security risks, such as domains that test positive on the {insertion}. Domains on these warning lists may include outright malicious websites and legitimate websites that have been compromised by a malicious actor.",
-                "insertion": "Superhero Phishing Detector"
+                "insertion": "Hypersign Phishing Detector"
             },
             {
                 "text": "Note that this warning list is compiled on a voluntary basis. This list may be inaccurate or incomplete. Just because a domain does not appear on this list is not an implicit guarantee of that domain's safety. As always, your transactions are your own responsibility. If you wish to interact with any domain on our warning list, you can do so by {continueHost}.",
@@ -1021,7 +1005,7 @@
         ]
     },
     "options": {
-        "text": "Superhero is Open-source! Visit "
+        "text": "Hypersign is Open-source! Visit "
     },
     "redirecting": "Redirecting",
     "minutes": "{n} minutes | {n} minute | {n} minutes",

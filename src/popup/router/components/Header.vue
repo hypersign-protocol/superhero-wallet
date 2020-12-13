@@ -2,8 +2,8 @@
   <div class="header" v-if="showNavigation && !aeppPopup">
     <div class="content" :class="{ isLoggedIn }">
       <Arrow v-if="title && !tourRunning" @click="back" class="back-arrow" data-cy="back-arrow" />
-      <Logo :class="$route.path === '/intro' && !isLoggedIn ? 'intro_style' : ''" v-else />
-
+      <button :class="$route.path === '/intro' && !isLoggedIn ? 'intro_style' : ''" v-else>
+      </button>
       <div class="title">
         <span v-show="title">{{ $t(`pages.titles.${title}`) }}</span>
         <span v-show="!title">{{ $t('pages.titles.home') }}</span>
@@ -17,12 +17,12 @@
         />
         <template v-else-if="$route.path !== '/notification-settings'">
           <span class="noti-holder" @click="toNotifications" data-cy="noti">
-            <span v-if="notificationsCount" class="noti-count" data-cy="noti-count">
+            <!-- <span v-if="notificationsCount" class="noti-count" data-cy="noti-count">
               {{ notificationsCount }}
-            </span>
-            <Bell />
+            </span> -->
+            <!-- <Bell /> -->
           </span>
-          <button @click="$emit('toggle-sidebar')">
+          <button @click="$emit('toggle-sidebar')" style="floa">
             <Hamburger data-cy="hamburger" />
           </button>
         </template>
@@ -38,17 +38,18 @@ import Bell from '../../../icons/bell.svg?vue-component';
 import Hamburger from '../../../icons/hamburger.svg?vue-component';
 import Logo from '../../../icons/logo-small.svg?vue-component';
 import Settings from '../../../icons/settings.svg?vue-component';
+import QrIcon from '../../../icons/qr-code.svg?vue-component';
 
 export default {
-  components: { Arrow, Bell, Hamburger, Logo, Settings },
+  components: { Arrow, Bell, Hamburger, QrIcon, Settings },
   data: () => ({
     aeppPopup: window.RUNNING_IN_POPUP,
   }),
-  subscriptions() {
-    return {
-      superheroNotifications: this.$store.state.observables.notifications,
-    };
-  },
+  // subscriptions() {
+  //   return {
+  //     superheroNotifications: this.$store.state.observables.notifications,
+  //   };
+  // },
   computed: {
     ...mapState(['tourRunning', 'isLoggedIn', 'notifications']),
     title() {
@@ -57,11 +58,11 @@ export default {
     showNavigation() {
       return this.$route.meta.navigation !== undefined ? this.$route.meta.navigation : true;
     },
-    notificationsCount() {
-      return [...this.notifications, ...this.superheroNotifications].filter(
-        n => n.status === 'CREATED',
-      ).length;
-    },
+    // notificationsCount() {
+    //   return [...this.notifications, ...this.superheroNotifications].filter(
+    //     n => n.status === 'CREATED',
+    //   ).length;
+    // },
   },
   methods: {
     back() {

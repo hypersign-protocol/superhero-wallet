@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-    <div class="credential-list">
+    <div class="">
       <div class="cred-card">
         <div class="cred-card-header">
           <span>{{ verifiableCredential.type[1] }}</span>
@@ -21,12 +21,17 @@
         </li>
       </ul>
       <Loader v-if="loading" />
+      <div class="">
+        <Button @click="scan" class="scan scanner scan-text"  data-cy="scan-button">
+          {{ $t('pages.credential.scan') }}
+        </Button>
+      </div>
     </div>
-    <div class="scanner d-flex">
+    <!-- <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
         <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -111,17 +116,16 @@ export default {
   padding-bottom: 5%;
 }
 .scan-text{
-margin-left: 20px;
-float: right;
+  margin-left: 20px;
+  float: right;
 }
-.scanner.d-flex {
-    margin-top: 3%;
-width: 59%;
-background: #0d73cd;
-margin-right: 23%;
-border-radius: 49px;
-padding-left: 20px;
-padding-top: 9px;
+.scanner {
+  position: fixed;
+  bottom: 0;
+  margin-top: 3%;
+  width: 59%;
+  border-radius: 49px;
+  margin-left: 13%;
 }
 .credential-list {
     min-height: 700px;
@@ -158,7 +162,7 @@ max-height: 700px;
 //     font-weight: bolder;
 // }
 .list-title {
-  color: #fff;
+  color: $text-color;
   font-size: 12px;
 }
 // .list-group {

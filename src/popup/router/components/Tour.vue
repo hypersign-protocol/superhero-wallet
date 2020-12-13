@@ -41,7 +41,7 @@
           <Hero />
           <div>
             <h3>{{ $t('onboarding.heading') }}</h3>
-            <p>{{ $t('onboarding.sub-heading') }}</p>
+            <p class="step-content">{{ $t('onboarding.sub-heading') }}</p>
           </div>
         </div>
         <div class="tour-control-buttons">
@@ -93,7 +93,7 @@ export default {
         },
       },
       {
-        route: '/account',
+        route: '/profile',
         target: '.tour__step2 .button-content',
         step: 2,
         params: {
@@ -101,50 +101,21 @@ export default {
         },
       },
       {
-        target: '.tour__step3',
+        route: '/credential',
+        target: '.tour__step2 .button-content',
         step: 3,
         params: {
-          placement: 'bottom',
+          placement: 'top',
         },
-        route: '/tip',
       },
       {
-        route: '/account',
+        route: '/settings',
         target: '.tour__step4 .button-content',
         step: 4,
         params: {
           placement: 'top',
         },
-      },
-      {
-        route: '/account',
-        target: '.tour__step5 .button-content',
-        step: 5,
-        params: {
-          placement: 'top',
-        },
-      },
-      {
-        target: '.tour__step6 .button-content',
-        step: 6,
-        params: {
-          placement: 'top',
-        },
-      },
-      {
-        target: '.tour__step7 .button-content',
-        step: 7,
-        params: {
-          placement: 'top',
-        },
-      },
-      {
-        target: '.tour__step8 .button-content',
-        step: 8,
-        params: {
-          placement: 'top',
-        },
-      },
+      }
     ],
   }),
   computed: {
@@ -238,7 +209,7 @@ export default {
     line-height: 21px;
 
     .step-info {
-      color: $text-color;
+      color: $gray-1;
       margin-left: 8px;
     }
   }
@@ -246,7 +217,7 @@ export default {
   .step-content {
     text-align: left;
     font-size: 14px;
-    color: $text-color;
+    color: $gray-1;
     line-height: 20px;
   }
 
@@ -355,7 +326,7 @@ export default {
       font-size: 14px;
       font-weight: normal;
       margin: 0;
-      color: $text-color;
+      color: $gray-1;
       line-height: 20px;
     }
   }

@@ -90,6 +90,7 @@ export default {
   .text,
   .div-icons {
     padding: 10px;
+    color: $text-color !important;
   }
 
   .div-icons {

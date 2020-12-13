@@ -2,20 +2,21 @@
   <div class="index">
     <img v-if="IN_FRAME" src="../../../icons/iframe/sendAndReceive.svg" />
     <div v-else class="not-iframe">
-      <Component :is="IS_WEB ? 'SuperheroLogo' : 'Logo'" :class="{ logo: !IS_WEB }" />
-      <span :class="{ blue: IS_WEB }">
+      <img src="../../../icons/hypersign-logo.png" :class="{ logo: !IS_WEB }" />
+      <!-- <Component :is="IS_WEB ? 'SuperheroLogo' : 'Logo'" :class="{ logo: !IS_WEB }" /> -->
+      <span :class="{ blue: IS_WEB }" class="heading-color">
         {{ $t('pages.index.heading') }}
       </span>
       <template v-if="IS_WEB">
-        <Platforms>
+        <Platforms class="heading-color">
           {{ $t('pages.index.platforms.heading') }}
         </Platforms>
-        <span>{{ $t('pages.index.webVersion') }}</span>
+        <span class="heading-color">{{ $t('pages.index.webVersion') }}</span>
       </template>
     </div>
 
     <CheckBox v-model="termsAgreed" data-cy="checkbox">
-      <span>
+      <span class="heading-color">
         {{ $t('pages.index.term1') }}
         <RouterLink to="/termsOfService" data-cy="terms">
           {{ $t('pages.index.termsAndConditions') }}
@@ -23,26 +24,30 @@
       </span>
     </CheckBox>
 
-    <Button @click="$router.push('/intro')" :disabled="!termsAgreed" data-cy="generate-wallet">
+    <Button @click="createWallet" :disabled="!termsAgreed" data-cy="generate-wallet">
       {{ $t('pages.index.generateWallet') }}
     </Button>
-    <Button
+    <!-- <Button
       @click="$router.push('/importAccount')"
       :disabled="!termsAgreed"
       data-cy="import-wallet"
     >
       {{ $t('pages.index.importWallet') }}
-    </Button>
+    </Button> -->
   </div>
 </template>
 
 <script>
 import { IN_FRAME } from '../../utils/helper';
-import Logo from '../../../icons/logo.svg?vue-component';
-import SuperheroLogo from '../../../icons/superhero-logo.svg?vue-component';
+import Logo from '../../../icons/hypersign-logo.png?vue-component';
+import SuperheroLogo from '../../../icons/hypersign-logo.png?vue-component';
 import CheckBox from '../components/CheckBox';
 import Button from '../components/Button';
 import Platforms from '../components/Platforms';
+import axios from 'axios';
+import { hypersignSDK } from '../../utils/hypersign';
+import { HS_NODE_BASE_URL, HS_NODE_DID_REGISTER_API } from '../../utils/hsConstants';
+import { generateMnemonic, mnemonicToSeed } from '@aeternity/bip39';
 
 export default {
   components: { Logo, SuperheroLogo, CheckBox, Button, Platforms },
@@ -51,6 +56,57 @@ export default {
     IS_WEB: process.env.PLATFORM === 'web',
     IN_FRAME,
   }),
+  methods: {
+    async createWallet() {
+      this.mnemonic = generateMnemonic();
+      const seed = mnemonicToSeed(this.mnemonic).toString('hex');
+      const address = await this.$store.dispatch('generateWallet', { seed });
+      this.$store.commit('setMnemonic', this.mnemonic);
+      const keypair = {
+        publicKey: address,
+        privateKey: seed,
+      };
+
+      ////HYPERSIGN Related
+      ////////////////////////////////////////////////
+      try {
+        this.loading = true;
+        // We will not use native aeternity keys, instead will use hypersign keys.
+        // The reason to do this, because giving flexibility to use different algorithm for keys
+        const newKeyPair = await hypersignSDK.did.generateKeys();
+        const hskeys = {
+          publicKey: newKeyPair.publicKey.publicKeyBase58,
+          privateKey: newKeyPair.privateKeyBase58,
+        };
+
+        const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
+        console.log(HS_CORE_DID_REGISTER);
+        await axios
+          .get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)
+          .then(result => {
+            result = result.data;
+            if (!result) throw new Error('Could not fetch from hypersign');
+            if (result && result.error) throw new Error(result.error);
+            const { keys, did } = result.message;
+            keys['privateKeyBase58'] = hskeys.privateKey;
+            this.$store.commit('setHSkeys', {
+              keys,
+              did,
+            });
+            this.loading = false;
+          })
+          .catch(console.error);
+      } catch (e) {
+        this.loading = false;
+      }
+      ////HYPERSIGN Related
+      ////////////////////////////////////////////////
+
+      await this.$store.dispatch('setLogin', { keypair });
+      this.$router.push(this.$store.state.loginTargetLocation)
+      // this.next();
+    }
+  }
 };
 </script>
 
@@ -67,7 +123,9 @@ export default {
       margin-right: 5px;
     }
   }
-
+  .heading-color{
+    color: $text-color !important;
+  }
   .primary-button {
     width: 282px;
 

@@ -2,16 +2,19 @@
   <div class="account-info">
     <div class="title">
       <div class="account-name" data-cy="account-name">
-        <UserAvatar :address="account.publicKey" :name="account.name" class="avatar" size="small" />
-        <template v-if="activeAccountName.includes('.chain')">{{ activeAccountName }}</template>
-        <router-link to="/names" v-else>{{ $t('pages.account.claim-name') }} </router-link>
+        <UserAvatar :address="profile.did" :name="profile.name" class="avatar" size="small" />
+        <template v-if="profile.name!=''">{{ profile.name }}</template>
+        <router-link to="/profile" v-else>{{ $t('pages.account.claim-name') }} </router-link>
       </div>
       <div class="copied-alert" v-if="copied">{{ $t('pages.account.copied') }}</div>
-      <button data-cy="copy" @click="copy" v-clipboard:copy="account.publicKey">
+      <!-- <button data-cy="copy" @click="copy" v-clipboard:copy="account.publicKey">
+        {{ $t('pages.account.copy') }}
+      </button> -->
+      <button data-cy="copy" @click="copy" v-clipboard:copy="profile.did">
         {{ $t('pages.account.copy') }}
       </button>
     </div>
-    <div class="ae-address">{{ account.publicKey }}</div>
+    <div class="ae-address">{{ profile.did }}</div>
   </div>
 </template>
 
@@ -23,8 +26,22 @@ export default {
   components: { UserAvatar },
   data: () => ({
     copied: false,
+    profile: {
+      email: "",
+      name: "",
+      did: ""
+    }
   }),
-  computed: mapGetters(['account', 'activeAccountName']),
+  computed: mapGetters(['hypersign']),
+  async created() {
+    if(Object.keys(this.hypersign.profile).length == 0)
+    {
+      this.profile.did  = this.hypersign.did
+      
+    }else{
+      this.profile = { ...this.hypersign.profile }
+    }
+  },
   methods: {
     copy() {
       this.copied = true;
@@ -55,7 +72,7 @@ export default {
 
     .account-name {
       font-weight: 400;
-      color: #fff;
+      color: $text-color;
       line-height: 21px;
       margin-right: auto;
       display: flex;
@@ -85,8 +102,8 @@ export default {
 
   .ae-address {
     color: $text-color;
-    font-size: 10px;
-    letter-spacing: -0.2px;
+    font-size: 14px !important;
+    letter-spacing: -0.3px !important;
   }
 }
 </style>

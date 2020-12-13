@@ -87,7 +87,7 @@ export default {
 
   .modal--body {
     margin-bottom: 40px;
-    color: $text-color;
+    color: $gray-1;
     font-size: 14px;
     word-break: break-word;
     text-align: center;
