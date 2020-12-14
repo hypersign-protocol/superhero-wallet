@@ -6,16 +6,16 @@
         :title="$t('pages.settings.tabGeneral')"
         :info="$t('pages.settings.tabGeneralsmall')"
       />
-      <PanelItem
+      <!-- <PanelItem
         to="/securitySettings"
         :title="$t('pages.settings.tabSecurity')"
         :info="$t('pages.settings.tabSecuritysmall')"
-      />
-      <PanelItem
+      /> -->
+      <!-- <PanelItem
         to="/networks"
         :title="$t('pages.appVUE.networks')"
         :info="$t('pages.settings.tabNetworksSmall')"
-      />
+      /> -->
       <PanelItem
         @click="removeAccount"
         :title="$t('pages.settings.tabRemoveAccount')"

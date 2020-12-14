@@ -1,7 +1,7 @@
 <template>
   <div class="popup">
       <img src="../../../icons/hypersign-logo.png" class="logo" />
-    <p>
+    <p style="color:#3e3e3e">
       {{ $t('pages.aboutSettings.systemName') }}
       <span class="version">
         <a
