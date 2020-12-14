@@ -16,8 +16,8 @@
       </div>
       <ul class="list-group">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
-          <span class="list-title">{{ claim }}: </span>
-          {{ verifiableCredential.credentialSubject[claim] }}
+          <div> class="list-title">{{ claim }}: </div>>
+          <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
         </li>
       </ul>
       <Loader v-if="loading" />
@@ -185,8 +185,8 @@ max-height: 700px;
 .list-group {
   padding: 0 !important;
   // background: #21222a !important;
-  box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
-  border-radius: 4px;
+  // box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
+  // border-radius: 4px;
   margin-top: 30px;
 }
 .list-group-item {

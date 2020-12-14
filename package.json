@@ -1,8 +1,8 @@
 {
-  "name": "superhero-wallet",
+  "name": "hypersign-wallet",
   "version": "0.3.3",
-  "description": "Superhero wallet",
-  "author": "Superhero",
+  "description": "Hypersign wallet",
+  "author": "Hypermine",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -134,8 +134,8 @@
       "cordova-plugin-wkwebview-engine": {},
       "cordova-plugin-inappbrowser": {},
       "ionic-plugin-deeplinks": {
-        "URL_SCHEME": "superhero",
-        "DEEPLINK_HOST": "wallet.superhero.com"
+        "URL_SCHEME": "hypersign",
+        "DEEPLINK_HOST": "wallet.hypersign.com"
       },
       "cordova-plugin-qrscanner": {}
     },

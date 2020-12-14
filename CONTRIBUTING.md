@@ -1,6 +1,6 @@
 # Contributing & Guidelines
 
-In 🦸 Superhero Wallet we use [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/) (you can check [this git-flow breakdown](https://gist.github.com/JamesMGreene/cdd0ac49f90c987e45ac) as well to familiarize yourself with the workflow). To contribute, please follow these rules:
+In 🦸 Hypersign Wallet we use [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/) (you can check [this git-flow breakdown](https://gist.github.com/JamesMGreene/cdd0ac49f90c987e45ac) as well to familiarize yourself with the workflow). To contribute, please follow these rules:
 
 * A `develop` branch is created from `master`
 * A `release` branch is created from `develop`

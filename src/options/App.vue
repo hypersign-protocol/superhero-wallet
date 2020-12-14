@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--eslint-disable-next-line vue-i18n/no-raw-text-->
-    <p>{{ $t('options.text') }}<a href="superhero.com">Superhero.com</a></p>
+    <p>{{ $t('options.text') }}<a href="hypersign.io">Hypersign.io</a></p>
   </div>
 </template>
 
