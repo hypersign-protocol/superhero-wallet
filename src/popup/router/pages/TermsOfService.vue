@@ -8,7 +8,7 @@
       <b>Superhero.com LVC</b> reserves its right to modify and update these
       <b>TERMS OF USE</b> according to the policy and practice of the <b>company</b>. The new
       version of thе <b>TERMS OF USE</b> becomes effective from the day it is announced on
-      <b>Our Superhero Wallet</b> unless stated otherwise.
+      <b>Our Hypersign Wallet</b> unless stated otherwise.
     </p>
     <hr />
     <p class="bolder">
@@ -21,14 +21,14 @@
     </p>
     <p>
       These <b>TERMS OF USE („TERMS“)</b> apply exclusively for the
-      <b>Superhero Wallet</b> (hereinafter referred to as the “<b>Wallet</b>” or the
+      <b>Hypersign Wallet</b> (hereinafter referred to as the “<b>Wallet</b>” or the
       “<b>application</b>”) and all the content available on the website extension. Please make sure
       that you have carefully read the <b>TERMS</b> before using the <b>application</b>. Otherwise,
       by using it, we consider these actions implicit agreement to the <b>TERMS OF USE</b>. These
       <b>TERMS OF USE</b> represent a binding agreement between you, the legal entity you represent
       and the legal entity that registered you (collectively „<b>YOU</b>“) and
       <b>Superhero.com LVC (“Superhero”, “we”, “us”</b> or <b>“our”)</b> in connection to your use
-      of the <b>Superhero Wallet application.</b>.
+      of the <b>Hypersign Wallet application.</b>.
     </p>
     <p>
       Please, do not use the application provided by <b>Superhero</b>, if you do not agree to the
@@ -79,14 +79,14 @@
             &ldquo;us&rdquo;, &ldquo;our&rdquo; </strong
           >or<strong> &ldquo;the company&rdquo;</strong>) is a company with seat and registered
           address at: Dr. Grass Str. 12, 9490 Vaduz, Liechtenstein, with email address for
-          communication related to the <strong>Superhero Wallet</strong>:
+          communication related to the <strong>Hypersign Wallet</strong>:
           superherowallet@protonmail.com. <strong>Superhero</strong> is the company, which created
-          and developed <strong>Superhero Wallet</strong>.
+          and developed <strong>Hypersign Wallet</strong>.
         </p>
         <p>
           1.2. &ldquo;<strong>USER</strong>&ldquo; or &ldquo;<strong>YOU</strong>&ldquo; means a
           natural or legal person, who has downloaded and uses the
-          <strong>Superhero Wallet</strong> <strong>application</strong>.
+          <strong>Hypersign Wallet</strong> <strong>application</strong>.
         </p>
         <p>
           1.3. &ldquo;<strong>Blockchain</strong>&ldquo; means the list of records, also known as
@@ -99,7 +99,7 @@
           cannot be altered retroactively.
         </p>
         <p>
-          1.4. &ldquo;<strong>Superhero Wallet</strong>&rdquo;
+          1.4. &ldquo;<strong>Hypersign Wallet</strong>&rdquo;
           (&ldquo;<strong>Wallet</strong>&rdquo; or &ldquo;<strong>application</strong>&rdquo;) is a
           software program designed for end users, which allows supporters to send value to content
           creators, causes, charities, groups or regular individuals online as a reward for
@@ -233,7 +233,7 @@
         </p>
         <ul>
           <li>
-            Open your Superhero wallet extension. The button should be in the upper right of your
+            Open your Hypersign Wallet extension. The button should be in the upper right of your
             browser tool bar.
           </li>
           <li>Click &ldquo;Send <strong>&AElig;</strong>&rdquo;.</li>
@@ -285,7 +285,7 @@
           could be a blog, a social media account or any other online profile. Save the change and
           refresh the page. <strong>YOU</strong> can also add your<strong> Wallet address</strong>
           in the source code of the web page. Then, <strong>YOU</strong> should open your
-          <strong>Superhero Wallet</strong> to access the tips received. Please bear in mind that
+          <strong>Hypersign Wallet</strong> to access the tips received. Please bear in mind that
           there may be slight delays in collecting tips, we advise that you wait for a few minutes
           and open the <strong>Wallet </strong>again. Do not hesitate to contact us if
           <strong>YOU</strong> experience any difficulties.
@@ -332,10 +332,10 @@
           available on the <strong>Wallet</strong>, the following will be applicable:
         </p>
         <p>
-          The tips are sent to the <strong>Superhero Wallet</strong> of the URL address entered when
+          The tips are sent to the <strong>Hypersign Wallet</strong> of the URL address entered when
           there is such <strong>Wallet</strong> created. Donations can also be made to
           websites/platforms/organizations/people who have not downloaded and used the
-          <strong>Superhero Wallet</strong> before or during the moment of tipping.
+          <strong>Hypersign Wallet</strong> before or during the moment of tipping.
         </p>
         <p>
           The <strong>&AElig;ternity blockchain </strong>manages <u>smart contracts</u> &ndash; they
@@ -344,7 +344,7 @@
           without any control or interference conducted by <strong>Superhero</strong> under any
           form. The <u>smart contracts</u> are a specific feature of the decentralized public
           ledger. If the websites/platforms/organizations/people who are tipped, do not have a
-          <strong>Superhero Wallet, </strong>the sent tip is stored in the so called &ldquo;<u
+          <strong>Hypersign Wallet, </strong>the sent tip is stored in the so called &ldquo;<u
             >Tipping Smart Contract</u
           >&rdquo;. The <u>Oracles</u> &ndash; also a function of the decentralized blockchain
           &ndash; follows when the receiver of the tip will generate a <strong>Wallet</strong>. If
@@ -483,7 +483,7 @@
       >
         <p>
           As a <strong>USER</strong>, <strong>YOU</strong> agree to the following rules applicable
-          for the<strong> Superhero Wallet</strong> :
+          for the<strong> Hypersign Wallet</strong> :
         </p>
         <ul>
           <li>

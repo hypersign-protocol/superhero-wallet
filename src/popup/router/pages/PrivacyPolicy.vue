@@ -13,9 +13,9 @@
               &ldquo;us&rdquo;, &ldquo;our&rdquo; </strong
             >or<strong> &ldquo;the company&rdquo;</strong>) is a company with seat and registered
             address at: Dr. Grass Str. 12, 9490 Vaduz, Liechtenstein, with email address for
-            communication related to the <strong>Superhero Wallet</strong>:
+            communication related to the <strong>Hypersign Wallet</strong>:
             superherowallet@protonmail.com. <strong>Superhero</strong> is the company, which created
-            and developed <strong>Superhero Wallet</strong>.
+            and developed <strong>Hypersign Wallet</strong>.
           </p>
           <p>
             <strong>Superhero </strong>takes your privacy and the security of your information as a
@@ -24,7 +24,7 @@
           <p>
             This <strong>Privacy Policy</strong> (&ldquo;<strong>Policy</strong>&rdquo;) is
             applicable for the <strong>Superhero </strong>developed software program
-            <strong>Superhero Wallet</strong><strong> (</strong>the
+            <strong>Hypersign Wallet</strong><strong> (</strong>the
             <strong>&ldquo;Wallet&rdquo; </strong>or the
             <strong>&ldquo;application&rdquo;), </strong>designed for end users, which allows
             supporters to send value to content creators, causes, charities, groups or regular

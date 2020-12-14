@@ -16,7 +16,7 @@
       </div>
       <ul class="list-group">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
-          <div> class="list-title">{{ claim }}: </div>>
+          <div class="list-title">{{ claim }}: </div>
           <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
         </li>
       </ul>

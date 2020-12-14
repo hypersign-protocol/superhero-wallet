@@ -1,4 +1,4 @@
-# Superhero Wallet
+# Hypersign Wallet
 
 **Superhero is a browser extension that allows you to send and recieve value to URLs and content accross Internet.**
 
