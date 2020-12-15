@@ -380,6 +380,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../common/variables';
+
+ol.li{
+  color: $text-color !important;
+}
 .privacypolicy--content {
   text-align: left;
   word-break: break-word;

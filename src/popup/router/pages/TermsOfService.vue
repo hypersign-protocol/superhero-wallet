@@ -1014,8 +1014,9 @@ export default {
 
 .terms {
   font-weight: 100;
-}
+  color: $text-color !important;
 
+}
 .terms--heading {
   margin: 20px;
   text-align: center;

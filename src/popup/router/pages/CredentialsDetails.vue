@@ -164,6 +164,7 @@ max-height: 700px;
 .list-title {
   color: $text-color;
   font-size: 12px;
+  text-transform:capitalize;
 }
 // .list-group {
 //     color: gray;
