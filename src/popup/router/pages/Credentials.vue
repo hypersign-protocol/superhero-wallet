@@ -56,6 +56,12 @@ export default {
       return this.form.url != '';
     },
   },
+  created() {
+
+    //Only for deeplinking
+    if(this.$route.query.url && this.$route.query.url !='')
+      this.deeplink(this.$route.query.url)
+  },
   methods: {
     async scan() {
       try {
@@ -75,6 +81,22 @@ export default {
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     },
+    async deeplink(url) {
+      try {
+        this.form.url = url
+        this.loading = true;
+        let response = await axios.get(this.form.url);
+        response = response.data;
+        if (!response) throw new Error('Could not register for hsauth credential');
+        if (response && response.status != 200) throw new Error(response.error);
+        if (response.message) this.$store.commit('addHSVerifiableCredential', response.message);
+        this.loading = false;
+      } catch (e) {
+        this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    }
+
   },
 };
 </script>

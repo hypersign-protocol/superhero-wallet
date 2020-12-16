@@ -10,7 +10,7 @@
         <span v-if="type == 'transparent'" class="main-loader main-loader-transparent">
           <ae-loader />
         </span>
-        <Welcome v-else class="main-loader main-loader-solid" />
+        <!-- <Welcome v-else class="main-loader main-loader-solid" /> -->
       </transition>
     </div>
   </div>

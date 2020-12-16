@@ -60,7 +60,7 @@ export default {
         this.$router
           .resolve({ name: 'invite-claim', params: { secretKey } })
           .href.replace(/^#/, ''),
-        'https://wallet.superhero.com',
+        'https://wallet.hypersign.com',
       );
     },
     address() {

@@ -114,7 +114,7 @@ export default {
         accounts: [account],
         nativeMode: true,
         compilerUrl,
-        name: 'Superhero',
+        name: 'Hypersign',
         async onConnection({ info: { icons, name } }, { accept, deny }, origin) {
           const originUrl = toURL(origin);
           if (
