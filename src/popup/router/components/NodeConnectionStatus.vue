@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="connect-error" v-if="nodeStatus == 'error' && account.publicKey && isLoggedIn">
+    <!-- <div class="connect-error" v-if="nodeStatus == 'error' && account.publicKey && isLoggedIn">
       {{ $t('pages.nodeConnectionStatus.error') }}
     </div>
     <div
@@ -9,7 +9,7 @@
       v-if="nodeStatus == 'connecting' && account.publicKey && isLoggedIn"
     >
       {{ $t('pages.nodeConnectionStatus.connecting') }}
-    </div>
+    </div> -->
     <div
       class="connect-node"
       data-cy="connect-node"
