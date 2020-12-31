@@ -2,7 +2,7 @@
   <div class="content">
     <ae-main>
       <ae-panel class="text-center">
-        <img src="../icons/icon_128.png" alt="Superhero logo" />
+        <img src="../icons/icon_128.png" alt="Hypersign logo" />
         <h1><ae-icon fill="primary" face="round" name="info" />{{ $t('phishing.detection') }}</h1>
         <i18n
           v-for="(item, index) in $t('phishing.sections').length"

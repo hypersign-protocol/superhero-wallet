@@ -126,7 +126,7 @@ export default new Vuex.Store({
                 hypersign
             }),
         ),
-        observables,
+        // observables,
         modals,
         tipUrl,
         accounts,

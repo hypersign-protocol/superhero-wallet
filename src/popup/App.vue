@@ -24,7 +24,7 @@
     </transition>
 
     <Loader v-if="mainLoading" type="none" />
-    <NodeConnectionStatus v-if="!(iframe && $route.path === '/intro')" />
+    <!-- <NodeConnectionStatus v-if="!(iframe && $route.path === '/intro')" /> -->
     <Tour />
     <Component
       :is="component"
@@ -85,8 +85,8 @@ export default {
   },
   watch: {
     isLoggedIn(val) {
-      if (val) this.init();
-      else clearInterval(this.polling);
+      // if (val) this.init();
+      // else clearInterval(this.polling);
     },
   },
   async created() {
@@ -98,16 +98,16 @@ export default {
       },
     );
 
-    this.$store.dispatch('getCurrencies');
-    if (process.env.IS_EXTENSION && detect().name !== 'firefox') {
-      const [update] = await browser.runtime.requestUpdateCheck();
-      if (update === 'update_available' && !process.env.RUNNING_IN_TESTS) {
-        this.$store.commit('addNotification', {
-          text: this.$t('pages.account.updateAvailable'),
-          path: '',
-        });
-      }
-    }
+    // this.$store.dispatch('getCurrencies');
+    // if (process.env.IS_EXTENSION && detect().name !== 'firefox') {
+    //   const [update] = await browser.runtime.requestUpdateCheck();
+    //   if (update === 'update_available' && !process.env.RUNNING_IN_TESTS) {
+    //     this.$store.commit('addNotification', {
+    //       text: this.$t('pages.account.updateAvailable'),
+    //       path: '',
+    //     });
+    //   }
+    // }
     if (!this.backedUpSeed) {
       this.$store.commit('addNotification', {
         text: `
@@ -120,7 +120,7 @@ export default {
       this.$store.commit('setNotificationSettings', NOTIFICATION_SETTINGS);
     }
 
-    this.$store.commit('setChainNames', await Backend.getCacheChainNames());
+    // this.$store.commit('setChainNames', await Backend.getCacheChainNames());
 
     EventBus.$on('error', async entry => {
       this.$store.dispatch('modals/open', { name: 'error-log', entry }).catch(() => false);
@@ -136,7 +136,7 @@ export default {
         });
       }
 
-      this.pollData();
+      // this.pollData();
     },
     pollData() {
       this.polling = setInterval(() => {

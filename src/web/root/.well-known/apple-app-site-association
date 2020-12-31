@@ -2,7 +2,7 @@
   "applinks": {
     "apps": [],
     "details": [{
-      "appID": "8H7FGC266S.com.superhero.cordova",
+      "appID": "8H7FGC266S.com.hypersign.cordova",
       "paths": ["*"]
     }]
   }

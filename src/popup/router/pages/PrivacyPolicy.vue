@@ -9,22 +9,22 @@
           <h3><strong>Introduction</strong></h3>
           <p>
             <strong
-              >Superhero.com Establishment (&ldquo;Superhero&rdquo;, &ldquo;we&rdquo;,
+              >Hypersign.id Establishment (&ldquo;Hypersign&rdquo;, &ldquo;we&rdquo;,
               &ldquo;us&rdquo;, &ldquo;our&rdquo; </strong
             >or<strong> &ldquo;the company&rdquo;</strong>) is a company with seat and registered
             address at: Dr. Grass Str. 12, 9490 Vaduz, Liechtenstein, with email address for
-            communication related to the <strong>Superhero Wallet</strong>:
-            superherowallet@protonmail.com. <strong>Superhero</strong> is the company, which created
-            and developed <strong>Superhero Wallet</strong>.
+            communication related to the <strong>Hypersign Wallet</strong>:
+            connect@hypermine.in. <strong>Hypersign</strong> is the company, which created
+            and developed <strong>Hypersign Wallet</strong>.
           </p>
           <p>
-            <strong>Superhero </strong>takes your privacy and the security of your information as a
+            <strong>Hypersign </strong>takes your privacy and the security of your information as a
             <strong>USER</strong> very seriously.&nbsp;&nbsp;&nbsp;
           </p>
           <p>
             This <strong>Privacy Policy</strong> (&ldquo;<strong>Policy</strong>&rdquo;) is
-            applicable for the <strong>Superhero </strong>developed software program
-            <strong>Superhero Wallet</strong><strong> (</strong>the
+            applicable for the <strong>Hypersign </strong>developed software program
+            <strong>Hypersign Wallet</strong><strong> (</strong>the
             <strong>&ldquo;Wallet&rdquo; </strong>or the
             <strong>&ldquo;application&rdquo;), </strong>designed for end users, which allows
             supporters to send value to content creators, causes, charities, groups or regular
@@ -34,7 +34,7 @@
           </p>
           <p>
             1) downloaded as an add-on (extension) to Firefox:
-            <a
+            <!-- <a
               @click="
                 openUrl('https://addons.mozilla.org/en-US/firefox/addon/superhero-wallet/', true)
               "
@@ -50,21 +50,21 @@
               "
               >https://chrome.google.com/webstore/detail/superhero/mnhmmkepfddpifjkamaligfeemcbhdne/related</a
             >;
-          </p>
-          <p>
+          </p> -->
+          <!-- <p>
             2) accessed from any Browser at the address:
-            <a @click="openUrl('https://wallet.superhero.com/', true)"
-              >https://wallet.superhero.com/</a
+            <a @click="openUrl('https://wallet.Hypersign.id/', true)"
+              >https://wallet.Hypersign.id/</a
             >
             ;
-          </p>
+          </p> -->
           <p>
-            3) downloaded from Google Play:&nbsp;&nbsp;&nbsp;&nbsp;
+            1) downloaded from Google Play:&nbsp;&nbsp;&nbsp;&nbsp;
             <a
               @click="
-                openUrl('https://play.google.com/store/apps/details?id=com.superhero.cordova', true)
+                openUrl('https://play.google.com/store/apps/details?id=com.hypersign.cordova', true)
               "
-              >https://play.google.com/store/apps/details?id=com.superhero.cordova</a
+              >https://play.google.com/store/apps/details?id=com.hypersign.cordova</a
             >
             and
           </p>
@@ -76,7 +76,7 @@
           </p>
           <p>
             If you have any questions regarding this <strong>Policy</strong>, please contact us at
-            superherowallet@protonmail.com. If you do not agree to the terms of this
+            connect@hypermine.in. If you do not agree to the terms of this
             <strong>Policy</strong>, please do not use <strong>the application</strong>.&nbsp;
           </p>
           <p>
@@ -136,7 +136,7 @@
             <strong
               >Please bear in mind that once the information or personal data under any form is
               submitted and written on the &AElig;ternity blockchain, it cannot be amended,
-              corrected or deleted. Superhero cannot change, restore, delete or amend in any way the
+              corrected or deleted. Hypersign cannot change, restore, delete or amend in any way the
               above-mentioned information and therefore, shall not be held liable in any way for the
               collection of the information on the blockchain.</strong
             >
@@ -146,12 +146,12 @@
               >The Wallet is a software solution which facilitates the peer-to-peer transfer of
               tokens between USERS and their interaction with </strong
             ><strong>&AElig;ternity</strong><strong> blockchain.</strong>
-            <strong>USERS</strong> understand and agree that <strong>Superhero</strong> does not
+            <strong>USERS</strong> understand and agree that <strong>Hypersign</strong> does not
             determine the purposes and means of <strong>processing</strong> of
             <strong>personal data</strong> and does not conduct any
             <strong>processing</strong> activities. Due to the decentralized character of the
             business model, <strong>USERS</strong> are solely responsible for the actions they
-            conduct and the information they provide. <strong>Superhero </strong>does not,
+            conduct and the information they provide. <strong>Hypersign </strong>does not,
             independently or with others, conduct any operations or set of operations which is
             performed on <strong>personal data</strong> or sets of <strong>personal data</strong> in
             connection to the use of the <strong>application.</strong>
@@ -178,7 +178,7 @@
             <strong>names</strong> generated via <strong>&AElig;ternity</strong>
             <strong>Naming System</strong>. The above-mentioned information might be used to
             identify a natural person. Therefore, <strong>USERS</strong> accept and agree that
-            <strong>Superhero</strong> does not act in full capacity as
+            <strong>Hypersign</strong> does not act in full capacity as
             <strong>Data Controller</strong> in the meaning established in Regulation (EU) 2016/679
             of the European Parliament and of the Council of 27 April 2016 on the protection of
             natural persons with regard to the processing of personal data and on the free movement
@@ -199,7 +199,7 @@
         <li class="fourth">
           <h3><strong>USERS personal data collection</strong></h3>
           <p>
-            <strong>Superhero</strong> as the developer of the <strong>application</strong> reserves
+            <strong>Hypersign</strong> as the developer of the <strong>application</strong> reserves
             the right to process <strong>personal data</strong> for technical support and
             maintenance purposes.
           </p>
@@ -214,7 +214,7 @@
           </p>
           <p>
             The legal basis for <strong>processing</strong> is legitimate interest of
-            <strong>Superhero</strong> &ndash; the provision of responses to your
+            <strong>Hypersign</strong> &ndash; the provision of responses to your
             questions/signals/requests with the purpose of the <strong>Wallet</strong> improvement.
             The retention period is until the final provision of a response to the
             <strong>USER&rsquo;s</strong> signal/question/request.
@@ -235,12 +235,12 @@
           <p><strong>YOU</strong> have the right to:</p>
           <ul>
             <li>
-              Request from <strong>Superhero </strong>access to the
+              Request from <strong>Hypersign </strong>access to the
               <strong>personal data</strong> that we hold about <strong>YOU</strong> in a portable
               format.
             </li>
             <li>
-              Request from <strong>Superhero </strong>correction of any collected
+              Request from <strong>Hypersign </strong>correction of any collected
               <strong>personal data</strong>. The information may include only your
               <strong>personal data</strong>
             </li>
@@ -277,7 +277,7 @@
           </p>
           <p>
             (i)&nbsp;&nbsp; to comply with a legal requirement, judicial proceeding, court order, or
-            legal process served on <strong>Superhero </strong>or its affiliates,
+            legal process served on <strong>Hypersign </strong>or its affiliates,
           </p>
           <p>(ii)&nbsp;&nbsp; to investigate a possible crime, such as fraud or identity theft;</p>
           <p>
@@ -289,17 +289,17 @@
           <p>
             (iv)&nbsp;&nbsp; in connection with the sale, purchase, business transition under any
             form, merger, dissolution, reorganization, liquidation of
-            <strong>Superhero</strong>; <strong>We</strong> may have to disclose the information
+            <strong>Hypersign</strong>; <strong>We</strong> may have to disclose the information
             <strong>YOU</strong> have given us to the successor, who is part of the transition,
           </p>
           <p>
             (v)&nbsp;&nbsp; when <strong>WE</strong> believe it is necessary to protect the rights,
-            property, or safety of <strong>Superhero </strong>or other persons, or
+            property, or safety of <strong>Hypersign </strong>or other persons, or
           </p>
           <p>
             (vi)&nbsp;&nbsp; as otherwise required or permitted by law, including any contractual
             obligations of
-            <strong>Superhero</strong>.
+            <strong>Hypersign</strong>.
           </p>
         </li>
         <li class="eighth">
@@ -307,16 +307,16 @@
           <ul>
             <li>
               <p>
-                <strong>Superhero</strong> does not process information of persons under the age of
+                <strong>Hypersign</strong> does not process information of persons under the age of
                 obtaining full legal capacity (in most countries 18 years old) due to the character
                 of the <strong>Wallet</strong>.
               </p>
             </li>
             <li>
               <p>
-                <strong>Superhero</strong> will immediately delete any
+                <strong>Hypersign</strong> will immediately delete any
                 <strong>personal data</strong> referring to persons under the age of full legal
-                capacity if <strong>Superhero</strong> receives such information.
+                capacity if <strong>Hypersign</strong> receives such information.
               </p>
             </li>
             <li>
@@ -348,7 +348,7 @@
             virus attacks and any other harmful cyber-attacks, <strong>We</strong> will undertake
             every possible action in an appropriate and timely manner, to avoid any material or
             non-material damage to <strong>USERS</strong>. As soon as
-            <strong>Superhero</strong> becomes aware of any <strong>breach</strong>,
+            <strong>Hypersign</strong> becomes aware of any <strong>breach</strong>,
             <strong>USERS</strong> and the competent authorities will be notified immediately.
             <strong>YOU</strong> may be asked to follow certain instructions for prevention of
             <strong>breaches</strong>.
@@ -359,8 +359,8 @@
           <p>
             To contact us with your questions or comments regarding this <strong>Policy</strong>,
             please email us at&nbsp;
-            <a @click="openUrl('mailto:superherowallet@protonmail.com', true)">
-              superherowallet@protonmail.com</a
+            <a @click="openUrl('mailto:connect@hypermine.in', true)">
+              connect@hypermine.in</a
             >.
           </p>
         </li>
@@ -380,6 +380,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../common/variables';
+
+ol.li{
+  color: $text-color !important;
+}
 .privacypolicy--content {
   text-align: left;
   word-break: break-word;

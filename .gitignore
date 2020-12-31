@@ -14,3 +14,5 @@ tests/e2e/screenshots
 /platforms
 /plugins
 /resources/*/
+build.json
+hypersign.keystore*

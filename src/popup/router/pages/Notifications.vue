@@ -123,11 +123,11 @@ export default {
       }
     },
   },
-  subscriptions() {
-    return {
-      observableNotifications: this.$store.state.observables.notifications,
-    };
-  },
+  // subscriptions() {
+  //   return {
+  //     observableNotifications: this.$store.state.observables.notifications,
+  //   };
+  // },
 };
 </script>
 

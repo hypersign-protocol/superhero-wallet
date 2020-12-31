@@ -5,14 +5,14 @@
     <h1 class="terms--heading heading-1 uppercase bolder">TERMS OF USE</h1>
     <p class="italic">The present <b>TERMS OF USE</b> are effective since 9th April 2020.</p>
     <p class="italic">
-      <b>Superhero.com LVC</b> reserves its right to modify and update these
+      <b>Hypersign.io</b> reserves its right to modify and update these
       <b>TERMS OF USE</b> according to the policy and practice of the <b>company</b>. The new
       version of thе <b>TERMS OF USE</b> becomes effective from the day it is announced on
-      <b>Our Superhero Wallet</b> unless stated otherwise.
+      <b>Our Hypersign Wallet</b> unless stated otherwise.
     </p>
     <hr />
     <p class="bolder">
-      THE SOFTWARE IS PROVIDED BY SUPERHERO.COM LVC “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      THE SOFTWARE IS PROVIDED BY Hypersign.io “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
       IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
       PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
       CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
@@ -21,17 +21,17 @@
     </p>
     <p>
       These <b>TERMS OF USE („TERMS“)</b> apply exclusively for the
-      <b>Superhero Wallet</b> (hereinafter referred to as the “<b>Wallet</b>” or the
+      <b>Hypersign Wallet</b> (hereinafter referred to as the “<b>Wallet</b>” or the
       “<b>application</b>”) and all the content available on the website extension. Please make sure
       that you have carefully read the <b>TERMS</b> before using the <b>application</b>. Otherwise,
       by using it, we consider these actions implicit agreement to the <b>TERMS OF USE</b>. These
       <b>TERMS OF USE</b> represent a binding agreement between you, the legal entity you represent
       and the legal entity that registered you (collectively „<b>YOU</b>“) and
-      <b>Superhero.com LVC (“Superhero”, “we”, “us”</b> or <b>“our”)</b> in connection to your use
-      of the <b>Superhero Wallet application.</b>.
+      <b>Hypersign.io (“Hypersign”, “we”, “us”</b> or <b>“our”)</b> in connection to your use
+      of the <b>Hypersign Wallet application.</b>.
     </p>
     <p>
-      Please, do not use the application provided by <b>Superhero</b>, if you do not agree to the
+      Please, do not use the application provided by <b>Hypersign</b>, if you do not agree to the
       <b>TERMS</b> applied within this document.
     </p>
     <p>
@@ -42,9 +42,9 @@
       <b>YOU</b> continue to use the <b>Wallet</b> after a notification for the amended
       <b>TERMS</b>, <b>YOU</b> are agreeing to be bound by the modifications. If you don’t agree to
       be bound by the modified <b>TERMS</b>, then you should discontinue any use of the
-      <b>Wallet</b>. Please contact <b>Superhero</b> via an email to
-      <a @click="openUrl('mailto:superherowallet@protonmail.com', true)"
-        >superherowallet@protonmail.com</a
+      <b>Wallet</b>. Please contact <b>Hypersign</b> via an email to
+      <a @click="openUrl('mailto:connect@hypermine.in', true)"
+        >connect@hypermine.in</a
       >
       for the provision of information about the steps for termination of your use. Please check the
       Effective Date above to determine if there have been any changes since <b>YOU</b> have last
@@ -75,18 +75,18 @@
         <p>
           1.1.
           <strong
-            >Superhero.com Establishment (&ldquo;Superhero&rdquo;, &ldquo;we&rdquo;,
+            >Hypersign.io Establishment (&ldquo;Hypersign&rdquo;, &ldquo;we&rdquo;,
             &ldquo;us&rdquo;, &ldquo;our&rdquo; </strong
           >or<strong> &ldquo;the company&rdquo;</strong>) is a company with seat and registered
           address at: Dr. Grass Str. 12, 9490 Vaduz, Liechtenstein, with email address for
-          communication related to the <strong>Superhero Wallet</strong>:
-          superherowallet@protonmail.com. <strong>Superhero</strong> is the company, which created
-          and developed <strong>Superhero Wallet</strong>.
+          communication related to the <strong>Hypersign Wallet</strong>:
+          connect@hypermine.in. <strong>Hypersign</strong> is the company, which created
+          and developed <strong>Hypersign Wallet</strong>.
         </p>
         <p>
           1.2. &ldquo;<strong>USER</strong>&ldquo; or &ldquo;<strong>YOU</strong>&ldquo; means a
           natural or legal person, who has downloaded and uses the
-          <strong>Superhero Wallet</strong> <strong>application</strong>.
+          <strong>Hypersign Wallet</strong> <strong>application</strong>.
         </p>
         <p>
           1.3. &ldquo;<strong>Blockchain</strong>&ldquo; means the list of records, also known as
@@ -99,7 +99,7 @@
           cannot be altered retroactively.
         </p>
         <p>
-          1.4. &ldquo;<strong>Superhero Wallet</strong>&rdquo;
+          1.4. &ldquo;<strong>Hypersign Wallet</strong>&rdquo;
           (&ldquo;<strong>Wallet</strong>&rdquo; or &ldquo;<strong>application</strong>&rdquo;) is a
           software program designed for end users, which allows supporters to send value to content
           creators, causes, charities, groups or regular individuals online as a reward for
@@ -107,7 +107,7 @@
           <strong>application</strong> is a piece of software which is available for
           downloading/access and use as it follows:
         </p>
-        <p>
+        <!-- <p>
           1) the <strong>application</strong> can act &nbsp;as an add-on to the web browsers
           Firefox, Chrome, Brave and Opera and contributes to the browsers&rsquo; additional
           functionalities. For Firefox:
@@ -127,30 +127,30 @@
             "
             >https://chrome.google.com/webstore/detail/superhero/mnhmmkepfddpifjkamaligfeemcbhdne/related</a
           >;
-        </p>
-        <p>
+        </p> -->
+        <!-- <p>
           2) the <strong>application</strong> can be accessed and used from any Browser at the
           address:
           <a @click="openUrl('https://wallet.superhero.com/', true)"
             >https://wallet.superhero.com/</a
           >
           ;
-        </p>
+        </p> -->
         <p>
-          3) the <strong>application</strong> can be downloaded from Google Play and/or App Store.
+          1) the <strong>application</strong> can be downloaded from Google Play and/or App Store.
           For Google Play:
           <a
             @click="
-              openUrl('https://play.google.com/store/apps/details?id=com.superhero.cordova', true)
+              openUrl('https://play.google.com/store/apps/details?id=com.hypersign.cordova', true)
             "
-            >https://play.google.com/store/apps/details?id=com.superhero.cordova</a
+            >https://play.google.com/store/apps/details?id=com.hypersign.cordova</a
           >
           and for App Store:
           <a @click="openUrl('https://testflight.apple.com/join/3o5r4dQQ', true)"
             >https://testflight.apple.com/join/3o5r4dQQ</a
           >;
         </p>
-        <p>
+        <!-- <p>
           The results of the donations and comments are published on the website
           <a @click="openUrl('https://superhero.com/', true)">superhero.com</a> .
         </p>
@@ -162,10 +162,10 @@
         </p>
         <p>
           1.6. &ldquo;<strong>Validators</strong>&rdquo; are independent physical persons or
-          entities, which are not in any way part of <strong>Superhero</strong>. Their function in
+          entities, which are not in any way part of <strong>Hypersign</strong>. Their function in
           the system includes responsibility for <em>blocks</em> constitution and broadcast of these
           <em>blocks</em> with the <strong>Aeternity</strong> <strong>blockchain</strong>.
-        </p>
+        </p> -->
         <p>
           1.7. &ldquo;<strong>Account address</strong>&rdquo; or &ldquo;<strong
             >Wallet address</strong
@@ -176,11 +176,11 @@
           1.8. &ldquo;<strong>Keys</strong>&rdquo; represent uniquely related private and public
           cryptographic keys of random numbers used for encryption and decryption of information.
         </p>
-        <p>
+        <!-- <p>
           1.9. &ldquo;<strong>&AElig;ternity Naming System</strong>&rdquo; allows
           <strong>USERS</strong> to claim names and associate them with one or more
           <strong>&AElig;ternity</strong> accounts.
-        </p>
+        </p> -->
         <p>
           1.10. &ldquo;<strong>Name of account</strong>&rdquo; is a domain-like identification
           string, which allows <strong>USERS</strong> control over its creation, development and
@@ -196,7 +196,7 @@
       >
         <p><strong>2.1. The application </strong></p>
         <p>
-          <strong>Superhero</strong> designed and built the <strong>application</strong> as a
+          <strong>Hypersign</strong> designed and built the <strong>application</strong> as a
           cryptocurrency wallet which is connected with the <strong>&AElig;ternity</strong>
           <strong>blockchain</strong>.Through it, <strong>USERS</strong> can store, send and collect
           <strong>&AElig; tokens.</strong> &nbsp;The purpose is to conduct donations to creators,
@@ -211,10 +211,10 @@
           <strong>account</strong> and your <strong>&AElig; tokens. </strong>The Protocols represent
           a system that is implemented with the purpose of reaching consensus between
           <strong>USERS</strong> and validating transactions on the <strong>A</strong
-          ><strong>eternity blockchain.</strong> <strong>Superhero</strong> does not in any way
+          ><strong>eternity blockchain.</strong> <strong>Hypersign</strong> does not in any way
           control the blockchain due to the fact it is decentralized and all transactions are
           executed between <strong>USERS</strong> in a peer-to-peer manner in which
-          <strong>Superhero</strong> is not involved.
+          <strong>Hypersign</strong> is not involved.
         </p>
         <p>
           <strong>USERS</strong> can use a variety of options to download and access the
@@ -233,7 +233,7 @@
         </p>
         <ul>
           <li>
-            Open your Superhero wallet extension. The button should be in the upper right of your
+            Open your Hypersign Wallet extension. The button should be in the upper right of your
             browser tool bar.
           </li>
           <li>Click &ldquo;Send <strong>&AElig;</strong>&rdquo;.</li>
@@ -285,7 +285,7 @@
           could be a blog, a social media account or any other online profile. Save the change and
           refresh the page. <strong>YOU</strong> can also add your<strong> Wallet address</strong>
           in the source code of the web page. Then, <strong>YOU</strong> should open your
-          <strong>Superhero Wallet</strong> to access the tips received. Please bear in mind that
+          <strong>Hypersign Wallet</strong> to access the tips received. Please bear in mind that
           there may be slight delays in collecting tips, we advise that you wait for a few minutes
           and open the <strong>Wallet </strong>again. Do not hesitate to contact us if
           <strong>YOU</strong> experience any difficulties.
@@ -296,7 +296,7 @@
           <strong>YOU</strong> should click Button &ldquo;Top Up&rdquo; of the
           <strong>application</strong> and <strong>YOU</strong> can exchange other cryptocurrencies
           or fiat currencies with <strong>&AElig; tokens</strong> through partnering third-party
-          platforms. A full list of these platforms, you can see in our Superhero Tutorial. Our team
+          platforms. A full list of these platforms, you can see in our Hypersign Tutorial. Our team
           is also ready to provide detailed information when contacted through email at
           <a @click="openUrl('mailto:superherowallet@protonmail.com', true)"
             >superherowallet@protonmail.com</a
@@ -304,13 +304,13 @@
         </p>
         <p>
           Please bear in mind that the third-party platforms may collect fees. They are unilaterally
-          determined and are not an object of control by <strong>Superhero</strong>.
+          determined and are not an object of control by <strong>Hypersign</strong>.
         </p>
         <p><strong>2.5. Withdrawing tips</strong></p>
         <p>
           To withdraw your tips, <strong>YOU</strong> can use one of the third-party crypto
           exchanges that supports <strong>&AElig; tokens. </strong>Again, additional information
-          about the platforms can be seen in our Superhero Tutorial and <strong>WE</strong> are at
+          about the platforms can be seen in our Hypersign Tutorial and <strong>WE</strong> are at
           disposal for further assistance.
         </p>
         <p>
@@ -327,24 +327,24 @@
         <p>
           <strong><u>&AElig; claims:</u></strong> Please bear in mind that for the present moment
           the <strong><u>&AElig; claims function is not possible, </u></strong>however,
-          Superhero&rsquo;s intention is to constantly develop and improve the
+          Hypersign&rsquo;s intention is to constantly develop and improve the
           <strong>application</strong> for all<strong> USERS</strong> and once this function is
           available on the <strong>Wallet</strong>, the following will be applicable:
         </p>
         <p>
-          The tips are sent to the <strong>Superhero Wallet</strong> of the URL address entered when
+          The tips are sent to the <strong>Hypersign Wallet</strong> of the URL address entered when
           there is such <strong>Wallet</strong> created. Donations can also be made to
           websites/platforms/organizations/people who have not downloaded and used the
-          <strong>Superhero Wallet</strong> before or during the moment of tipping.
+          <strong>Hypersign Wallet</strong> before or during the moment of tipping.
         </p>
         <p>
           The <strong>&AElig;ternity blockchain </strong>manages <u>smart contracts</u> &ndash; they
           are self-enforcing agreements which are embedded in the source code. Therefore, the
           <u>smart contracts</u> are independent, with incorporated set of rules when and how to act
-          without any control or interference conducted by <strong>Superhero</strong> under any
+          without any control or interference conducted by <strong>Hypersign</strong> under any
           form. The <u>smart contracts</u> are a specific feature of the decentralized public
           ledger. If the websites/platforms/organizations/people who are tipped, do not have a
-          <strong>Superhero Wallet, </strong>the sent tip is stored in the so called &ldquo;<u
+          <strong>Hypersign Wallet, </strong>the sent tip is stored in the so called &ldquo;<u
             >Tipping Smart Contract</u
           >&rdquo;. The <u>Oracles</u> &ndash; also a function of the decentralized blockchain
           &ndash; follows when the receiver of the tip will generate a <strong>Wallet</strong>. If
@@ -358,7 +358,7 @@
           the tipping <strong>USER</strong> can claim its <strong>&AElig; tokens</strong> back.
           After the lapse of the second year, the tipping <strong>USER</strong> loses its right to
           regain back the <strong>&AElig; tokens</strong> he has sent. Due to the decentralized
-          character of the blockchain, <strong>Superhero</strong> cannot control the
+          character of the blockchain, <strong>Hypersign</strong> cannot control the
           accumulation/receipt of the tips and to return them back when they are not received. Only
           the <u>smart contract </u>and the <strong>USERS </strong>themselves can affect the
           <strong>tokens</strong> due to the peer-to-peer method. <strong>USERS</strong> understand
@@ -368,16 +368,16 @@
           claim the <strong>tokens</strong> but have not<strong>,</strong> the &ldquo;<u
             >Tipping Smart Contract</u
           >&rdquo; sends the <strong>&AElig; tokens</strong> to an <strong>address</strong> of
-          <strong>Superhero</strong>. Once the <strong>tokens</strong> are received by
-          <strong>Superhero</strong>, receivers and senders of the tip accept and agree that they
+          <strong>Hypersign</strong>. Once the <strong>tokens</strong> are received by
+          <strong>Hypersign</strong>, receivers and senders of the tip accept and agree that they
           shall not have any claims over the <strong>tokens</strong> and
-          <strong>Superhero</strong> shall not be held liable for their receipt provided it is
+          <strong>Hypersign</strong> shall not be held liable for their receipt provided it is
           caused by the receiver and the sender&rsquo;s inactivity from their side during the
           above-mentioned periods of time. The tips will then be used by
-          <strong>Superhero</strong> for the further development of the
+          <strong>Hypersign</strong> for the further development of the
           <strong>blockchain</strong> ecosystem, the development of the <strong>Wallet</strong> or
           any other project or activity it finds suitable and reasonable.
-          <strong>Superhero</strong> shall make such decisions at its own estimation.
+          <strong>Hypersign</strong> shall make such decisions at its own estimation.
         </p>
       </div>
       <div
@@ -443,7 +443,7 @@
           <strong>name</strong>. Please bear in mind that the person who has suggested the
           <strong>name</strong> and the person who has received the <strong>name</strong> can be two
           separate people and the claim of the <strong>name</strong> solely depends on the bids in
-          the auctions. <strong>Superhero</strong> does not regulate or control the auctions. The
+          the auctions. <strong>Hypersign</strong> does not regulate or control the auctions. The
           claim is only available for 100 (one hundred) days.
         </p>
         <p>
@@ -464,13 +464,13 @@
           <strong>USER</strong> who has received the <strong>name</strong> can transfer it to an
           account of another <strong>USER </strong>- third party, or another
           <strong>&AElig; Wallet address</strong> the <strong>USER</strong> owns.
-          <strong>USERS</strong> understand and accept that <strong>Superhero</strong> does not
+          <strong>USERS</strong> understand and accept that <strong>Hypersign</strong> does not
           control in any way the assignment and alienation of <strong>names</strong>. The decisions
           undertaken during the claim period of the <strong>name</strong> are a result of the
           <strong>USER&rsquo;s</strong> sole estimation.
         </p>
         <p>
-          The <strong>name</strong> can also be used as your profile name on the Superhero website
+          The <strong>name</strong> can also be used as your profile name on the Hypersign website
           <a @click="openUrl('https://superhero.com/', true)">superhero.com</a>.
         </p>
       </div>
@@ -483,7 +483,7 @@
       >
         <p>
           As a <strong>USER</strong>, <strong>YOU</strong> agree to the following rules applicable
-          for the<strong> Superhero Wallet</strong> :
+          for the<strong> Hypersign Wallet</strong> :
         </p>
         <ul>
           <li>
@@ -511,7 +511,7 @@
             <strong>YOU</strong> are another person or company; <strong>YOU</strong> shall not
             purposefully provide information by using another person&rsquo;s seed phrases,
             <strong>account addresses</strong>, <strong>account</strong> <strong>names</strong> with
-            the purpose of representing as somebody else. <strong>Superhero</strong> shall undertake
+            the purpose of representing as somebody else. <strong>Hypersign</strong> shall undertake
             any possible action against such identity thefts and frauds in case the
             <strong>company</strong> suspects a <strong>USER</strong>;
           </li>
@@ -537,7 +537,7 @@
           facilitates the interaction between <strong>USERS</strong> and the decentralized, public
           ledger. Therefore, <strong>YOU</strong> are solely responsible and liable for any and all
           of your actions and inactions on the <strong>application</strong> and all gains and losses
-          sustained from your use of it. <strong>YOU</strong> indemnify <strong>Superhero</strong>,
+          sustained from your use of it. <strong>YOU</strong> indemnify <strong>Hypersign</strong>,
           its employees and affiliates in full for any and all negative consequences that might
           arise from the use of the <strong>application</strong> due to the lack of control over the
           peer-to-peer activities.
@@ -546,9 +546,9 @@
           <strong><u>General Disclaimer:</u></strong> The
           <strong>&AElig;ternity blockchain</strong> is open-source, public and permissionless
           ledger, meaning that anyone can download, participate, develop, improve and validate
-          transactions on the <strong>blockchain</strong>. <strong>Superhero</strong> cannot and
+          transactions on the <strong>blockchain</strong>. <strong>Hypersign</strong> cannot and
           does not control in any way the transactions conducted by <strong>USERS</strong>.
-          <strong>Superhero</strong> does not ensure the trustworthiness and validity of the same.
+          <strong>Hypersign</strong> does not ensure the trustworthiness and validity of the same.
           Please, bear in mind that every <strong>USER</strong> is solely responsible for the
           actions undertaken on the <strong>application</strong> and the information presented by
           them.
@@ -560,7 +560,7 @@
           random unique combination of words. The purpose of the seed phrase is to restore the
           access to the <strong>account</strong>, once the <strong>USER</strong> has lost access to
           the original <strong>Wallet</strong> for any reason (migrating to a new device,
-          reinstalling browser, etc.). <strong>Superhero</strong>
+          reinstalling browser, etc.). <strong>Hypersign</strong>
           <strong
             >does not collect the private keys or the seed phrases and shall not be treated under
             any circumstances as a custodian wallet provider. WE HIGHLY RECOMMEND ALL USERS TO SET
@@ -573,9 +573,9 @@
           in any way that the <strong>&AElig; </strong><strong>tokens</strong> are lost. The
           <strong>&AElig; </strong><strong>tokens</strong> remain available, however, they cannot be
           controlled, transferred and any other action with them cannot be undertaken.
-          <strong>Superhero</strong> shall not be held liable in any case of lost, forgotten or
+          <strong>Hypersign</strong> shall not be held liable in any case of lost, forgotten or
           misspelled seed phrases. In addition, <strong>USERS</strong> must not share their seed
-          phrase with anyone. <strong>Superhero</strong> should not be liable for any claim, damages
+          phrase with anyone. <strong>Hypersign</strong> should not be liable for any claim, damages
           or other liability, tort or otherwise, arising from, out of or in connection with the
           impossibility of <strong>USERS</strong> to regain access to their account on the
           <strong>Wallet</strong>.
@@ -593,7 +593,7 @@
           transactions. Only <strong>USERS</strong> are in charge of the safe storage and sending of
           their funds. By agreeing to the present <strong>TERMS</strong>,
           <strong>USERS</strong> accept and guarantee to defend, indemnify and hold
-          <strong>Superhero</strong> harmless from and against any and all claims, costs, expenses,
+          <strong>Hypersign</strong> harmless from and against any and all claims, costs, expenses,
           including but not limited to attorneys&rsquo; fees, damages, etc., related to or arising
           from the use of the <strong>application</strong>.
         </p>
@@ -666,7 +666,7 @@
           by malware/spyware/viruses/cyber-attacks, etc. or during technical support. Damage or loss
           of the device can possibly result in loss of funds or endanger them. Therefore, please
           refer to section <strong><u>Password and Seed Phrase Security Disclaimer</u></strong> in
-          regard to seed phrases. <strong>Superhero</strong> is not responsible for any of the
+          regard to seed phrases. <strong>Hypersign</strong> is not responsible for any of the
           above-mentioned access and connectivity troubleshooting. Therefore,
           <strong>WE</strong> shall not be held liable for any loss of data on the
           <strong>application</strong> caused in these cases.
@@ -675,8 +675,8 @@
           <strong><u>Cryptocurrency Guidance Disclaimer:</u></strong> The content presented on the
           <strong>application</strong> is not intended to be used as guide for cryptocurrency
           investments or signing of other legal agreements in connection to cryptocurrencies.
-          <strong>Superhero</strong> does not offer business advices, which can be used as a legal
-          basis for any investments or agreements in the sphere. <strong>Superhero</strong> shall
+          <strong>Hypersign</strong> does not offer business advices, which can be used as a legal
+          basis for any investments or agreements in the sphere. <strong>Hypersign</strong> shall
           not be held liable in any case of negative consequences from transactions or
           non-compliance with obligations of legal agreements signed by <strong>YOU</strong>,
           including but not only losses, tort, revenue, income or profits loss arising out of the
@@ -690,7 +690,7 @@
           <strong>YOU</strong> have to inform yourself about such legal restrictions and
           <strong>YOU</strong> are liable solely in case of a breach of any legal norms. The access
           to our <strong>application</strong> is prohibited provided the access point is in a
-          territory where the content is illegal. <strong>Superhero</strong> does not have the
+          territory where the content is illegal. <strong>Hypersign</strong> does not have the
           obligation to control the legislation applicability according to each access point of
           <strong>USERS</strong> and shall not be held liable in these circumstances.
         </p>
@@ -712,7 +712,7 @@
           >: <strong>USERS</strong> understand and agree with the risks related to the
           <strong>&AElig;ternity blockchain</strong> contribution and/or with the allocation, use
           and ownership of <strong>&AElig;</strong><strong> tokens</strong> and guarantee to relieve
-          of responsibility <strong>Superhero</strong> in these cases.
+          of responsibility <strong>Hypersign</strong> in these cases.
         </p>
         <p>The risks mentioned within the present <strong>TERMS</strong> are not comprehensive:</p>
         <ul>
@@ -723,7 +723,7 @@
             <strong>application</strong> are in a constant development process. There is no warranty
             that the receipt and transfer of <strong>&AElig;</strong><strong> tokens</strong> shall
             be uninterrupted or error-free at all times. <strong>USERS</strong> accept and guarantee
-            to dispense of responsibility <strong>Superhero</strong> for any software or technology
+            to dispense of responsibility <strong>Hypersign</strong> for any software or technology
             weaknesses, malfunctions, vulnerabilities or bugs, which can cause complete or partial
             loss of <strong>&AElig;</strong><strong> tokens</strong>.
           </li>
@@ -754,14 +754,14 @@
           <strong>USERS</strong> should be careful when they download and use the original
           <strong>application</strong>. <strong>USERS</strong> can identity the authentic
           <strong>Wallet</strong> by verifying that the developer on the marketplace is
-          <strong>Superhero.com / Superhero.com LVC</strong> and can use the hyperlinks for
+          <strong>Hypersign.io / Hypersign.io</strong> and can use the hyperlinks for
           downloading, incorporated in the present Terms. Due to the fact
           <strong>&AElig;ternity blockchain</strong> is public and permissionless, any person has
           the possibility to create a &ldquo;<strong>fork</strong>&rdquo;. Any developer can copy
           and develop the source code resulting in the formation of a distinct and separate
           software. <strong>USERS</strong> understand and accept that
-          <strong>Superhero</strong> cannot avoid the creation of such <strong>forks</strong> and is
-          not responsible for them. <strong>Superhero</strong> shall not be held liable for any
+          <strong>Hypersign</strong> cannot avoid the creation of such <strong>forks</strong> and is
+          not responsible for them. <strong>Hypersign</strong> shall not be held liable for any
           losses and/or damages resulted from the use of <strong>forks</strong>.
         </p>
       </div>
@@ -798,14 +798,14 @@
           To send someone a tip, please make sure that <strong>YOU</strong> are no the URL that
           <strong>YOU</strong> want to tip or <strong>YOU</strong> have copied and pasted the right
           URL (depending on the option for access to the <strong>Wallet</strong>).
-          <strong>Superhero</strong> does not participate or control in any way the tips and shall
+          <strong>Hypersign</strong> does not participate or control in any way the tips and shall
           not be held liable for any mistakes and wrong donations. The tips cannot be modified.
           Please bear in mind that the <strong>application</strong> is created in order for people
           to stimulate the full, transparent, useful and accurate information worldwide. Therefore,
           <strong>USERS</strong> shall be fully liable for any use of the <strong>Wallet</strong> in
           violation of its purpose and the present <strong>TERMS</strong>.
-          <strong>Superhero</strong> does not control the platforms the donations are sent to.
-          <strong>Superhero</strong> is not responsible for the content on the third-party platforms
+          <strong>Hypersign</strong> does not control the platforms the donations are sent to.
+          <strong>Hypersign</strong> is not responsible for the content on the third-party platforms
           in any way.
         </p>
         <p>
@@ -813,7 +813,7 @@
           <strong>&AElig;</strong> <strong>tokens</strong> with other cryptocurrencies or fiat
           currencies is subject to compliance with the third-party platform&rsquo;s Terms of use and
           other compulsory documentation. It is solely your responsibility to comply duly with the
-          rules, applicable for these platforms. <strong>Superhero</strong> is not responsible in
+          rules, applicable for these platforms. <strong>Hypersign</strong> is not responsible in
           any way for the use of these third-party platforms in relation to loading the
           <strong>USERS&rsquo;</strong> wallets and the withdrawal of <strong>&AElig;</strong>
           <strong>tokens</strong>.
@@ -836,13 +836,13 @@
           software ISC License (&ldquo;ISC&rdquo;). Under this license other developers have the
           right to use, copy, modify and distribute the source code of the
           <strong>Wallet</strong> for any purpose without a fee. The license only requires
-          preservation of the copyright and license notice below. <strong>Superhero</strong> is not
+          preservation of the copyright and license notice below. <strong>Hypersign</strong> is not
           liable in any way for the diffusion and public access to the amended/modified by other
           developers source code files due to the open source character of the software.
         </p>
         <p>The notice is as it follows:</p>
         <p>&ldquo;ISC License</p>
-        <p>Copyright (c) 2019, Superhero</p>
+        <p>Copyright (c) 2019, Hypersign</p>
         <p>
           Permission to use, copy, modify, and/or distribute this software for any purpose with or
           without fee is hereby granted, provided that the above copyright notice and this
@@ -865,20 +865,20 @@
         data-cy="accordion-item-content"
       >
         <p>
-          The <strong>application</strong> is developed by <strong>Superhero. </strong>The
+          The <strong>application</strong> is developed by <strong>Hypersign. </strong>The
           <strong>application</strong> may display or include elements which are subject of
           intellectual property regulation including but not limited to logos, trademarks, domain
           names, etc. &nbsp;It is prohibited to use any intellectual property of
-          <strong>Superhero</strong> before a prior explicit consent from the latter.
+          <strong>Hypersign</strong> before a prior explicit consent from the latter.
         </p>
         <p>
           None of the elements mentioned above can be edited, downloaded, reproduced, used for
           commercial purposes, distributed and transmitted in any manner and/or any medium
           whatsoever, partially or in whole, without the explicit prior written consent of
-          <strong>Superhero</strong>.
+          <strong>Hypersign</strong>.
         </p>
         <p>
-          <strong>Superhero</strong> reserves its right to take any necessary legal action against
+          <strong>Hypersign</strong> reserves its right to take any necessary legal action against
           intellectual property infringement.
         </p>
         <p>
@@ -915,7 +915,7 @@
           These <strong>TERMS</strong> set forth the entire understanding and agreement as to the
           subject matter hereof and supersedes any and all prior discussions, agreements, and
           understandings of any kind and every nature between <strong>USERS</strong> and
-          <strong>Superhero</strong>.
+          <strong>Hypersign</strong>.
         </p>
         <p>
           The legislation and jurisdiction of Liechtenstein is applied for the issues outstanding
@@ -932,7 +932,7 @@
         </p>
         <p>
           For more information regarding our Services and the present <strong>TERMS</strong>, please
-          do not hesitate to contact the <strong>Superhero</strong> team at:
+          do not hesitate to contact the <strong>Hypersign</strong> team at:
           superherowallet@protonmail.com.
         </p>
       </div>
@@ -1014,8 +1014,9 @@ export default {
 
 .terms {
   font-weight: 100;
-}
+  color: $text-color !important;
 
+}
 .terms--heading {
   margin: 20px;
   text-align: center;

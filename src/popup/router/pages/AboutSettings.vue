@@ -1,7 +1,7 @@
 <template>
   <div class="popup">
-    <Logo class="logo" />
-    <p>
+      <img src="../../../icons/hypersign-logo.png" class="logo" />
+    <p style="color:#3e3e3e">
       {{ $t('pages.aboutSettings.systemName') }}
       <span class="version">
         <a
@@ -22,15 +22,15 @@
       <router-link to="/privacyPolicy" data-cy="privacy">{{
         $t('pages.aboutSettings.privacyPolicy')
       }}</router-link>
-      <Button @click="openUrl(bugReportUrl, true)">
+      <!-- <Button @click="openUrl(bugReportUrl, true)">
         {{ $t('pages.appVUE.reportBug') }}
-      </Button>
+      </Button> -->
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '../../../icons/logo.svg?vue-component';
+import Logo from '../../../icons/hypersign-logo.png?vue-component';
 import openUrl from '../../utils/openUrl';
 import { BUG_REPORT_URL } from '../../utils/constants';
 

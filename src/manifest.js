@@ -1,6 +1,6 @@
 module.exports = (isProd, platform) => ({
-  name: 'Superhero',
-  description: 'Superhero Wallet',
+  name: 'Hypersign',
+  description: 'Hypersign Wallet',
   version: process.env.npm_package_version,
   manifest_version: 2,
   ...(platform === 'extension-firefox' && {
@@ -27,7 +27,7 @@ module.exports = (isProd, platform) => ({
     'https://*.twitter.com/*',
     'https://twitter.com/*',
     'https://*.youtube.com/watch?v=*',
-    'https://wallet.superhero.com/*',
+    'https://wallet.hypersign.com/*',
   ],
   icons: {
     48: './icons/icon_48.png',
@@ -35,7 +35,7 @@ module.exports = (isProd, platform) => ({
   },
   content_security_policy: `script-src 'self'${isProd ? '' : " 'unsafe-eval'"}; object-src 'self'`,
   browser_action: {
-    default_title: 'Superhero',
+    default_title: 'Hypersign',
     default_popup: 'popup/popup.html',
   },
   background: {

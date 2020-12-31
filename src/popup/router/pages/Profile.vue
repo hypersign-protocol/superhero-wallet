@@ -114,9 +114,9 @@ export default {
           if(res && res.status != 200) throw new Error(res.error);          
           const msg = `
               An email with a QR code has been sent to the address you provided. \
-              Scan the code with your Superhero Wallet to get the credential. \
+              Scan the code with your Hypersign Wallet to get the credential. \
               You can use this credential to authenticate yourself in any website which \
-              supports Superhero login.
+              supports Hypersign login.
           `
           this.loading = false;
           if (res.message) this.$store.dispatch('modals/open', { name: 'default', msg });

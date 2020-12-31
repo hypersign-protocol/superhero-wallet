@@ -1,8 +1,7 @@
 <template>
-  <div class="popup">
-    <div class="credential-list">
-    
-      <Panel>
+    <div class="popup">
+      <span class="altText" v-if="hypersign.credentials.length == 0">No credential found. Scan QR to get credentials.</span>
+      <Panel v-else>
         <PanelItem
           v-for="credential in hypersign.credentials"
           :key="credential.id"
@@ -11,18 +10,17 @@
           :info="credential.issuanceDate"
         />
       </Panel>
-      <span class="altText" v-if="hypersign.credentials.length == 0">No credential found. Scan QR to get credentials.</span>
       <Loader v-if="loading" />
-    </div>
-    
-    <div class="scanner d-flex">
-      <div class="scan" data-cy="scan-button" @click="scan">
-        <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
+
+      <div class="">
+        <!-- <button class="scan" data-cy="scan-button" @click="scan">
+          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
+        </button> -->
+        <Button @click="scan" class="scan scanner scan-text"  data-cy="scan-button">
+          {{ $t('pages.credential.scan') }}
+        </Button>
       </div>
     </div>
-
-    
-  </div>
 </template>
 
 <script>
@@ -33,12 +31,14 @@ import CheckBox from '../components/CheckBox';
 import Panel from '../components/Panel';
 import PanelItem from '../components/PanelItem';
 import Textarea from '../components/Textarea';
+import Button from '../components/Button';
+
 import axios from 'axios';
 import { contractCallStatic } from '../../../lib/background-utils';
 
 export default {
   mixins: [removeAccountMixin],
-  components: { CheckBox, Panel, PanelItem, QrIcon, Textarea },
+  components: { CheckBox, Panel,Button, PanelItem, QrIcon, Textarea },
   data() {
     return {
       form: {
@@ -55,6 +55,12 @@ export default {
     validUrl() {
       return this.form.url != '';
     },
+  },
+  created() {
+
+    //Only for deeplinking
+    if(this.$route.query.url && this.$route.query.url !='')
+      this.deeplink(this.$route.query.url)
   },
   methods: {
     async scan() {
@@ -75,6 +81,22 @@ export default {
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     },
+    async deeplink(url) {
+      try {
+        this.form.url = url
+        this.loading = true;
+        let response = await axios.get(this.form.url);
+        response = response.data;
+        if (!response) throw new Error('Could not register for hsauth credential');
+        if (response && response.status != 200) throw new Error(response.error);
+        if (response.message) this.$store.commit('addHSVerifiableCredential', response.message);
+        this.loading = false;
+      } catch (e) {
+        this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    }
+
   },
 };
 </script>
@@ -101,17 +123,17 @@ max-height: 700px;
     
 }
 .scan-text{
-margin-left: 20px;
-float: right;
+  margin-left: 20px;
+  float: right;
 }
-.scanner.d-flex {
-    margin-top: 3%;
-width: 59%;
-background: #0d73cd;
-margin-right: 23%;
-border-radius: 49px;
-padding-left: 20px;
-padding-top: 9px;
+
+.scanner {
+  position: fixed;
+  bottom: 0;
+  margin-top: 3%;
+  width: 59%;
+  border-radius: 49px;
+  margin-left: 13%;
 }
 
 .withdraw.step1 {

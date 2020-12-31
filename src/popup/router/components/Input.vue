@@ -51,7 +51,7 @@ input.input {
   background: $input-bg-color !important;
   padding: 10px;
   margin-bottom: 22px;
-  color: $white-1 !important;
+  color: $text-color !important;
   font-size: 14px;
   min-height: 35px;
   margin-left: auto;

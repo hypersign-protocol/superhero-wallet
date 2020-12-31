@@ -65,7 +65,7 @@ export default {
       this.sdk = await RpcWallet({
         nodes: [{ name: this.network, instance: node }],
         compilerUrl: this.compiler,
-        name: 'Superhero',
+        name: 'Hypersign',
         async onConnection(aepp, action) {
           const open = await context.shouldOpenPopup(aepp, action);
           if (open) context.checkAeppPermissions(aepp, action, 'connection');

@@ -1,8 +1,8 @@
 {
-  "name": "superhero-wallet",
-  "version": "0.3.3",
-  "description": "Superhero wallet",
-  "author": "Superhero",
+  "name": "hypersign-wallet",
+  "version": "0.1.0",
+  "description": "Hypersign wallet",
+  "author": "Hypermine",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -43,7 +43,7 @@
     "axios": "^0.19.0",
     "bignumber.js": "^8.1.1",
     "bluebird": "^3.7.1",
-    "cordova-android": "^8.1.0",
+    "cordova-android": "^9.0.0",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-headercolor": "^1.0.0",
     "cordova-plugin-inappbrowser": "^3.2.0",
@@ -134,14 +134,14 @@
       "cordova-plugin-wkwebview-engine": {},
       "cordova-plugin-inappbrowser": {},
       "ionic-plugin-deeplinks": {
-        "URL_SCHEME": "superhero",
-        "DEEPLINK_HOST": "wallet.superhero.com"
+        "URL_SCHEME": "hypersign",
+        "DEEPLINK_HOST": "wallet.hypersign.com"
       },
       "cordova-plugin-qrscanner": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

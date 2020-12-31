@@ -1,4 +1,4 @@
-const walletUrl = 'https://wallet.superhero.com';
+const walletUrl = 'https://wallet.hypersign.com';
 
 export default () =>
   browser.webRequest.onBeforeRequest.addListener(

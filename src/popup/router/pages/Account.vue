@@ -1,21 +1,21 @@
 <template>
-  <div class="height-100 primary-bg">
+  <div class="height-100 primary-bg ">
     <div class="popup popup-no-padding">
       <div v-if="!backedUpSeed && !tourRunning" class="noti" data-cy="seed-notif">
-        <span>
+        <!-- <span>
           {{ $t('pages.account.youNeedTo') }}
           <RouterLink :to="{ name: 'settings-security' }">{{
             $t('pages.account.backup')
           }}</RouterLink>
           {{ $t('pages.account.yourSeedPhrase') }}
-        </span>
+        </span> -->
       </div>
       <div class="tour__step1">
         <AccountInfo />
-        <BalanceInfo />
+        <!-- <BalanceInfo /> -->
       </div>
       <div class="submenu-bg">
-        <BoxButton
+        <!-- <BoxButton
           data-cy="tip-button"
           :text="$t('pages.account.send')"
           accent
@@ -33,8 +33,8 @@
           class="tour__step4"
         >
           <Claim slot="icon" />
-        </BoxButton>
-        <BoxButton text="Activity" to="/transactions" class="tour__step5">
+        </BoxButton> -->
+        <!-- <BoxButton text="Activity" to="/transactions" class="tour__step5">
           <Activity slot="icon" />
         </BoxButton>
         <BoxButton :text="$t('pages.appVUE.invite')" :to="{ name: 'invite' }">
@@ -45,60 +45,61 @@
         </BoxButton>
         <BoxButton :text="$t('pages.appVUE.withdraw')" to="/send" class="tour__step7">
           <Withdraw slot="icon" />
+        </BoxButton> -->
+        
+        <BoxButton :text="$t('pages.appVUE.profile')" to="/profile" style="font-size: smaller; color:white" class="tour__step9">
+          <Profile width="24.5" height="24.5"  slot="icon" />
+        </BoxButton>
+        <BoxButton :text="$t('pages.appVUE.credential')" style="font-size: smaller; color:white" to="/credential" class="tour__step10">
+          <Credential width="24.5" height="24.5" slot="icon" color="white"/>
         </BoxButton>
         <BoxButton :text="$t('pages.appVUE.settings')" to="/settings" class="tour__step8">
           <Settings slot="icon" />
         </BoxButton>
-        <BoxButton :text="$t('pages.appVUE.profile')" to="/profile" class="tour__step9">
-          <Profile width="24.5" height="24.5"  slot="icon" />
-        </BoxButton>
-        <BoxButton :text="$t('pages.appVUE.credential')" style="font-size: smaller;" to="/credential" class="tour__step10">
-          <Credential width="24.5" height="24.5" slot="icon" />
-        </BoxButton>
       </div>
-      <RecentTransactions />
+      <!-- <RecentTransactions /> -->
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import Tip from '../../../icons/tip-icon.svg?vue-component';
-import Claim from '../../../icons/claim-icon.svg?vue-component';
-import Activity from '../../../icons/activity-icon.svg?vue-component';
-import Topup from '../../../icons/topup-icon.svg?vue-component';
-import Invite from '../../../icons/invite.svg?vue-component';
-import Withdraw from '../../../icons/withdraw-icon.svg?vue-component';
+// import Tip from '../../../icons/tip-icon.svg?vue-component';
+// import Claim from '../../../icons/claim-icon.svg?vue-component';
+// import Activity from '../../../icons/activity-icon.svg?vue-component';
+// import Topup from '../../../icons/topup-icon.svg?vue-component';
+// import Invite from '../../../icons/invite.svg?vue-component';
+// import Withdraw from '../../../icons/withdraw-icon.svg?vue-component';
 import Settings from '../../../icons/settings-icon.svg?vue-component';
 
 import Profile from '../../../icons/profile.svg?vue-component';
 import Credential from '../../../icons/credential.svg?vue-component';
 
-import RecentTransactions from '../components/RecentTransactions';
-import BalanceInfo from '../components/BalanceInfo';
+// import RecentTransactions from '../components/RecentTransactions';
+// import BalanceInfo from '../components/BalanceInfo';
 import AccountInfo from '../components/AccountInfo';
 import BoxButton from '../components/BoxButton';
 
 export default {
   name: 'Account',
   components: {
-    Tip,
-    Claim,
-    Activity,
-    Topup,
-    Withdraw,
+    // Tip,
+    // Claim,
+    // Activity,
+    // Topup,
+    // Withdraw,
     Settings,
-    RecentTransactions,
-    BalanceInfo,
+    // RecentTransactions,
+    // BalanceInfo,
     AccountInfo,
     BoxButton,
-    Invite,
+    // Invite,
     Credential,
     Profile
   },
   computed: {
     ...mapState(['tourRunning', 'backedUpSeed']),
-    ...mapGetters(['allowTipping']),
+    // ...mapGetters(['allowTipping',]),
   },
 };
 </script>

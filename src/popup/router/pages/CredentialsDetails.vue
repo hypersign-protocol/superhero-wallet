@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-    <div class="credential-list">
+    <div class="">
       <div class="cred-card">
         <div class="cred-card-header">
           <span>{{ verifiableCredential.type[1] }}</span>
@@ -16,17 +16,22 @@
       </div>
       <ul class="list-group">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
-          <span class="list-title">{{ claim }}: </span>
-          {{ verifiableCredential.credentialSubject[claim] }}
+          <div class="list-title">{{ claim }}: </div>
+          <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
         </li>
       </ul>
       <Loader v-if="loading" />
+      <div class="">
+        <Button @click="scan" class="scan scanner scan-text"  data-cy="scan-button">
+          {{ $t('pages.credential.scan') }}
+        </Button>
+      </div>
     </div>
-    <div class="scanner d-flex">
+    <!-- <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
         <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -111,17 +116,16 @@ export default {
   padding-bottom: 5%;
 }
 .scan-text{
-margin-left: 20px;
-float: right;
+  margin-left: 20px;
+  float: right;
 }
-.scanner.d-flex {
-    margin-top: 3%;
-width: 59%;
-background: #0d73cd;
-margin-right: 23%;
-border-radius: 49px;
-padding-left: 20px;
-padding-top: 9px;
+.scanner {
+  position: fixed;
+  bottom: 0;
+  margin-top: 3%;
+  width: 59%;
+  border-radius: 49px;
+  margin-left: 13%;
 }
 .credential-list {
     min-height: 700px;
@@ -158,8 +162,9 @@ max-height: 700px;
 //     font-weight: bolder;
 // }
 .list-title {
-  color: #fff;
+  color: $text-color;
   font-size: 12px;
+  text-transform:capitalize;
 }
 // .list-group {
 //     color: gray;
@@ -181,8 +186,8 @@ max-height: 700px;
 .list-group {
   padding: 0 !important;
   // background: #21222a !important;
-  box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
-  border-radius: 4px;
+  // box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
+  // border-radius: 4px;
   margin-top: 30px;
 }
 .list-group-item {
