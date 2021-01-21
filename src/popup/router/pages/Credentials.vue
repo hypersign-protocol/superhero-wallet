@@ -69,6 +69,11 @@ export default {
           name: 'read-qr-code',
           title: this.$t('pages.credential.scanCredential'),
         });
+        
+        console.log(this.hypersign.did)
+        this.form.url = this.form.url + '&did=' + this.hypersign.did;
+        console.log(this.form.url)
+
         this.loading = true;
         let response = await axios.get(this.form.url);
         response = response.data;
@@ -83,7 +88,10 @@ export default {
     },
     async deeplink(url) {
       try {
-        this.form.url = url
+        console.log(this.hypersign.did)
+        this.form.url = url + '&did=' + this.hypersign.did;
+        console.log(this.form.url)
+
         this.loading = true;
         let response = await axios.get(this.form.url);
         response = response.data;
