@@ -62,42 +62,72 @@ export default {
   methods: {
     async scan() {
       try {
-        const qrData = await this.$store.dispatch('modals/open', {
+        let qrJson = await this.$store.dispatch('modals/open', {
           name: 'read-qr-code',
           title: this.$t('pages.credential.scanToPresent'),
         });
-        const url = Url(qrData, true);
-        const challenge = url.query.challenge;
 
-        // const credentialSchema = url.query.schemaId;
-        // HS_TODO: verfiy the schema
-        this.loading= true;
-        const verifyUrl = url.origin + url.pathname;
-        const vp_unsigned = await hypersignSDK.credential.generatePresentation(
-          this.verifiableCredential,
-          this.hypersign.did,
-        );
-        console.log('Unsigned vp created..');
-        const vp_signed = await hypersignSDK.credential.signPresentation(
-          vp_unsigned,
-          this.hypersign.did,
-          this.hypersign.keys.privateKeyBase58,
-          challenge,
-        );
-        console.log('Signed vp created..');
-        const body = {
-          challenge,
-          vp: JSON.stringify(vp_signed),
-        };
-        let response = await axios.post(verifyUrl, body);
-        response = response.data;
-        if (!response) throw new Error('Could not verify the presentation');
-        if (response && response.status != 200) throw new Error(response.error);
-        if (response.message)
-          this.$store.dispatch('modals/open', {
-            name: 'default',
-            msg: 'Credential successfully verified',
-          });
+        if(!qrJson) throw new Error('Empty QR code json');
+        console.log(qrJson)
+        let qrData;
+        try{
+          qrData = JSON.parse(qrJson)
+        }catch(e){
+          throw new Error('Could not parse QR json');
+        }
+
+        if(qrData == {}) throw new Error('Parsed QR data is empty');
+
+        const { serviceEndpoint, appDid, appName, schemaId } = qrData;
+
+        if(!schemaId) throw new Error('Invalid credential request');
+
+        const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
+        const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
+
+        if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
+
+        const credentialName = this.verifiableCredential.type[1];
+
+        // TODO: 
+        const confirmed = await this.$store.dispatch('modals/open', {
+          name: 'confirm',
+          title: 'Credential request',
+          msg: `Application: '${appName}' is requesting credential: '${credentialName}'. Do you want to allow?`,
+        })
+        .catch(() => false);
+
+        if(confirmed){
+            const url = Url(serviceEndpoint, true);
+            const challenge = url.query.challenge;
+            this.loading= true;
+            const verifyUrl = url.origin + url.pathname;
+            const vp_unsigned = await hypersignSDK.credential.generatePresentation(
+              this.verifiableCredential,
+              this.hypersign.did,
+            );
+            console.log('Unsigned vp created..');
+            const vp_signed = await hypersignSDK.credential.signPresentation(
+              vp_unsigned,
+              this.hypersign.did,
+              this.hypersign.keys.privateKeyBase58,
+              challenge,
+            );
+            console.log('Signed vp created..');
+            const body = {
+              challenge,
+              vp: JSON.stringify(vp_signed),
+            };
+            let response = await axios.post(verifyUrl, body);
+            response = response.data;
+            if (!response) throw new Error('Could not verify the presentation');
+            if (response && response.status != 200) throw new Error(response.error);
+            if (response.message)
+              this.$store.dispatch('modals/open', {
+                name: 'default',
+                msg: 'Credential successfully verified',
+              });
+        }
         this.loading=false;
       } catch (e) {
         this.loading=false;
