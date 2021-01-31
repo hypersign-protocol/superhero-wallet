@@ -6,11 +6,11 @@
           <span>{{ verifiableCredential.type[1] }}</span>
         </div>
         <div class="cred-card-body">
-          <span class="cred-card-body-detail">{{ verifiableCredential.issuer }}</span
+          <span class="cred-card-body-detail">Issuer: {{ verifiableCredential.issuer }}</span
           ><br />
           <span class="cred-card-body-detail">Issued: {{ verifiableCredential.issuanceDate }}</span
           ><br />
-          <span class="cred-card-body-detail">Expires: {{ verifiableCredential.issuanceDate }}</span
+          <span class="cred-card-body-detail">Expires: {{ verifiableCredential.expirationDate }}</span
           ><br />
         </div>
       </div>
