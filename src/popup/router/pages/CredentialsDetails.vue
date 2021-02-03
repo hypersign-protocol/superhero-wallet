@@ -6,11 +6,14 @@
           <span>{{ verifiableCredential.type[1] }}</span>
         </div>
         <div class="cred-card-body">
-          <span class="cred-card-body-detail">Issuer: {{ verifiableCredential.issuer }}</span
+          <!-- <span class="cred-card-body-detail">Issuer Did:</span><br /> -->
+          <span class="cred-card-body-detail">Issuer: {{ verifiableCredential.formattedIssuer }}</span
           ><br />
-          <span class="cred-card-body-detail">Issued: {{ verifiableCredential.issuanceDate }}</span
+          <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
+          <span class="cred-card-body-detail">Issuance Date: {{ verifiableCredential.issuanceDate }}</span
           ><br />
-          <span class="cred-card-body-detail">Expires: {{ verifiableCredential.expirationDate }}</span
+          
+          <span class="cred-card-body-detail">Expiration Date: {{ verifiableCredential.expirationDate }}</span
           ><br />
         </div>
       </div>
@@ -22,8 +25,8 @@
       </ul>
       <Loader v-if="loading" />
       <div class="">
-        <Button @click="scan" class="scan scanner scan-text"  data-cy="scan-button">
-          {{ $t('pages.credential.scan') }}
+        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
+          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
         </Button>
       </div>
     </div>
@@ -59,7 +62,7 @@ export default {
   computed: {
     ...mapGetters(['hypersign']),
   },
-  methods: {
+  methods: {    
     async scan() {
       try {
         let qrJson = await this.$store.dispatch('modals/open', {
@@ -149,10 +152,11 @@ export default {
 }
 .scan-text{
   margin-left: 20px;
-  float: right;
+  margin-bottom: 2px;
+  // float: right;
 }
 .scanner {
-  position: fixed;
+  // position: fixed;
   bottom: 0;
   margin-top: 3%;
   width: 59%;

@@ -6,7 +6,7 @@
           v-for="credential in hypersign.credentials"
           :key="credential.id"
           :to="`/credential/${credential.id}`"
-          :title="credential.type[1]"
+          :title="credential.formattedSchemaName ? credential.formattedSchemaName: credential.type[1]"
           :info="credential.issuanceDate"
         />
       </Panel>
@@ -16,8 +16,8 @@
         <!-- <button class="scan" data-cy="scan-button" @click="scan">
           <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
         </button> -->
-        <Button @click="scan" class="scan scanner scan-text"  data-cy="scan-button">
-          {{ $t('pages.credential.scan') }}
+        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
+          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
         </Button>
       </div>
     </div>
@@ -56,12 +56,28 @@ export default {
     },
   },
   created() {
-
     //Only for deeplinking
     if(this.$route.query.url && this.$route.query.url !='')
       this.deeplink(this.$route.query.url)
   },
+
   methods: {
+    toStringShorner(str, maxlen, flen){
+      if(str){
+        const strLen = str.length;
+        if(strLen > maxlen){
+          const fstr = str.substr(0,flen);
+          const dots = '...';
+          const trimLen = strLen - maxlen;
+          const lstr = str.substr(flen + dots.length + trimLen,strLen);
+          return fstr+dots+lstr;
+        }
+      }
+    },
+    toFormattedDate(dateStr){
+      const d =  new Date(dateStr);
+      return d.toDateString();
+    },
     async scan() {
       try {
         console.log('scanning...')
@@ -112,6 +128,10 @@ export default {
                   })
                   .catch(() => false);
         if(confirmed){
+          credential.expirationDate = this.toFormattedDate(credential.expirationDate) ;
+          credential.issuanceDate = this.toFormattedDate(credential.issuanceDate) ;
+          credential.formattedIssuer =  this.toStringShorner(credential.issuer, 32, 15);
+          credential.formattedSchemaName =  this.toStringShorner(credential.type[1], 26, 15);
           this.$store.commit('addHSVerifiableCredential', credential);
         }
     }
@@ -143,11 +163,12 @@ max-height: 700px;
 }
 .scan-text{
   margin-left: 20px;
-  float: right;
+  margin-bottom: 2px;
+  // float: right;
 }
 
 .scanner {
-  position: fixed;
+  // position: fixed;
   bottom: 0;
   margin-top: 3%;
   width: 59%;
