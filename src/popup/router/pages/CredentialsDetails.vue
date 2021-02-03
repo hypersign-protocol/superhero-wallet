@@ -92,8 +92,10 @@ export default {
         // TODO: 
         const confirmed = await this.$store.dispatch('modals/open', {
           name: 'confirm',
-          title: 'Credential request',
-          msg: `Application: '${appName}' is requesting credential: '${credentialName}'. Do you want to allow?`,
+          title: 'Credential Request',
+          msg: `Application: '${appName}' \
+          is requesting credential: '${credentialName}'. \
+          Do you want to allow?`,
         })
         .catch(() => false);
 
