@@ -34,7 +34,6 @@ import Textarea from '../components/Textarea';
 import Button from '../components/Button';
 
 import axios from 'axios';
-import { contractCallStatic } from '../../../lib/background-utils';
 
 export default {
   mixins: [removeAccountMixin],
@@ -65,44 +64,56 @@ export default {
   methods: {
     async scan() {
       try {
+        console.log('scanning...')
         this.form.url = await this.$store.dispatch('modals/open', {
           name: 'read-qr-code',
           title: this.$t('pages.credential.scanCredential'),
         });
-        
-        console.log(this.hypersign.did)
-        this.form.url = this.form.url + '&did=' + this.hypersign.did;
-        console.log(this.form.url)
-
-        this.loading = true;
-        let response = await axios.get(this.form.url);
-        response = response.data;
-        if (!response) throw new Error('Could not register for hsauth credential');
-        if (response && response.status != 200) throw new Error(response.error);
-        if (response.message) this.$store.commit('addHSVerifiableCredential', response.message);
-        this.loading = false;
+        await this.fetchCredential();
       } catch (e) {
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     },
-    async deeplink(url) {
-      try {
-        console.log(this.hypersign.did)
-        this.form.url = url + '&did=' + this.hypersign.did;
-        console.log(this.form.url)
 
+    async fetchCredential(){
+      console.log('fetchCredential...')
+        this.form.url = this.form.url + '&did=' + this.hypersign.did;
         this.loading = true;
         let response = await axios.get(this.form.url);
         response = response.data;
-        if (!response) throw new Error('Could not register for hsauth credential');
+        if (!response) throw new Error('Can not accept credential');
         if (response && response.status != 200) throw new Error(response.error);
-        if (response.message) this.$store.commit('addHSVerifiableCredential', response.message);
-        this.loading = false;
+        if (!response.message) throw new Error('Can not accept credential');
+        await this.acceptCredential(response.message)
+        this.loading =false;
+    },
+
+    async deeplink(url) {
+      try {
+        console.log('deeplink...')
+        this.form.url = url; 
+        await this.fetchCredential();
       } catch (e) {
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
+    },
+
+    async acceptCredential(credential){
+      console.log('acceptCredential...')
+          if(this.hypersign.did != credential.credentialSubject.id) throw new Error('This credential is not being issued to you');
+          const confirmed = await this.$store.dispatch('modals/open', {
+                    name: 'confirm',
+                    title: 'Credential Acceptance',
+                    msg: `You are receiving credential: '${credential.type[1]}' \
+                    from an issuer: '${credential.issuer}'. \
+                    Do you want to accept?`,
+                  })
+                  .catch(() => false);
+        if(confirmed){
+          this.$store.commit('addHSVerifiableCredential', credential);
+        }
     }
 
   },
