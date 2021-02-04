@@ -3,17 +3,17 @@
     <div class="">
       <div class="cred-card">
         <div class="cred-card-header">
-          <span>{{ verifiableCredential.type[1] }}</span>
+          <span>{{ credDetials.formattedSchemaName }}</span>
         </div>
         <div class="cred-card-body">
           <!-- <span class="cred-card-body-detail">Issuer Did:</span><br /> -->
-          <span class="cred-card-body-detail">Issuer: {{ verifiableCredential.formattedIssuer }}</span
+          <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
           ><br />
           <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issuance Date: {{ verifiableCredential.issuanceDate }}</span
+          <span class="cred-card-body-detail">Issuance Date: {{ credDetials.formattedIssuanceDate }}</span
           ><br />
           
-          <span class="cred-card-body-detail">Expiration Date: {{ verifiableCredential.expirationDate }}</span
+          <span class="cred-card-body-detail">Expiration Date: {{ credDetials.formattedExpirationDate }}</span
           ><br />
         </div>
       </div>
@@ -24,11 +24,11 @@
         </li>
       </ul>
       <Loader v-if="loading" />
-      <div class="">
+      <!-- <div class="">
         <Button @click="scan" class="scan scanner"  data-cy="scan-button">
           <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
         </Button>
-      </div>
+      </div> -->
     </div>
     <!-- <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
@@ -43,19 +43,30 @@ import QrIcon from '../../../icons/qr-code.svg?vue-component';
 import Url from 'url-parse';
 import axios from 'axios';
 import { hypersignSDK } from '../../utils/hypersign';
+import {toFormattedDate, toStringShorner} from '../../utils/helper'
 export default {
   components: { QrIcon },
   data() {
     return {
       verifiableCredential: {},
       claims: [],
-      loading: false
+      loading: false,
+      credDetials: {
+        formattedIssuer: "",
+        formattedExpirationDate: "",
+        formattedIssuanceDate: "",
+        formattedSchemaName: ""
+      }
     };
   },
   created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
-      this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
+          this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
+          this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
+          this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
+          this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
+          this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
       this.claims = Object.keys(this.verifiableCredential.credentialSubject);
     }
   },

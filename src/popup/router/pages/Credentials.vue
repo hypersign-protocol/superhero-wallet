@@ -6,20 +6,17 @@
           v-for="credential in hypersign.credentials"
           :key="credential.id"
           :to="`/credential/${credential.id}`"
-          :title="credential.formattedSchemaName ? credential.formattedSchemaName: credential.type[1]"
+          :title="credential.type[1]"
           :info="credential.issuanceDate"
         />
       </Panel>
       <Loader v-if="loading" />
 
-      <div class="">
-        <!-- <button class="scan" data-cy="scan-button" @click="scan">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </button> -->
+      <!-- <div class="">
         <Button @click="scan" class="scan scanner"  data-cy="scan-button">
           <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
         </Button>
-      </div>
+      </div> -->
     </div>
 </template>
 
@@ -32,8 +29,8 @@ import Panel from '../components/Panel';
 import PanelItem from '../components/PanelItem';
 import Textarea from '../components/Textarea';
 import Button from '../components/Button';
-
 import axios from 'axios';
+import {toFormattedDate, toStringShorner} from '../../utils/helper'
 
 export default {
   mixins: [removeAccountMixin],
@@ -44,7 +41,11 @@ export default {
         url: '',
         amount: '',
       },
-      loading: false
+      loading: false,
+      credentialDetail: {
+        formattedSchemaName: "",
+        formattedIssuanceDate: "",
+      }
     };
   },
   props: ['address'],
@@ -61,23 +62,7 @@ export default {
       this.deeplink(this.$route.query.url)
   },
 
-  methods: {
-    toStringShorner(str, maxlen, flen){
-      if(str){
-        const strLen = str.length;
-        if(strLen > maxlen){
-          const fstr = str.substr(0,flen);
-          const dots = '...';
-          const trimLen = strLen - maxlen;
-          const lstr = str.substr(flen + dots.length + trimLen,strLen);
-          return fstr+dots+lstr;
-        }
-      }
-    },
-    toFormattedDate(dateStr){
-      const d =  new Date(dateStr);
-      return d.toDateString();
-    },
+  methods: {    
     async scan() {
       try {
         console.log('scanning...')
@@ -128,10 +113,10 @@ export default {
                   })
                   .catch(() => false);
         if(confirmed){
-          credential.expirationDate = this.toFormattedDate(credential.expirationDate) ;
-          credential.issuanceDate = this.toFormattedDate(credential.issuanceDate) ;
-          credential.formattedIssuer =  this.toStringShorner(credential.issuer, 32, 15);
-          credential.formattedSchemaName =  this.toStringShorner(credential.type[1], 26, 15);
+          credential.expirationDate = toFormattedDate(credential.expirationDate) ;
+          credential.issuanceDate = toFormattedDate(credential.issuanceDate) ;
+          credential.formattedIssuer =  toStringShorner(credential.issuer, 32, 15);
+          credential.formattedSchemaName =  toStringShorner(credential.type[1], 26, 15);
           this.$store.commit('addHSVerifiableCredential', credential);
         }
     }

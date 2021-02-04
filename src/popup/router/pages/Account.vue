@@ -1,6 +1,7 @@
 <template>
   <div class="height-100 primary-bg ">
     <div class="popup popup-no-padding">
+      <Loader v-if="loading" />
       <div v-if="!backedUpSeed && !tourRunning" class="noti" data-cy="seed-notif">
         <!-- <span>
           {{ $t('pages.account.youNeedTo') }}
@@ -58,6 +59,12 @@
         </BoxButton>
       </div>
       <!-- <RecentTransactions /> -->
+      <div style="justify-content: center;display: flex;">
+        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
+          <span style="margin-top: 4%;"><QrIcon width="20" height="20" /></span>
+          <span class="scan-text">{{ $t('pages.credential.scan') }}</span>
+        </Button>
+      </div>
     </div>
   </div>
 </template>
@@ -74,15 +81,19 @@ import Settings from '../../../icons/settings-icon.svg?vue-component';
 
 import Profile from '../../../icons/profile.svg?vue-component';
 import Credential from '../../../icons/credential.svg?vue-component';
-
+import QrIcon from '../../../icons/qr-code.svg?vue-component';
 // import RecentTransactions from '../components/RecentTransactions';
 // import BalanceInfo from '../components/BalanceInfo';
 import AccountInfo from '../components/AccountInfo';
 import BoxButton from '../components/BoxButton';
+import Url from 'url-parse';
+import axios from 'axios';
+import { hypersignSDK } from '../../utils/hypersign';
 
 export default {
   name: 'Account',
   components: {
+    QrIcon,
     // Tip,
     // Claim,
     // Activity,
@@ -97,10 +108,180 @@ export default {
     Credential,
     Profile
   },
+   data() {
+    return {
+      form: {
+        url: '',
+        amount: '',
+      },
+      credentialUrl: '',
+      loading: false,
+      verifiableCredential: {},
+    };
+  },
   computed: {
     ...mapState(['tourRunning', 'backedUpSeed']),
-    // ...mapGetters(['allowTipping',]),
+    ...mapGetters(['hypersign']),
   },
+  methods: {
+    async scan() {
+      // try {
+        //console.log('scanning...')
+        const QRData = await this.$store.dispatch('modals/open', {
+          name: 'read-qr-code',
+          title: this.$t('pages.credential.scan'),
+        });
+        //console.log('scan method....')
+        //console.log(QRData)
+        let data;
+        try{
+          //console.log('Inside try....')
+          data = JSON.parse(QRData);
+          this.credentialDetailsQRdata(data);
+        }catch(e){
+          //console.log('Inside catch....')
+          //console.log('Not a json, which means this is for credential detail')
+          //console.log(e);
+          data = QRData;
+          this.credentialsQRData(data);
+        }
+        // if(typeof QRData == )
+        
+      // } catch (e) {
+      //   this.loading = false;
+      //   if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      // }
+    },
+
+    async fetchCredential(){
+      //console.log('fetchCredential...')
+        this.credentialUrl = this.credentialUrl + '&did=' + this.hypersign.did;
+        //console.log(this.credentialUrl)
+        this.loading = true;
+        let response = await axios.get(this.credentialUrl);
+        response = response.data;
+        if (!response) throw new Error('Can not accept credential');
+        if (response && response.status != 200) throw new Error(response.error);
+        if (!response.message) throw new Error('Can not accept credential');
+        await this.acceptCredential(response.message)
+        this.loading =false;
+    },
+
+    async acceptCredential(credential){
+      //console.log('acceptCredential...')
+          if(this.hypersign.did != credential.credentialSubject.id) throw new Error('This credential is not being issued to you');
+          const confirmed = await this.$store.dispatch('modals/open', {
+                    name: 'confirm',
+                    title: 'Credential Acceptance',
+                    msg: `You are receiving credential: '${credential.type[1]}' \
+                    from an issuer: '${credential.issuer}'. \
+                    Do you want to accept?`,
+                  })
+                  .catch(() => false);
+        if(confirmed){
+          this.$store.commit('addHSVerifiableCredential', credential);
+        }
+    },
+
+    async credentialsQRData(data){
+      try {
+        //console.log('credentialsQRData method....')
+        //console.log(data);
+        this.credentialUrl = data;
+        await this.fetchCredential();
+        this.$router.push('credential');
+      } catch (e) {
+        this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    },
+
+    async credentialDetailsQRdata(qrData){
+      try{
+//console.log(qrData)
+        
+        //console.log('credentialDetailsQRdata method....')
+        if(qrData == {}) throw new Error('Parsed QR data is empty');
+
+          const { serviceEndpoint, appDid, appName, schemaId } = qrData;
+
+          if(!schemaId) throw new Error('Invalid schemaId');
+
+          this.verifiableCredential = this.hypersign.credentials.find(x => {
+            const credentialSchemaUrl = x['@context'][1].hsscheme;
+            const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
+            if(x.issuer === appDid && credentialSchemaId === schemaId) return x
+          });
+
+          if(!this.verifiableCredential) throw new Error('Credential not found');
+
+          const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
+          const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
+
+          if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
+
+          const credentialName = this.verifiableCredential.type[1];
+
+          // TODO: 
+          const confirmed = await this.$store.dispatch('modals/open', {
+            name: 'confirm',
+            title: 'Credential Request',
+            msg: `Application: '${appName}' \
+            is requesting credential: '${credentialName}'. \
+            Do you want to allow?`,
+          })
+          .catch(() => false);
+
+          if(confirmed){
+              const url = Url(serviceEndpoint, true);
+              const challenge = url.query.challenge;
+              this.loading= true;
+              const verifyUrl = url.origin + url.pathname;
+              const vp_unsigned = await hypersignSDK.credential.generatePresentation(
+                this.verifiableCredential,
+                this.hypersign.did,
+              );
+              //console.log('Unsigned vp created..');
+              const vp_signed = await hypersignSDK.credential.signPresentation(
+                vp_unsigned,
+                this.hypersign.did,
+                this.hypersign.keys.privateKeyBase58,
+                challenge,
+              );
+              //console.log('Signed vp created..');
+              const body = {
+                challenge,
+                vp: JSON.stringify(vp_signed),
+              };
+              let response = await axios.post(verifyUrl, body);
+              response = response.data;
+              if (!response) throw new Error('Could not verify the presentation');
+              if (response && response.status != 200) throw new Error(response.error);
+              if (response.message)
+                this.$store.dispatch('modals/open', {
+                  name: 'default',
+                  msg: 'Credential successfully verified',
+              });
+              this.loading = false;
+          }
+
+        }catch (e) {
+        this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    },
+
+    // async deeplink(url) {
+    //   try {
+    //     //console.log('deeplink...')
+    //     this.form.url = url; 
+    //     await this.fetchCredential();
+    //   } catch (e) {
+    //     this.loading = false;
+    //     if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+    //   }
+    // },
+  }
 };
 </script>
 
@@ -147,5 +328,20 @@ export default {
   margin-top: 20px;
   margin-bottom: 0;
   line-height: 14px;
+}
+
+.scan-text{
+  margin-left: 10px;
+  margin-bottom: 2px;
+  // float: right;
+}
+
+.scanner {
+  position: fixed;
+  bottom: 0;
+  
+  width: 50%;
+  border-radius: 49px;
+  
 }
 </style>
