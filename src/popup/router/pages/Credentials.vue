@@ -138,14 +138,6 @@ export default {
   padding: 5px;
 }
 
-.credential-list {
-    min-height: 700px;
-overflow-y: auto;
-border-radius: 5px;
-overflow-x: hidden;
-max-height: 700px;
-    
-}
 .scan-text{
   margin-left: 20px;
   margin-bottom: 2px;

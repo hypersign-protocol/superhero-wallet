@@ -17,7 +17,7 @@
           ><br />
         </div>
       </div>
-      <ul class="list-group credential-list">
+      <ul class="list-group credential-item">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
           <div class="list-title">{{ claim }}: </div>
           <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
@@ -116,14 +116,6 @@ export default {
   bottom:15px;
   width: 50%;
   border-radius: 49px;
-}
-.credential-list {
-    min-height: 700px;
-overflow-y: auto;
-border-radius: 5px;
-overflow-x: hidden;
-max-height: 700px;
-    
 }
 .cred-card {
   background: #21222a !important;
