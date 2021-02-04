@@ -100,6 +100,22 @@ export default {
         ////HS_TODO
         state.hypersign.credentials.push(payload)
     },
+    addRequestingAppName(state, payload) {
+        ////HS_TODO
+        state.hypersign.requestingAppName= payload 
+    },
+    clearRequestingAppName(state, payload) {
+        ////HS_TODO
+        state.hypersign.requestingAppName= '' 
+    },
+    addHSVerifiableCredentialTemp(state, payload) {
+        ////HS_TODO
+        state.hypersign.credentialsTemp.push(payload)
+    },
+    clearHSVerifiableCredentialTemp(state, payload) {
+        ////HS_TODO
+        state.hypersign.credentialsTemp= []
+    },
     addHSProfile(state, payload) {
         state.hypersign.profile = payload
     },

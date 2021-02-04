@@ -114,6 +114,15 @@
     }
   },
   "pages": {
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scanToPresent": "Scan to present this credential",
+      "scan": "Scan QR",
+      "accept": "Accept",
+      "reject": "Reject",
+      "authorize": "Authorize",
+      "decline": "Decline"
+    },
     "intro": {
       "heading": "Intro",
       "skip": "Skip",
@@ -155,7 +164,10 @@
       "home": "Home",
       "donate-error": "Donate Data",
       "address": "Send Address",
-      "sign-message": "Sign Message"
+      "sign-message": "Sign Message",
+      "credentialDetails": "Credential Details",
+      "credentialDetailsTemp": "Credential Offer",
+      "credentialDetailsAuthorize": "Proof Details"
     },
     "appVUE": {
       "systemName": "Superhero",

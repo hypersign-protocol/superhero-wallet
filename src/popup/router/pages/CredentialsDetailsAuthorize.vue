@@ -1,21 +1,8 @@
 <template>
   <div class="popup">
     <div class="">
-      <div class="cred-card">
-        <div class="cred-card-header">
-          <span>{{ credDetials.formattedSchemaName }}</span>
-        </div>
-        <div class="cred-card-body">
-          <!-- <span class="cred-card-body-detail">Issuer Did:</span><br /> -->
-          <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
-          ><br />
-          <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issuance Date: {{ credDetials.formattedIssuanceDate }}</span
-          ><br />
-          
-          <span class="cred-card-body-detail">Expiration Date: {{ credDetials.formattedExpirationDate }}</span
-          ><br />
-        </div>
+      <div class="AppInfo">
+        This organisation (<span>{{hypersign.requestingAppName}}</span>) is requestion following information. 
       </div>
       <ul class="list-group credential-list">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
@@ -76,44 +63,25 @@ export default {
   methods: {    
     async scan() {
       try {
-        let qrJson = await this.$store.dispatch('modals/open', {
-          name: 'read-qr-code',
-          title: this.$t('pages.credential.scanToPresent'),
-        });
-
-        if(!qrJson) throw new Error('Empty QR code json');
-        console.log(qrJson)
-        let qrData;
-        try{
-          qrData = JSON.parse(qrJson)
-        }catch(e){
-          throw new Error('Could not parse QR json');
-        }
-
-        if(qrData == {}) throw new Error('Parsed QR data is empty');
-
-        const { serviceEndpoint, appDid, appName, schemaId } = qrData;
-
-        if(!schemaId) throw new Error('Invalid credential request');
 
         const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
         const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
 
         if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
 
-        const credentialName = this.verifiableCredential.type[1];
+        // const credentialName = this.verifiableCredential.type[1];
 
-        // TODO: 
-        const confirmed = await this.$store.dispatch('modals/open', {
-          name: 'confirm',
-          title: 'Credential Request',
-          msg: `Application: '${appName}' \
-          is requesting credential: '${credentialName}'. \
-          Do you want to allow?`,
-        })
-        .catch(() => false);
+        // // TODO: 
+        // const confirmed = await this.$store.dispatch('modals/open', {
+        //   name: 'confirm',
+        //   title: 'Credential Request',
+        //   msg: `Application: '${appName}' \
+        //   is requesting credential: '${credentialName}'. \
+        //   Do you want to allow?`,
+        // })
+        // .catch(() => false);
 
-        if(confirmed){
+        // if(confirmed){
             const url = Url(serviceEndpoint, true);
             const challenge = url.query.challenge;
             this.loading= true;
@@ -143,7 +111,7 @@ export default {
                 name: 'default',
                 msg: 'Credential successfully verified',
               });
-        }
+        // }
         this.loading=false;
       } catch (e) {
         this.loading=false;

@@ -155,7 +155,10 @@
       "home": "Home",
       "donate-error": "Donate Data",
       "address": "Send Address",
-      "sign-message": "Sign Message"
+      "sign-message": "Sign Message",
+      "credentialDetails": "Credential Details",
+      "credentialDetailsTemp": "Credential Offer",
+      "credentialDetailsAuthorize": "Proof Details"
     },
     "appVUE": {
       "systemName": "Superhero",
@@ -247,6 +250,15 @@
       "incorrectPasswordError": "Mot de passe incorrect !",
       "passwordDoesntMatchError": "Le mot de passe ne correspond pas!",
       "securingAccount": "Sécuriser votre compte"
+    },
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scanToPresent": "Scan to present this credential",
+      "scan": "Scan QR",
+      "accept": "Accept",
+      "reject": "Reject",
+      "authorize": "Authorize",
+      "decline": "Decline"
     },
     "recentTransactions": {
       "recentActivity": "Recent Activity",

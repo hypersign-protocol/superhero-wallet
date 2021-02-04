@@ -155,7 +155,10 @@
       "home": "Home",
       "donate-error": "Donate Data",
       "address": "Send Address",
-      "sign-message": "Sign Message"
+      "sign-message": "Sign Message",
+      "credentialDetails": "Credential Details",
+      "credentialDetailsTemp": "Credential Offer",
+      "credentialDetailsAuthorize": "Proof Details"
     },
     "appVUE": {
       "systemName": "Superhero",
@@ -217,6 +220,15 @@
       "updateExtension": "New version available! Please update your extension.",
       "updateAvailable": "New version in the store is available!",
       "claim-name": "Register a name"
+    },
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scanToPresent": "Scan to present this credential",
+      "scan": "Scan QR",
+      "accept": "Accept",
+      "reject": "Reject",
+      "authorize": "Authorize",
+      "decline": "Decline"
     },
     "claim": {
       "claim": "Claim tips",

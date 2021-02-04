@@ -360,7 +360,10 @@ button {
   cursor: pointer;
   transition: all 0.2s;
 }
-
+.credential-list {
+  overflow-y: scroll;
+  max-height: 300px;
+}
 .popup {
   padding: 4px 20px;
   text-align: center;

@@ -51,6 +51,8 @@ import webIframePopups from './web-iframe-popups';
 import Credentials from '../pages/Credentials';
 import Profile from '../pages/Profile';
 import CredentialsDetails from '../pages/CredentialsDetails';
+import CredentialsDetailsTemp from '../pages/CredentialsDetailsTemp';
+import CredentialsDetailsAuthorize from '../pages/CredentialsDetailsAuthorize';
 
 
 export default [{
@@ -448,6 +450,24 @@ export default [{
         props: true,
         meta: {
             title: 'credentialDetails',
+        }
+    },
+    {
+        name: 'CredentialsDetailsTemp',
+        path: '/credential/temp/:credentialId',
+        component: CredentialsDetailsTemp,
+        props: true,
+        meta: {
+            title: 'credentialDetailsTemp',
+        }
+    },
+    {
+        name: 'CredentialsDetailsAuthorize',
+        path: '/credential/authorize/:credentialId',
+        component: CredentialsDetailsAuthorize,
+        props: true,
+        meta: {
+            title: 'credentialDetailsAuthorize',
         }
     },
     ...webIframePopups,

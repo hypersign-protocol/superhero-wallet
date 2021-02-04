@@ -24,28 +24,33 @@
         </li>
       </ul>
       <Loader v-if="loading" />
-      <!-- <div class="">
-        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
-      </div> -->
+      
     </div>
-    <!-- <div class="scanner d-flex">
-      <div class="scan" data-cy="scan-button" @click="scan">
-        <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-      </div>
-    </div> -->
+    <div class="scanner d-flex">
+      <Button class="scan"  data-cy="scan-button" @click="acceptCredential">
+        <VerifiedIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.accept') }}</span>
+      </Button>
+    </div>
+    <div class="scanner d-flex">
+      <Button class="scan"  data-cy="scan-button" @click="rejectCredential">
+        <CloseIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.reject') }}</span>
+      </Button>
+    </div>
+   
+    
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
+import VerifiedIcon from '../../../icons/badges/verified.svg?vue-component';
+import CloseIcon from '../../../icons/badges/not-verified.svg?vue-component';
 import Url from 'url-parse';
 import axios from 'axios';
 import { hypersignSDK } from '../../utils/hypersign';
 import {toFormattedDate, toStringShorner} from '../../utils/helper'
 export default {
-  components: { QrIcon },
+  components: { QrIcon,CloseIcon,VerifiedIcon },
   data() {
     return {
       verifiableCredential: {},
@@ -62,11 +67,11 @@ export default {
   created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
-          this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
-          this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
-          this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
-          this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
-          this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
+      this.verifiableCredential = this.hypersign.credentialsTemp.find(x => x.id == credentialId);
+      this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
+      this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
+      this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
+      this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
       this.claims = Object.keys(this.verifiableCredential.credentialSubject);
     }
   },
@@ -74,82 +79,16 @@ export default {
     ...mapGetters(['hypersign']),
   },
   methods: {    
-    async scan() {
-      try {
-        let qrJson = await this.$store.dispatch('modals/open', {
-          name: 'read-qr-code',
-          title: this.$t('pages.credential.scanToPresent'),
-        });
-
-        if(!qrJson) throw new Error('Empty QR code json');
-        console.log(qrJson)
-        let qrData;
-        try{
-          qrData = JSON.parse(qrJson)
-        }catch(e){
-          throw new Error('Could not parse QR json');
-        }
-
-        if(qrData == {}) throw new Error('Parsed QR data is empty');
-
-        const { serviceEndpoint, appDid, appName, schemaId } = qrData;
-
-        if(!schemaId) throw new Error('Invalid credential request');
-
-        const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
-        const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
-
-        if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
-
-        const credentialName = this.verifiableCredential.type[1];
-
-        // TODO: 
-        const confirmed = await this.$store.dispatch('modals/open', {
-          name: 'confirm',
-          title: 'Credential Request',
-          msg: `Application: '${appName}' \
-          is requesting credential: '${credentialName}'. \
-          Do you want to allow?`,
-        })
-        .catch(() => false);
-
-        if(confirmed){
-            const url = Url(serviceEndpoint, true);
-            const challenge = url.query.challenge;
-            this.loading= true;
-            const verifyUrl = url.origin + url.pathname;
-            const vp_unsigned = await hypersignSDK.credential.generatePresentation(
-              this.verifiableCredential,
-              this.hypersign.did,
-            );
-            console.log('Unsigned vp created..');
-            const vp_signed = await hypersignSDK.credential.signPresentation(
-              vp_unsigned,
-              this.hypersign.did,
-              this.hypersign.keys.privateKeyBase58,
-              challenge,
-            );
-            console.log('Signed vp created..');
-            const body = {
-              challenge,
-              vp: JSON.stringify(vp_signed),
-            };
-            let response = await axios.post(verifyUrl, body);
-            response = response.data;
-            if (!response) throw new Error('Could not verify the presentation');
-            if (response && response.status != 200) throw new Error(response.error);
-            if (response.message)
-              this.$store.dispatch('modals/open', {
-                name: 'default',
-                msg: 'Credential successfully verified',
-              });
-        }
-        this.loading=false;
-      } catch (e) {
-        this.loading=false;
-        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
-      }
+    async acceptCredential(){
+      let cred = this.verifiableCredential
+      this.$store.commit('addHSVerifiableCredential', cred);
+      this.$store.commit('clearHSVerifiableCredentialTemp', []);
+      this.$router.push(`/account`);
     },
+    async rejectCredential(){
+      this.$store.commit('clearHSVerifiableCredentialTemp', []);
+      this.$router.push(`/account`);
+    }
   },
 };
 </script>
@@ -161,18 +100,22 @@ export default {
   margin-top: 27%;
   padding-bottom: 5%;
 }
+.scan-icon {
+  margin:10px;
+}
 .scan-text{
   margin-left: 20px;
   margin-bottom: 2px;
   // float: right;
 }
-.scanner {
-  // position: fixed;
-  bottom: 0;
-  margin-top: 3%;
-  width: 59%;
+.scan { 
   border-radius: 49px;
-  margin-left: 13%;
+  text-align: center;
+}
+.scanner {
+  bottom:15px;
+  width: 50%;
+  border-radius: 49px;
 }
 .credential-list {
     min-height: 700px;

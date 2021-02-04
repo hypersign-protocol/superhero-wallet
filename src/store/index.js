@@ -60,6 +60,8 @@ const initialState = {
         did: "",
         keys: {},
         credentials: [],
+        credentialsTemp: [],
+        requestingAppName: '',
         profile: {}
     },
 };

@@ -236,7 +236,10 @@
       "mint-burn-token": "铸造/销毁代币",
       "allowances": "津贴",
       "sign-message": "签名信息",
-      "invite": "邀请"
+      "invite": "邀请",
+      "credentialDetails": "Credential Details",
+      "credentialDetailsTemp": "Credential Offer",
+      "credentialDetailsAuthorize": "Proof Details"
     },
     "appVUE": {
       "systemName": "超级英雄",
@@ -319,6 +322,15 @@
     },
     "claimTips": {
       "urlToClaim": "为这个URL领取小费:"
+    },
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scanToPresent": "Scan to present this credential",
+      "scan": "Scan QR",
+      "accept": "Accept",
+      "reject": "Reject",
+      "authorize": "Authorize",
+      "decline": "Decline"
     },
     "notFound": {
       "notFound": "找不到请求的页面",

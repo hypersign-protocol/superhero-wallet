@@ -224,7 +224,9 @@
             "invite": "Invite",
             "profile": "Profile",
             "credential": "Credentials",
-            "credentialDetails": "Credential Details"
+            "credentialDetails": "Credential Details",
+            "credentialDetailsTemp": "Credential Offer",
+            "credentialDetailsAuthorize": "Proof Details"
         },
         "appVUE": {
             "systemName": "Hypersign",
@@ -639,7 +641,11 @@
         "credential": {
             "scanCredential": "Scan verifiable credential",
             "scanToPresent": "Scan to present this credential",
-            "scan": "Scan QR"
+            "scan": "Scan QR",
+            "accept": "Accept",
+            "reject": "Reject",
+            "authorize": "Authorize",
+            "decline": "Decline"
         },
         "send": {
             "backToAccount": "Back to account",

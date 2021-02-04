@@ -163,8 +163,8 @@ export default {
         if (!response) throw new Error('Can not accept credential');
         if (response && response.status != 200) throw new Error(response.error);
         if (!response.message) throw new Error('Can not accept credential');
-        await this.acceptCredential(response.message)
         this.loading =false;
+        return response.message
     },
 
     async acceptCredential(credential){
@@ -188,8 +188,9 @@ export default {
         //console.log('credentialsQRData method....')
         //console.log(data);
         this.credentialUrl = data;
-        await this.fetchCredential();
-        this.$router.push('credential');
+        let cred = await this.fetchCredential();
+        this.$store.commit('addHSVerifiableCredentialTemp', cred);
+        this.$router.push(`/credential/temp/${cred.id}`);
       } catch (e) {
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
@@ -198,15 +199,15 @@ export default {
 
     async credentialDetailsQRdata(qrData){
       try{
-//console.log(qrData)
+        //console.log(qrData)
         
         //console.log('credentialDetailsQRdata method....')
         if(qrData == {}) throw new Error('Parsed QR data is empty');
 
           const { serviceEndpoint, appDid, appName, schemaId } = qrData;
-
+          
           if(!schemaId) throw new Error('Invalid schemaId');
-
+          this.$store.commit('addRequestingAppName', appName);
           this.verifiableCredential = this.hypersign.credentials.find(x => {
             const credentialSchemaUrl = x['@context'][1].hsscheme;
             const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
@@ -214,56 +215,60 @@ export default {
           });
 
           if(!this.verifiableCredential) throw new Error('Credential not found');
+          this.$router.push(`/credential/authorize/${this.verifiableCredential.id}`);
 
-          const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
-          const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
+          /**
+           * From here it needs to be added in authorize page 
+           */
+          // const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
+          // const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
 
-          if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
+          // if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
 
-          const credentialName = this.verifiableCredential.type[1];
+          // const credentialName = this.verifiableCredential.type[1];
 
-          // TODO: 
-          const confirmed = await this.$store.dispatch('modals/open', {
-            name: 'confirm',
-            title: 'Credential Request',
-            msg: `Application: '${appName}' \
-            is requesting credential: '${credentialName}'. \
-            Do you want to allow?`,
-          })
-          .catch(() => false);
+          // // TODO: 
+          // const confirmed = await this.$store.dispatch('modals/open', {
+          //   name: 'confirm',
+          //   title: 'Credential Request',
+          //   msg: `Application: '${appName}' \
+          //   is requesting credential: '${credentialName}'. \
+          //   Do you want to allow?`,
+          // })
+          // .catch(() => false);
 
-          if(confirmed){
-              const url = Url(serviceEndpoint, true);
-              const challenge = url.query.challenge;
-              this.loading= true;
-              const verifyUrl = url.origin + url.pathname;
-              const vp_unsigned = await hypersignSDK.credential.generatePresentation(
-                this.verifiableCredential,
-                this.hypersign.did,
-              );
-              //console.log('Unsigned vp created..');
-              const vp_signed = await hypersignSDK.credential.signPresentation(
-                vp_unsigned,
-                this.hypersign.did,
-                this.hypersign.keys.privateKeyBase58,
-                challenge,
-              );
-              //console.log('Signed vp created..');
-              const body = {
-                challenge,
-                vp: JSON.stringify(vp_signed),
-              };
-              let response = await axios.post(verifyUrl, body);
-              response = response.data;
-              if (!response) throw new Error('Could not verify the presentation');
-              if (response && response.status != 200) throw new Error(response.error);
-              if (response.message)
-                this.$store.dispatch('modals/open', {
-                  name: 'default',
-                  msg: 'Credential successfully verified',
-              });
-              this.loading = false;
-          }
+          // if(confirmed){
+          //     const url = Url(serviceEndpoint, true);
+          //     const challenge = url.query.challenge;
+          //     this.loading= true;
+          //     const verifyUrl = url.origin + url.pathname;
+          //     const vp_unsigned = await hypersignSDK.credential.generatePresentation(
+          //       this.verifiableCredential,
+          //       this.hypersign.did,
+          //     );
+          //     //console.log('Unsigned vp created..');
+          //     const vp_signed = await hypersignSDK.credential.signPresentation(
+          //       vp_unsigned,
+          //       this.hypersign.did,
+          //       this.hypersign.keys.privateKeyBase58,
+          //       challenge,
+          //     );
+          //     //console.log('Signed vp created..');
+          //     const body = {
+          //       challenge,
+          //       vp: JSON.stringify(vp_signed),
+          //     };
+          //     let response = await axios.post(verifyUrl, body);
+          //     response = response.data;
+          //     if (!response) throw new Error('Could not verify the presentation');
+          //     if (response && response.status != 200) throw new Error(response.error);
+          //     if (response.message)
+          //       this.$store.dispatch('modals/open', {
+          //         name: 'default',
+          //         msg: 'Credential successfully verified',
+          //     });
+          //     this.loading = false;
+          // }
 
         }catch (e) {
         this.loading = false;
@@ -338,8 +343,7 @@ export default {
 
 .scanner {
   position: fixed;
-  bottom: 0;
-  
+  bottom:15px;
   width: 50%;
   border-radius: 49px;
   
