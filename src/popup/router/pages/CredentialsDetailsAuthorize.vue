@@ -1,7 +1,7 @@
 <template>
   <div class="popup">
     <div class="">
-      <div class="AppInfo">
+      <div class="appInfo">
         This organisation <span>{{hypersign.requestingAppName}}</span> is requesting following information. 
       </div>
       <ul class="list-group credential-item">
@@ -11,12 +11,18 @@
         </li>
       </ul>
       <Loader v-if="loading" />
-      <!-- <div class="">
-        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
-      </div> -->
+       
     </div>
+     <div class="scanner d-flex">
+          <Button class="scan"  data-cy="scan-button" @click="scan">
+            <VerifiedIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.authorize') }}</span>
+          </Button>
+        </div>
+        <div class="scanner d-flex">
+          <Button class="scan"  data-cy="scan-button" @click="scan">
+            <CloseIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.decline') }}</span>
+          </Button>
+        </div>
     <!-- <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
         <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
@@ -27,12 +33,15 @@
 <script>
 import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
+import VerifiedIcon from '../../../icons/badges/verified.svg?vue-component';
+import CloseIcon from '../../../icons/badges/not-verified.svg?vue-component';
 import Url from 'url-parse';
 import axios from 'axios';
 import { hypersignSDK } from '../../utils/hypersign';
 import {toFormattedDate, toStringShorner} from '../../utils/helper'
+
 export default {
-  components: { QrIcon },
+  components: { QrIcon,CloseIcon,VerifiedIcon },
   data() {
     return {
       verifiableCredential: {},
@@ -134,13 +143,14 @@ export default {
   margin-bottom: 2px;
   // float: right;
 }
-.scanner {
-  // position: fixed;
-  bottom: 0;
-  margin-top: 3%;
-  width: 59%;
+.scan { 
   border-radius: 49px;
-  margin-left: 13%;
+  text-align: center;
+}
+.scanner {
+  bottom:15px;
+  width: 50%;
+  border-radius: 49px;
 }
 .cred-card {
   background: #21222a !important;
