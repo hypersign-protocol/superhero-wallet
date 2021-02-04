@@ -458,7 +458,7 @@ export default [{
         component: CredentialsDetailsTemp,
         props: true,
         meta: {
-            title: 'credentialDetailsTemp',
+            title: 'credentialDetailsTemp'
         }
     },
     {
@@ -467,7 +467,7 @@ export default [{
         component: CredentialsDetailsAuthorize,
         props: true,
         meta: {
-            title: 'credentialDetailsAuthorize',
+            title: 'credentialDetailsAuthorize'
         }
     },
     ...webIframePopups,

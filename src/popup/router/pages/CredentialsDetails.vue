@@ -174,6 +174,14 @@ export default {
   border-radius: 49px;
   margin-left: 13%;
 }
+.credential-list {
+    min-height: 700px;
+overflow-y: auto;
+border-radius: 5px;
+overflow-x: hidden;
+max-height: 700px;
+    
+}
 .cred-card {
   background: #21222a !important;
   box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);

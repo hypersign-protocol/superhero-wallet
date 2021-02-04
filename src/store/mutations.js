@@ -100,13 +100,13 @@ export default {
         ////HS_TODO
         state.hypersign.credentials.push(payload)
     },
-    addRequestingAppName(state, payload) {
+    addRequestingAppInfo(state, payload) {
         ////HS_TODO
-        state.hypersign.requestingAppName= payload 
+        state.hypersign.requestingAppInfo= payload 
     },
-    clearRequestingAppName(state, payload) {
+    clearRequestingAppInfo(state, payload) {
         ////HS_TODO
-        state.hypersign.requestingAppName= '' 
+        state.hypersign.requestingAppInfo= '' 
     },
     addHSVerifiableCredentialTemp(state, payload) {
         ////HS_TODO

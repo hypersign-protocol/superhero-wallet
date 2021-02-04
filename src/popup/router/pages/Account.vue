@@ -131,11 +131,11 @@ export default {
           name: 'read-qr-code',
           title: this.$t('pages.credential.scan'),
         });
-        //console.log('scan method....')
-        //console.log(QRData)
+        // console.log('scan method....')
+        // console.log(QRData)
         let data;
         try{
-          //console.log('Inside try....')
+          // console.log('Inside try....')
           data = JSON.parse(QRData);
           this.credentialDetailsQRdata(data);
         }catch(e){
@@ -199,15 +199,15 @@ export default {
 
     async credentialDetailsQRdata(qrData){
       try{
-        //console.log(qrData)
+        console.log(qrData)
         
-        //console.log('credentialDetailsQRdata method....')
+        console.log('credentialDetailsQRdata method....')
         if(qrData == {}) throw new Error('Parsed QR data is empty');
 
-          const { serviceEndpoint, appDid, appName, schemaId } = qrData;
+          const {appDid, schemaId } = qrData;
           
           if(!schemaId) throw new Error('Invalid schemaId');
-          this.$store.commit('addRequestingAppName', appName);
+          this.$store.commit('addRequestingAppInfo', qrData);
           this.verifiableCredential = this.hypersign.credentials.find(x => {
             const credentialSchemaUrl = x['@context'][1].hsscheme;
             const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();

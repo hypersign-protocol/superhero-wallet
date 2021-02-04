@@ -64,6 +64,9 @@ export default {
       }
     };
   },
+  beforeDestroy() {
+    this.rejectCredential()
+  },
   created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
@@ -100,14 +103,7 @@ export default {
   margin-top: 27%;
   padding-bottom: 5%;
 }
-.scan-icon {
-  margin:10px;
-}
-.scan-text{
-  margin-left: 20px;
-  margin-bottom: 2px;
-  // float: right;
-}
+
 .scan { 
   border-radius: 49px;
   text-align: center;

@@ -2,7 +2,7 @@
   <div class="popup">
     <div class="">
       <div class="appInfo">
-        This organisation <span>{{hypersign.requestingAppName}}</span> is requesting following information. 
+        This organisation <span>{{hypersign.requestingAppInfo.appName}}</span> is requesting following information. 
       </div>
       <ul class="list-group credential-item">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
@@ -13,16 +13,16 @@
       <Loader v-if="loading" />
        
     </div>
-     <div class="scanner d-flex">
-          <Button class="scan"  data-cy="scan-button" @click="scan">
-            <VerifiedIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.authorize') }}</span>
-          </Button>
-        </div>
-        <div class="scanner d-flex">
-          <Button class="scan"  data-cy="scan-button" @click="scan">
-            <CloseIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.decline') }}</span>
-          </Button>
-        </div>
+      <div class="scanner d-flex">
+        <Button class="scan"  data-cy="scan-button" @click="authorize">
+          <VerifiedIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.authorize') }}</span>
+        </Button>
+      </div>
+      <div class="scanner d-flex">
+        <Button class="scan"  data-cy="scan-button" @click="reject">
+          <CloseIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.decline') }}</span>
+        </Button>
+      </div>
     <!-- <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
         <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
@@ -55,14 +55,17 @@ export default {
       }
     };
   },
+  beforeDestroy() {
+    this.reject()
+  },
   created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
-          this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
-          this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
-          this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
-          this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
-          this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
+      this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
+      this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
+      this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
+      this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
+      this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
       this.claims = Object.keys(this.verifiableCredential.credentialSubject);
     }
   },
@@ -70,7 +73,7 @@ export default {
     ...mapGetters(['hypersign']),
   },
   methods: {    
-    async scan() {
+    async authorize() {
       try {
 
         const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
@@ -78,19 +81,9 @@ export default {
 
         if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
 
-        // const credentialName = this.verifiableCredential.type[1];
-
-        // // TODO: 
-        // const confirmed = await this.$store.dispatch('modals/open', {
-        //   name: 'confirm',
-        //   title: 'Credential Request',
-        //   msg: `Application: '${appName}' \
-        //   is requesting credential: '${credentialName}'. \
-        //   Do you want to allow?`,
-        // })
-        // .catch(() => false);
-
         // if(confirmed){
+            const { serviceEndpoint, schemaId } = this.hypersign.requestingAppInfo;
+
             const url = Url(serviceEndpoint, true);
             const challenge = url.query.challenge;
             this.loading= true;
@@ -116,17 +109,23 @@ export default {
             if (!response) throw new Error('Could not verify the presentation');
             if (response && response.status != 200) throw new Error(response.error);
             if (response.message)
-              this.$store.dispatch('modals/open', {
+            await this.$store.dispatch('modals/open', {
                 name: 'default',
                 msg: 'Credential successfully verified',
               });
+            this.reject()
         // }
         this.loading=false;
       } catch (e) {
         this.loading=false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
+        this.reject()
       }
     },
+    async reject () {
+      this.$store.commit('clearRequestingAppInfo');
+      this.$router.push('/account')
+    }
   },
 };
 </script>
@@ -138,11 +137,7 @@ export default {
   margin-top: 27%;
   padding-bottom: 5%;
 }
-.scan-text{
-  margin-left: 20px;
-  margin-bottom: 2px;
-  // float: right;
-}
+
 .scan { 
   border-radius: 49px;
   text-align: center;

@@ -61,7 +61,7 @@ const initialState = {
         keys: {},
         credentials: [],
         credentialsTemp: [],
-        requestingAppName: '',
+        requestingAppInfo: '',
         profile: {}
     },
 };
