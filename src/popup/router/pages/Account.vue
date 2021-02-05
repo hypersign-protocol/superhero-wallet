@@ -104,23 +104,6 @@ export default {
       return response.message;
     },
 
-    async acceptCredential(credential) {
-      if (this.hypersign.did != credential.credentialSubject.id)
-        throw new Error('This credential is not being issued to you');
-      const confirmed = await this.$store
-        .dispatch('modals/open', {
-          name: 'confirm',
-          title: 'Credential Acceptance',
-          msg: `You are receiving credential: '${credential.type[1]}' \
-                from an issuer: '${credential.issuer}'. \
-                Do you want to accept?`,
-        })
-        .catch(() => false);
-      if (confirmed) {
-        this.$store.commit('addHSVerifiableCredential', credential);
-      }
-    },
-
     async credentialsQRData(data) {
       try {       
         this.credentialUrl = data;
@@ -235,7 +218,7 @@ export default {
 .scanner {
   position: fixed;
   bottom: 0;
-  width: 34%;
+  width: 40%;
   border-radius: 49px;
 }
 </style>
