@@ -45,9 +45,6 @@ import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
 import VerifiedIcon from '../../../icons/badges/verified.svg?vue-component';
 import CloseIcon from '../../../icons/badges/not-verified.svg?vue-component';
-import Url from 'url-parse';
-import axios from 'axios';
-import { hypersignSDK } from '../../utils/hypersign';
 import {toFormattedDate, toStringShorner} from '../../utils/helper'
 export default {
   components: { QrIcon,CloseIcon,VerifiedIcon },
@@ -148,30 +145,12 @@ export default {
   font-size: 12px;
   text-transform:capitalize;
 }
-// .list-group {
-//     color: gray;
-// font-size: small;
-// text-align: left;
-//         padding-left: 10%;
-//     padding-top: 2%;
-//     display: -ms-flexbox;
-//     display: -webkit-box;
-//     display: flex;
-//     -ms-flex-direction: column;
-//     -webkit-box-orient: vertical;
-//     -webkit-box-direction: normal;
-//     flex-direction: column;
-//     padding-left: 0;
-//     margin-bottom: 0;
-//     border-radius: .25rem;
-// }
+
 .list-group {
   padding: 0 !important;
-  // background: #21222a !important;
-  // box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
-  // border-radius: 4px;
   margin-top: 30px;
 }
+
 .list-group-item {
   text-decoration: none;
   transition: 0.4s;
@@ -185,19 +164,12 @@ export default {
   border-left: 2px solid transparent;
   color: gray;
 }
-// .list-group-item {
-//     position: relative;
-//     display: block;
-//     padding: .75rem 1.25rem;
-//     background-color: #fff;
-//     border: 1px solid rgba(0,0,0,.125);
-//         border-top-width: 1px;
-// }
 .d-flex {
   display: flex;
   float: right;
   padding: 5px;
 }
+
 .withdraw.step1 {
   textarea {
     width: 250px;

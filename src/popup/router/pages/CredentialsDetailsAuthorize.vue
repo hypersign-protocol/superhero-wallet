@@ -161,49 +161,26 @@ export default {
 }
 .cred-card-header {
   color: #fff;
-
   border-bottom: 1px solid #80808061;
   border-top: 1px solid gray;
-
   background-color: #808080f0;
-
   font-size: larger;
   text-align: right;
   padding-right: 8px;
 }
-// .list-title{
-//     color: black;
-//     font-weight: bolder;
-// }
+
 .list-title {
   color: $text-color;
   font-size: 12px;
   text-transform:capitalize;
 }
-// .list-group {
-//     color: gray;
-// font-size: small;
-// text-align: left;
-//         padding-left: 10%;
-//     padding-top: 2%;
-//     display: -ms-flexbox;
-//     display: -webkit-box;
-//     display: flex;
-//     -ms-flex-direction: column;
-//     -webkit-box-orient: vertical;
-//     -webkit-box-direction: normal;
-//     flex-direction: column;
-//     padding-left: 0;
-//     margin-bottom: 0;
-//     border-radius: .25rem;
-// }
+
+
 .list-group {
   padding: 0 !important;
-  // background: #21222a !important;
-  // box-shadow: 0 0 8px rgba(0, 33, 87, 0.15);
-  // border-radius: 4px;
   margin-top: 30px;
 }
+
 .list-group-item {
   text-decoration: none;
   transition: 0.4s;
@@ -217,14 +194,7 @@ export default {
   border-left: 2px solid transparent;
   color: gray;
 }
-// .list-group-item {
-//     position: relative;
-//     display: block;
-//     padding: .75rem 1.25rem;
-//     background-color: #fff;
-//     border: 1px solid rgba(0,0,0,.125);
-//         border-top-width: 1px;
-// }
+
 .d-flex {
   display: flex;
   float: right;
