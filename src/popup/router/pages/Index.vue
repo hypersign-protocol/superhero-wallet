@@ -80,7 +80,7 @@ export default {
         };
 
         const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
-        console.log(HS_CORE_DID_REGISTER);
+        //console.log(HS_CORE_DID_REGISTER);
         await axios
           .get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)
           .then(result => {

@@ -189,6 +189,19 @@ export default {
         //console.log(data);
         this.credentialUrl = data;
         let cred = await this.fetchCredential();
+        //console.log(cred)
+
+        // TODO: Check if this credential already exsits in wallet: otherwise reject
+        const credInWallet = this.hypersign.credentials.find(x => x.id == cred.id);
+        //console.log(credInWallet)
+        if(credInWallet){
+          throw new Error('The credential already exist in your wallet');
+        }
+        // TODO: Check if you are the owner of this credenital: otherwise reject
+        if(this.hypersign.did != cred.credentialSubject.id){
+          throw new Error('The credential is not issued to you');
+        }
+
         this.$store.commit('addHSVerifiableCredentialTemp', cred);
         this.$router.push(`/credential/temp/${cred.id}`);
       } catch (e) {
@@ -199,9 +212,9 @@ export default {
 
     async credentialDetailsQRdata(qrData){
       try{
-        console.log(qrData)
+        //console.log(qrData)
         
-        console.log('credentialDetailsQRdata method....')
+        //console.log('credentialDetailsQRdata method....')
         if(qrData == {}) throw new Error('Parsed QR data is empty');
 
           const {appDid, schemaId } = qrData;
@@ -343,9 +356,9 @@ export default {
 
 .scanner {
   position: fixed;
-  bottom:15px;
-  width: 50%;
-  border-radius: 49px;
+bottom: 0;
+width: 34%;
+border-radius: 49px;
   
 }
 </style>

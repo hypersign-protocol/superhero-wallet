@@ -65,7 +65,7 @@ export default {
   methods: {    
     async scan() {
       try {
-        console.log('scanning...')
+        //console.log('scanning...')
         this.form.url = await this.$store.dispatch('modals/open', {
           name: 'read-qr-code',
           title: this.$t('pages.credential.scanCredential'),
@@ -78,7 +78,7 @@ export default {
     },
 
     async fetchCredential(){
-      console.log('fetchCredential...')
+      //console.log('fetchCredential...')
         this.form.url = this.form.url + '&did=' + this.hypersign.did;
         this.loading = true;
         let response = await axios.get(this.form.url);
@@ -92,7 +92,7 @@ export default {
 
     async deeplink(url) {
       try {
-        console.log('deeplink...')
+        //console.log('deeplink...')
         this.form.url = url; 
         await this.fetchCredential();
       } catch (e) {
@@ -102,7 +102,7 @@ export default {
     },
 
     async acceptCredential(credential){
-      console.log('acceptCredential...')
+      //console.log('acceptCredential...')
           if(this.hypersign.did != credential.credentialSubject.id) throw new Error('This credential is not being issued to you');
           const confirmed = await this.$store.dispatch('modals/open', {
                     name: 'confirm',

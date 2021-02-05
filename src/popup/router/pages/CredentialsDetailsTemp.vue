@@ -56,6 +56,7 @@ export default {
       verifiableCredential: {},
       claims: [],
       loading: false,
+      accepted: false,
       credDetials: {
         formattedIssuer: "",
         formattedExpirationDate: "",
@@ -65,12 +66,13 @@ export default {
     };
   },
   beforeDestroy() {
-    this.rejectCredential()
+    if(!this.accepted) this.rejectCredential()
   },
   created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
       this.verifiableCredential = this.hypersign.credentialsTemp.find(x => x.id == credentialId);
+      if(!this.verifiableCredential) this.rejectCredential()
       this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
       this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
       this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
@@ -83,14 +85,16 @@ export default {
   },
   methods: {    
     async acceptCredential(){
-      let cred = this.verifiableCredential
-      this.$store.commit('addHSVerifiableCredential', cred);
+      this.$store.commit('addHSVerifiableCredential', this.verifiableCredential);
       this.$store.commit('clearHSVerifiableCredentialTemp', []);
-      this.$router.push(`/account`);
+      //console.log('Movigin to credental page')
+      this.accepted = true;
+      this.$router.push('/credential');
     },
     async rejectCredential(){
       this.$store.commit('clearHSVerifiableCredentialTemp', []);
-      this.$router.push(`/account`);
+      //console.log('Movigin to account page')
+      this.$router.push('/account');
     }
   },
 };

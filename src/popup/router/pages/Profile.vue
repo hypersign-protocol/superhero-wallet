@@ -106,7 +106,7 @@ export default {
           publicKey: this.profile.did
         }
 
-        console.log(body)
+        //console.log(body)
         axios.post(HS_STUDIO_REGISTER_URL, body)
         .then(res => {
           res = res.data;

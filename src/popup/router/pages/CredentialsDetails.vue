@@ -82,7 +82,7 @@ export default {
         });
 
         if(!qrJson) throw new Error('Empty QR code json');
-        console.log(qrJson)
+        //console.log(qrJson)
         let qrData;
         try{
           qrData = JSON.parse(qrJson)
@@ -122,14 +122,14 @@ export default {
               this.verifiableCredential,
               this.hypersign.did,
             );
-            console.log('Unsigned vp created..');
+            //console.log('Unsigned vp created..');
             const vp_signed = await hypersignSDK.credential.signPresentation(
               vp_unsigned,
               this.hypersign.did,
               this.hypersign.keys.privateKeyBase58,
               challenge,
             );
-            console.log('Signed vp created..');
+            //console.log('Signed vp created..');
             const body = {
               challenge,
               vp: JSON.stringify(vp_signed),

@@ -2,7 +2,8 @@
   <div class="popup">
     <div class="">
       <div class="appInfo">
-        This organisation <span>{{hypersign.requestingAppInfo.appName}}</span> is requesting following information. 
+        <p>This organisation <span style="font-style:oblique">{{hypersign.requestingAppInfo.appName}}</span>
+        is requesting the following information.</p>
       </div>
       <ul class="list-group credential-item">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
@@ -79,10 +80,11 @@ export default {
         const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
         const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
 
-        if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
+        
 
         // if(confirmed){
             const { serviceEndpoint, schemaId } = this.hypersign.requestingAppInfo;
+            if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
 
             const url = Url(serviceEndpoint, true);
             const challenge = url.query.challenge;
