@@ -31,10 +31,11 @@
       </div>
       <!-- <RecentTransactions /> -->
       <div style="justify-content: center; display: flex">
-        <Button @click="scan" class="scan scanner" data-cy="scan-button">
-          <span style="margin-top: 4%"><QrIcon width="20" height="20" /></span>
-          <span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
+        <button @click="scan" class="round-button" value="Scan Qr">
+            <img src="../../../icons/qr-code-white.svg" class="round-button-qr" />
+            <!-- <QrIcon class="round-button-qr" /></span> -->
+          <!-- <span class="scan-text">{{ $t('pages.credential.scan') }}</span> -->
+        </button>
       </div>
     </div>
   </div>
@@ -46,7 +47,7 @@ import Settings from '../../../icons/settings-icon.svg?vue-component';
 
 import Profile from '../../../icons/profile.svg?vue-component';
 import Credential from '../../../icons/credential.svg?vue-component';
-import QrIcon from '../../../icons/qr-code.svg?vue-component';
+import QrIcon from '../../../icons/qr-code-white.svg?vue-component';
 import AccountInfo from '../components/AccountInfo';
 import BoxButton from '../components/BoxButton';
 import axios from 'axios';
