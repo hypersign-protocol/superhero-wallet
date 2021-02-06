@@ -371,6 +371,22 @@ button {
 .scan-icon{
     margin: -5px;
 }
+.round-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: block;
+  background: #272831;
+  text-align: center;
+  position: fixed;
+  bottom: 20px;
+}
+.round-button-qr {
+  width: 25px;
+  height: 25px;
+  margin: 14px;
+  filter: invert(100%) sepia(13%) saturate(7323%) hue-rotate(280deg) brightness(123%) contrast(121%);
+}
 .appInfo {
   color: black;
   font-size: larger;
