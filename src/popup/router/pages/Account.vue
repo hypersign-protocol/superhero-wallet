@@ -78,8 +78,11 @@ export default {
   },
   created() {
     //Only for deeplinking
-    if(this.$route.query.url && this.$route.query.url !='')
-      this.receiveOrGiveCredential(this.$route.query.url);
+    if(this.$route.query.url && this.$route.query.url !=''){
+      const JSONData = decodeURI(this.$route.query.url)
+      this.receiveOrGiveCredential(JSONData);
+    }
+      
   },
   methods: {
     async scan() {
