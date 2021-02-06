@@ -87,7 +87,9 @@ export default {
         name: 'read-qr-code',
         title: this.$t('pages.credential.scan'),
       })
-      this.receiveOrGiveCredential(QRData);
+
+      if(QRData)
+        this.receiveOrGiveCredential(QRData);
     },
 
     async receiveOrGiveCredential(QRJsonString){
