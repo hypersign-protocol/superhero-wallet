@@ -81,14 +81,27 @@ export default {
       const QRData = await this.$store.dispatch('modals/open', {
         name: 'read-qr-code',
         title: this.$t('pages.credential.scan'),
-      });
+      })
+
       let data;
       try {
         data = JSON.parse(QRData);
-        this.credentialDetailsQRdata(data);
+        switch(data.QRType){
+          case 'ISSUE_CRED': {
+            this.credentialsQRData(data.url);
+            break;
+          }
+          case 'REQUEST_CRED': {
+            this.credentialDetailsQRdata(data);
+            break;
+          }
+          default: {
+            throw new Error('Invalid QR code');
+          }
+        }
+        
       } catch (e) {
-        data = QRData;
-        this.credentialsQRData(data);
+        this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       }
     },
 
@@ -131,6 +144,9 @@ export default {
     async credentialDetailsQRdata(qrData) {
       try {
         if (qrData == {}) throw new Error('Parsed QR data is empty');
+
+        // TODO: verifying all fields
+
 
         const { appDid, schemaId } = qrData;
 
