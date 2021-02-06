@@ -76,16 +76,10 @@ export default {
   methods: {    
     async authorize() {
       try {
-
         const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
         const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
-
-        
-
-        // if(confirmed){
             const { serviceEndpoint, schemaId } = this.hypersign.requestingAppInfo;
-            if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
-
+            if(schemaId != credentialSchemaId) throw new Error('Invalid credential request: Requesting schema does not exist. Make sure you register first to get credential');
             const url = Url(serviceEndpoint, true);
             const challenge = url.query.challenge;
             this.loading= true;
@@ -94,28 +88,38 @@ export default {
               this.verifiableCredential,
               this.hypersign.did,
             );
-            console.log('Unsigned vp created..');
+          
             const vp_signed = await hypersignSDK.credential.signPresentation(
               vp_unsigned,
               this.hypersign.did,
               this.hypersign.keys.privateKeyBase58,
               challenge,
             );
+
             console.log('Signed vp created..');
             const body = {
               challenge,
               vp: JSON.stringify(vp_signed),
             };
+
             let response = await axios.post(verifyUrl, body);
             response = response.data;
+          
+
             if (!response) throw new Error('Could not verify the presentation');
-            if (response && response.status != 200) throw new Error(response.error);
+            if(response.status == 401 || response.status == 403) {
+              throw new Error('Unauthorized')
+            }else if(response.status == 200){
             if (response.message)
             await this.$store.dispatch('modals/open', {
                 name: 'default',
                 msg: 'Credential successfully verified',
               });
             this.reject()
+            }else {
+              throw new Error(response.error)
+            }
+            
         // }
         this.loading=false;
       } catch (e) {
