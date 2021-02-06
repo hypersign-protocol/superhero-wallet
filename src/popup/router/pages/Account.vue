@@ -76,16 +76,24 @@ export default {
     ...mapState(['tourRunning', 'backedUpSeed']),
     ...mapGetters(['hypersign']),
   },
+  created() {
+    //Only for deeplinking
+    if(this.$route.query.url && this.$route.query.url !='')
+      this.receiveOrGiveCredential(this.$route.query.url);
+  },
   methods: {
     async scan() {
       const QRData = await this.$store.dispatch('modals/open', {
         name: 'read-qr-code',
         title: this.$t('pages.credential.scan'),
       })
+      this.receiveOrGiveCredential(QRData);
+    },
 
+    async receiveOrGiveCredential(QRJsonString){
       let data;
       try {
-        data = JSON.parse(QRData);
+        data = JSON.parse(QRJsonString);
         switch(data.QRType){
           case 'ISSUE_CRED': {
             this.credentialsQRData(data.url);
@@ -166,16 +174,7 @@ export default {
       }
     },
 
-    // async deeplink(url) {
-    //   try {
-    //     //console.log('deeplink...')
-    //     this.form.url = url;
-    //     await this.fetchCredential();
-    //   } catch (e) {
-    //     this.loading = false;
-    //     if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
-    //   }
-    // },
+  
   },
 };
 </script>
