@@ -157,7 +157,7 @@ export default {
         this.loading = true;
         // We will not use native aeternity keys, instead will use hypersign keys.
         // The reason to do this, because giving flexibility to use different algorithm for keys
-        const newKeyPair = await hypersignSDK.did.generateKeys();
+        const newKeyPair = await hypersignSDK.did.generateKeys({seed});
         const hskeys = {
           publicKey: newKeyPair.publicKey.publicKeyBase58,
           privateKey: newKeyPair.privateKeyBase58,
