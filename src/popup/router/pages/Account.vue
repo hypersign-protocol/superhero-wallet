@@ -33,8 +33,6 @@
       <div style="justify-content: center; display: flex">
         <button @click="scan" class="round-button" value="Scan Qr">
             <img src="../../../icons/qr-code-white.svg" class="round-button-qr" />
-            <!-- <QrIcon class="round-button-qr" /></span> -->
-          <!-- <span class="scan-text">{{ $t('pages.credential.scan') }}</span> -->
         </button>
       </div>
     </div>
