@@ -164,6 +164,7 @@
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
       "manageNetworks": "verwalten Netzwerke",
       "manageAccounts": "Konten verwalten",
       "airGapVault": "Erstellen Sie ein Depot für Airgap",

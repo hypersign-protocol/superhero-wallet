@@ -173,6 +173,7 @@
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
       "manageNetworks": "Gestisci reti",
       "manageAccounts": "Gestisci account",
       "airGapVault": "Creare un deposito per il traferro",

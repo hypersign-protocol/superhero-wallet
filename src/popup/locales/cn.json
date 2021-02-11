@@ -245,6 +245,7 @@
     },
     "appVUE": {
       "systemName": "超级英雄",
+                  "backup": "Backup",
       "manageNetworks": "管理网络",
       "manageAccounts": "管理帐户",
       "airGapVault": "为AirGap创建一个保险库",

@@ -253,6 +253,7 @@
             "walletName": "Hypersign Wallet",
             "general": "General",
             "security": "Security",
+            "backup": "Backup",
             "seedPhrase": "Seed Phrase",
             "language": "Language",
             "advanced": "Advanced",

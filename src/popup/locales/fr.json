@@ -164,6 +164,7 @@
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
       "manageNetworks": "Gérer les réseaux",
       "manageAccounts": "Gérer les comptes",
       "airGapVault": "Créer une voûte pour Cheminement",

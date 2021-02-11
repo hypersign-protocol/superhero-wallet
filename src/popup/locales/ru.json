@@ -164,6 +164,7 @@
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
       "manageNetworks": "Manage networks",
       "manageAccounts": "Manage accounts",
       "airGapVault": "Create a vault for AirGap",

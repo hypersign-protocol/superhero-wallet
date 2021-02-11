@@ -56,6 +56,11 @@
             </router-link>
           </li>
           <li>
+            <router-link to="/backupWallet" data-cy="backupWallet">
+              {{ $t('pages.appVUE.backup') }}
+            </router-link>
+          </li>
+          <li>
             <router-link to="/generalSettings" data-cy="generalSettings">
               {{ $t('pages.appVUE.language') }}
             </router-link>

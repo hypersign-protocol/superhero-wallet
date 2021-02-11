@@ -225,6 +225,7 @@
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
       "manageNetworks": "Administrar redes",
       "manageAccounts": "Cuentas de administración",
       "airGapVault": "Crear una Bóveda AirGap",
