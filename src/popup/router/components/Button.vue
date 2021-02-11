@@ -47,7 +47,7 @@ export default {
   text-decoration: none;
   background-color: $button-color;
   width: 270px;
-  border-radius: 5px;
+  border-radius: 20px;
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   padding: 0;

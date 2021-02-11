@@ -30,6 +30,7 @@
     "notVerified": "Not verified"
   },
   "modals": {
+    "coming-soon": "Comming Soon ..",
     "transaction-failed": {
       "msg": "We cannot process this transaction. Please, try again later."
     },
@@ -135,6 +136,7 @@
     },
     "titles": {
       "settings": "Settings",
+      "backup-wallet": "Backup",
       "general": "Language",
       "security": "Security",
       "about": "About",
@@ -498,6 +500,13 @@
       "home": "Home",
       "transferExchange": "Swap crypto for AE tokens",
       "purchase": "Buy AE tokens"
+    },
+    "backup-wallet": {
+      "heading": "Backup your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button" : "Continue"
     },
     "securitySettings": {
       "backToSettings": "Back to settings",

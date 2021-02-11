@@ -30,6 +30,7 @@
     "notVerified": "No verificada"
   },
   "modals": {
+    "coming-soon": "Comming Soon ..",
     "transaction-failed": {
       "msg": "No podemos procesar esta transacción. Por favor, intenta más tarde."
     },
@@ -193,6 +194,7 @@
       "settings": "Ajustes",
       "general": "Idioma",
       "security": "Securidad",
+      "backup-wallet": "Backup",
       "about": "Acerca",
       "send": "Enviar Propinas",
       "claim-tips": "Reclamar Propinas",
@@ -567,6 +569,13 @@
       "home": "Inicio",
       "transferExchange": "Cambiar (Swap) cripto por tokens AE",
       "purchase": "Comprar tokens AE"
+    },
+    "backup-wallet": {
+      "heading": "Backup your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
     },
     "securitySettings": {
       "backToSettings": "Volver a ajustes",

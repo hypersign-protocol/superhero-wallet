@@ -46,6 +46,7 @@
     "notVerified": "未验证"
   },
   "modals": {
+    "coming-soon": "Comming Soon ..",
     "transaction-failed": {
       "msg": "我们执行不了这笔交易，请稍候再次尝试。"
     },
@@ -210,6 +211,7 @@
     },
     "titles": {
       "settings": "设置",
+      "backup-wallet": "Backup",
       "general": "语言",
       "security": "安全",
       "about": "关于",
@@ -587,6 +589,13 @@
       "home": "主页",
       "transferExchange": "加密资产换取AE代代币",
       "purchase": "购买AE代币"
+    },
+    "backup-wallet": {
+      "heading": "Backup your wallet to protect your information from being lost or destroyed",
+      "select-info":"Choose your source",
+      "select-option-1":"Local Backup",
+      "select-option-2":"Cloud Backup",
+      "button": "Continue"
     },
     "securitySettings": {
       "backToSettings": "返回在设置",

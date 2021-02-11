@@ -7,6 +7,7 @@ import PopupMessageSign from '../pages/Popups/MessageSign';
 import Settings from '../pages/Settings';
 import GeneralSettings from '../pages/GeneralSettings';
 import SecuritySettings from '../pages/SecuritySettings';
+import BackupWallet from '../pages/BackupWallet';
 import AboutSettings from '../pages/AboutSettings';
 import Tip from '../pages/Tip';
 import Retip from '../pages/Retip';
@@ -126,6 +127,14 @@ export default [{
         component: SecuritySettings,
         meta: {
             title: 'security',
+        },
+    },
+    {
+        path: '/backupWallet',
+        name: 'backup-wallet',
+        component: BackupWallet,
+        meta: {
+            title: 'backup-wallet',
         },
     },
     {
