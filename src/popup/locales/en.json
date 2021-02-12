@@ -196,6 +196,7 @@
         "titles": {
             "settings": "Settings",
             "backup-wallet": "Backup",
+            "restore-wallet": "Restore",
             "general": "Language",
             "security": "Security",
             "about": "About",
@@ -254,6 +255,7 @@
             "general": "General",
             "security": "Security",
             "backup": "Backup",
+            "restore": "Restore",
             "seedPhrase": "Seed Phrase",
             "language": "Language",
             "advanced": "Advanced",
@@ -290,7 +292,8 @@
             "balance": "Balance",
             "copied": "Copied!",
             "youNeedTo": "You need to",
-            "backup": "backup",
+            "backup": "Backup",
+            "restore": "Restore",
             "yourSeedPhrase": "your seed phrase",
             "updateExtension": "New version available! Please update your extension.",
             "updateAvailable": "New version is available in the store!",
@@ -599,6 +602,13 @@
         },
         "backup-wallet": {
             "heading": "Backup your wallet to protect your information from being lost or destroyed",
+            "select-info": "Choose your destination",
+            "select-option-1": "Local Backup",
+            "select-option-2": "Cloud Backup",
+            "button": "Continue"
+        },
+        "restore-wallet": {
+            "heading": "Restore your wallet to protect your information from being lost or destroyed",
             "select-info": "Choose your source",
             "select-option-1": "Local Backup",
             "select-option-2": "Cloud Backup",

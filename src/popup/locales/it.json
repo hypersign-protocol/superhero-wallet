@@ -174,6 +174,7 @@
     "appVUE": {
       "systemName": "Superhero",
       "backup": "Backup",
+      "restore": "Restore",
       "manageNetworks": "Gestisci reti",
       "manageAccounts": "Gestisci account",
       "airGapVault": "Creare un deposito per il traferro",
@@ -504,6 +505,13 @@
     },
     "backup-wallet": {
       "heading": "Backup your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
+    },
+    "restore-wallet": {
+      "heading": "Restore your wallet to protect your information from being lost or destroyed",
       "select-info": "Choose your source",
       "select-option-1": "Local Backup",
       "select-option-2": "Cloud Backup",

@@ -245,7 +245,8 @@
     },
     "appVUE": {
       "systemName": "超级英雄",
-                  "backup": "Backup",
+      "backup": "Backup",
+      "restore": "Restore",
       "manageNetworks": "管理网络",
       "manageAccounts": "管理帐户",
       "airGapVault": "为AirGap创建一个保险库",
@@ -596,6 +597,13 @@
       "select-info":"Choose your source",
       "select-option-1":"Local Backup",
       "select-option-2":"Cloud Backup",
+      "button": "Continue"
+    },
+    "restore-wallet": {
+      "heading": "Restore your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
       "button": "Continue"
     },
     "securitySettings": {

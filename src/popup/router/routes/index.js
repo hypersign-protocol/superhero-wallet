@@ -8,6 +8,7 @@ import Settings from '../pages/Settings';
 import GeneralSettings from '../pages/GeneralSettings';
 import SecuritySettings from '../pages/SecuritySettings';
 import BackupWallet from '../pages/BackupWallet';
+import RestoreWallet from '../pages/RestoreWallet';
 import AboutSettings from '../pages/AboutSettings';
 import Tip from '../pages/Tip';
 import Retip from '../pages/Retip';
@@ -135,6 +136,14 @@ export default [{
         component: BackupWallet,
         meta: {
             title: 'backup-wallet',
+        },
+    },
+    {
+        path: '/restoreWallet',
+        name: 'restore-wallet',
+        component: RestoreWallet,
+        meta: {
+            title: 'restore-wallet',
         },
     },
     {

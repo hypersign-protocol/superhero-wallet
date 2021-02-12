@@ -165,6 +165,7 @@
     "appVUE": {
       "systemName": "Superhero",
       "backup": "Backup",
+      "restore": "Restore",
       "manageNetworks": "Manage networks",
       "manageAccounts": "Manage accounts",
       "airGapVault": "Create a vault for AirGap",
@@ -508,6 +509,13 @@
       "select-option-1": "Local Backup",
       "select-option-2": "Cloud Backup",
       "button" : "Continue"
+    },
+    "restore-wallet": {
+      "heading": "Restore your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
     },
     "securitySettings": {
       "backToSettings": "Back to settings",
