@@ -2,32 +2,40 @@
   <div class="popup">
     <div data-cy="seed-phrase-backup-window" v-if="type == ''">
       <div class="maindiv_input-group-addon">
-        <label class="heading sett_info">{{ $t('pages.backup-wallet.heading') }}</label>
+        <p class="heading sett_info">{{ $t('pages.backup-wallet.heading') }}</p>
           <img src="../../../icons/cloud-backup-up-arrow_gray.png" alt="Upload logo" class="icon" />
-          <div class="margin-20">
+          
+          <!-- <div class="margin-20">
             <label class="sett_info">{{ $t('pages.backup-wallet.select-info') }}</label>
-          </div>
+          </div> -->
           <div class="margin-20">
-            <ListItem v-for="network in options" :key="network.text" @click.native="selectNetwork(network)" class="network-row">
+            <Input
+            placeholder="Enter password"
+            label=""
+            type="password"
+            v-model="password"
+          />
+            <ListItem v-for="backupType in options" :key="backupType.text" @click.native="selectBackupType(backupType)" class="network-row">
               <div class="margin-10">
-                {{network.text}}
+                {{backupType.text}}
               </div>
               <div class="mr-auto text-left">
-                <p class="f-16" data-cy="network-name">{{ network.name }}</p>
+                <p class="f-16" data-cy="network-name">{{ backupType.name }}</p>
               </div>
               <CheckBox
-                :value="network.value === activeNetwork"
+                :value="backupType.value === activeBackup"
                 type="radio"
-                :disabled="network.disabled"
-                name="activeNetwork"
+                :disabled="backupType.disabled"
+                name="activeBackup"
                 prevent
               />
             </ListItem>
           </div>
          
-        <Button >
+        <Button @click="backup()">
           {{ $t('pages.backup-wallet.button') }}
         </Button>
+          <Loader v-if="loading" />
       </div>
       <div v-if="loading" class="loading">
         <ae-loader />
@@ -39,6 +47,8 @@
 <script>
 import ListItem from '../components/ListItem';
 import CheckBox from '../components/CheckBox';
+const { encrypt } = require('../../../lib/symmericCrypto') ;
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
@@ -48,12 +58,13 @@ export default {
   data() {
     return {
       loading: false,
-      activeNetwork:'',
+      activeBackup:'',
       modal: {
         visible: false,
         title: '',
       },
       seedPhrase: '',
+      password: '',
       options: [
         { 
           text: this.$t('pages.backup-wallet.select-option-1'), 
@@ -71,38 +82,84 @@ export default {
         show: false,
         content: '',
       },
-      type: '',
-      seeds: [
-        { id: 0, name: 'volcano', selected: false },
-        { id: 1, name: 'entire', selected: false },
-        { id: 2, name: 'magnet', selected: false },
-        { id: 3, name: 'glow', selected: false },
-        { id: 4, name: 'zero', selected: false },
-        { id: 5, name: 'crack', selected: false },
-        { id: 6, name: 'arena', selected: false },
-        { id: 7, name: 'episode', selected: false },
-        { id: 8, name: 'shrimp', selected: false },
-        { id: 9, name: 'buffalo', selected: false },
-        { id: 10, name: 'tiny', selected: false },
-        { id: 11, name: 'aunt', selected: false },
-      ],
-      selectedSeed: [],
-      seedError: {},
-      seed_verified: false,
+      loading: false,
+      type: ''      
     };
   },
+  computed: {
+    ...mapGetters(['hypersign']),
+  },
   methods: {
-    async selectNetwork(network) {
-      if(!network.disabled){
-        this.activeNetwork = network.value
+    selectBackupType(backupType) {
+      if(!backupType.disabled){
+        this.activeBackup = backupType.value
       } else {
-        alert('Feature coming soon ...')
-        // await this.$store.dispatch('modals/open', {
-        // name: 'default',
-        // ...this.$t('modals.coming-soon'),
-        // });
+        this.$store.dispatch('modals/open', { name: 'default', msg: 'Feature coming soon...'});
       }
-    }
+    },
+    async backup(){
+      try{
+        
+        // Check the password
+        if(this.password === " "){
+          throw new Error('Please enter a password.')
+        } 
+
+        if(this.activeBackup === " "){
+          throw new Error('Please choose a backup type.')
+        } 
+
+        console.log(this.password)
+        console.log(this.activeBackup)
+
+
+        // Give notificaiton and ask for confirmation
+        const confirmed = await this.$store.dispatch('modals/open', {
+                    name: 'confirm',
+                    title: 'Backup Confirmation',
+                    msg: this.activeBackup == 'local' ? this.$t('pages.backup-wallet.select-option-1-msg')  : this.$t('pages.backup-wallet.select-option-2-msg'),
+                  })
+                  .catch(() => false);
+
+        // Encrypt everything
+        if(confirmed){
+            this.loading = true;
+            const walletDataJson = this.hypersign ? JSON.stringify(this.hypersign): "";
+            // console.log(walletDataJson)
+            if(walletDataJson == " ") throw new Error('Invalid data');
+
+            const encryptedMessage = await encrypt(walletDataJson, this.password);
+
+            // console.log(encryptedMessage);
+
+            if(this.activeBackup == 'local'){
+              //download the file in local
+              this.forceFileDownload(encryptedMessage);
+
+            }else{
+              // send the file to server...
+            }
+
+            this.loading = false;
+
+        }
+
+        // save into a file 
+        
+      }catch(e){
+        this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    },
+    forceFileDownload(data) {
+      const fileName = "hypersign-identity-wallet.txt";
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+    },    
   }
 };
 </script>

@@ -51,6 +51,7 @@
     "cordova-plugin-splashscreen": "^5.0.4",
     "cordova-plugin-statusbar": "^2.4.3",
     "cordova-plugin-wkwebview-engine": "github:mwchambers/cordova-plugin-wkwebview-engine#da67d6bb6ce8597c38fc69e66b84566e34efea8d",
+    "crypto-js": "^4.0.0",
     "detect-browser": "^4.8.0",
     "jdenticon": "^2.2.0",
     "lds-sdk": "^4.0.2",
