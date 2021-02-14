@@ -39,13 +39,10 @@
     <Button @click="createWallet" :disabled="!termsAgreed" data-cy="generate-wallet">
       {{ $t('pages.index.generateWallet') }}
     </Button>
-    <!-- <Button
-      @click="$router.push('/importAccount')"
-      :disabled="!termsAgreed"
-      data-cy="import-wallet"
-    >
-      {{ $t('pages.index.importWallet') }}
-    </Button> -->
+    <label class="sett_info">OR</label>
+    <Button @click="gotoRestore" :disabled="!termsAgreed">
+      {{ $t('pages.index.restoreWallet') }}
+    </Button>
   </div>
 </template>
 
@@ -72,6 +69,9 @@ export default {
     IN_FRAME,
   }),
   methods: {
+    gotoRestore(){
+      this.$router.push('/restoreWallet') 
+    },
     async createWallet() {
       this.mnemonic = generateMnemonic();
       const seed = mnemonicToSeed(this.mnemonic).toString('hex');
@@ -88,11 +88,15 @@ export default {
         this.loading = true;
         // We will not use native aeternity keys, instead will use hypersign keys.
         // The reason to do this, because giving flexibility to use different algorithm for keys
-        const newKeyPair = await hypersignSDK.did.generateKeys({seed});        
+        const newKeyPair = await hypersignSDK.did.generateKeys({seed});  
+        if(!newKeyPair)       throw Error('Error: could not generate keypair');
+        console.log(newKeyPair);
         const hskeys = {
           publicKey: newKeyPair.publicKey.publicKeyBase58,
           privateKey: newKeyPair.privateKeyBase58,
         };
+
+        if(!hskeys.publicKey)  throw new Error('Error: Public key is empty')
 
         const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
         //console.log(HS_CORE_DID_REGISTER);
