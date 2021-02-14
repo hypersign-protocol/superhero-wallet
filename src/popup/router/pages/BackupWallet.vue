@@ -5,16 +5,16 @@
         <p class="heading sett_info">{{ $t('pages.backup-wallet.heading') }}</p>
           <img src="../../../icons/cloud-backup-up-arrow_gray.png" alt="Upload logo" class="icon" />
           
-          <!-- <div class="margin-20">
-            <label class="sett_info">{{ $t('pages.backup-wallet.select-info') }}</label>
-          </div> -->
           <div class="margin-20">
             <Input
-            placeholder="Enter password"
+            placeholder="Enter your password"
             label=""
             type="password"
             v-model="password"
           />
+          </div>
+          <div class="margin-20">
+            <label class="sett_info">{{ $t('pages.backup-wallet.select-info') }}</label>
             <ListItem v-for="backupType in options" :key="backupType.text" @click.native="selectBackupType(backupType)" class="network-row">
               <div class="margin-10">
                 {{backupType.text}}
@@ -48,12 +48,13 @@
 import ListItem from '../components/ListItem';
 import CheckBox from '../components/CheckBox';
 const { encrypt } = require('../../../lib/symmericCrypto') ;
-import { mapGetters, mapState } from 'vuex';
-
+import { mapGetters } from 'vuex';
+import Input from '../components/Input';
 export default {
   components: {
     ListItem,
-    CheckBox
+    CheckBox,
+    Input
   },
   data() {
     return {
@@ -101,11 +102,11 @@ export default {
       try{
         
         // Check the password
-        if(this.password === " "){
+        if(this.password === ""){
           throw new Error('Please enter a password.')
         } 
 
-        if(this.activeBackup === " "){
+        if(this.activeBackup === ""){
           throw new Error('Please choose a backup type.')
         } 
 
@@ -136,12 +137,13 @@ export default {
               //download the file in local
               this.forceFileDownload(encryptedMessage);
 
+
             }else{
               // send the file to server...
             }
-
             this.loading = false;
-
+            this.$store.dispatch('modals/open', { name: 'default', msg: 'Backup successful' });
+            this.$router.push('/account');
         }
 
         // save into a file 
@@ -152,7 +154,7 @@ export default {
       }
     },
     forceFileDownload(data) {
-      const fileName = "hypersign-identity-wallet.txt";
+      const fileName = "hypersign-identity-wallet-backup.txt";
       const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement("a");
       link.href = url;
@@ -210,14 +212,6 @@ export default {
   margin: 0 !important;
 }
 
-.input-group-addon {
-  background: #ececec;
-  border: 1px solid #ccc;
-  width: 79%;
-  height: 56px;
-  float: left;
-}
-
 .addon-input {
   width: 75%;
   outline: none;
@@ -233,11 +227,6 @@ export default {
   color: #828282;
 }
 
-input:active,
-input:focus {
-  border: none;
-  outline: none;
-}
 
 .notround {
   border-radius: 0 !important;

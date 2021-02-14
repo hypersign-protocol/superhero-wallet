@@ -44,18 +44,14 @@ export default {
 @import '../../../common/variables';
 
 input.input {
-  display: block;
-  width: 100%;
-  border-radius: 5px;
-  border: 2px solid $border-color !important;
-  background: $input-bg-color !important;
-  padding: 10px;
-  margin-bottom: 22px;
-  color: $text-color !important;
-  font-size: 14px;
-  min-height: 35px;
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%;
+    border-bottom: 2px solid #bbb!important;
+    background: #f1f1f1!important;
+    padding-left: 0px;
+    margin-bottom: 22px;
+    color: #3e3e3e!important;
+    font-size: 14px;
+    min-height: 35px;
 
   &:focus {
     border-color: $input-focus-color !important;

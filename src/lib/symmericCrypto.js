@@ -4,6 +4,8 @@ const keySize = 256;
 const iterations = 10000;
 
 async function encrypt(msg, password) {
+    if (!password) throw Error('Encryption error: Password is empty.')
+    if (!msg) throw Error('Encryption error: Message is empty.')
     const salt = CryptoJS.lib.WordArray.random(128 / 8);
     const key = CryptoJS.PBKDF2(password, salt, {
         keySize: keySize / 8, // 32 bytes key size
@@ -23,6 +25,8 @@ async function encrypt(msg, password) {
 }
 
 async function decrypt(transitmessage, password) {
+    if (!password) throw Error('Decryption error: Password is empty.')
+    if (!transitmessage) throw Error('Decryption error: Message is empty.')
     const salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
     const iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
     const encrypted = transitmessage.substring(64);
@@ -38,7 +42,9 @@ async function decrypt(transitmessage, password) {
         mode: CryptoJS.mode.CBC
 
     })
-    return decrypted;
+
+    if (!decrypted) throw Error('Decryption error: Could not decrypt the data. Please check your password.')
+    return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
 export {

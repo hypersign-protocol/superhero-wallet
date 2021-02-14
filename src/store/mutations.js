@@ -96,17 +96,20 @@ export default {
         state.hypersign.keys = payload.keys;
         state.hypersign.did = payload.did;
     },
+    restoreHypersign(state, payload) {
+        Object.assign(state.hypersign, payload);
+    },
     addHSVerifiableCredential(state, payload) {
         ////HS_TODO
         state.hypersign.credentials.push(payload)
     },
     addRequestingAppInfo(state, payload) {
         ////HS_TODO
-        state.hypersign.requestingAppInfo= payload 
+        state.hypersign.requestingAppInfo = payload
     },
     clearRequestingAppInfo(state, payload) {
         ////HS_TODO
-        state.hypersign.requestingAppInfo= '' 
+        state.hypersign.requestingAppInfo = ''
     },
     addHSVerifiableCredentialTemp(state, payload) {
         ////HS_TODO
@@ -114,7 +117,7 @@ export default {
     },
     clearHSVerifiableCredentialTemp(state, payload) {
         ////HS_TODO
-        state.hypersign.credentialsTemp= []
+        state.hypersign.credentialsTemp = []
     },
     addHSProfile(state, payload) {
         state.hypersign.profile = payload

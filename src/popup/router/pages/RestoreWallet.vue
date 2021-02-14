@@ -4,16 +4,22 @@
       <div class="maindiv_input-group-addon">
           <img src="../../../icons/cloud-download-down-arrow.svg" alt="Upload logo" class="icon" />
           <div class="margin-20">
-            <label class="sett_info">{{ $t('pages.restore-wallet.select-info') }}</label>
+            <Input
+            placeholder="Enter your password"
+            label=""
+            type="password"
+            v-model="password"
+          />
           </div>
           <div class="margin-20">
+            <label class="sett_info">{{ $t('pages.restore-wallet.select-info') }}</label>
             <ListItem v-for="network in options" :key="network.text" @click.native="selectNetwork(network)" class="network-row">
               <div class="margin-10">
                 {{network.text}}
               </div>
-              <div class="mr-auto text-left">
+              <!-- <div class="mr-auto text-left">
                 <p class="f-16" data-cy="network-name">{{ network.name }}</p>
-              </div>
+              </div> -->
               <CheckBox
                 :value="network.value === activeNetwork"
                 type="radio"
@@ -22,9 +28,18 @@
                 prevent
               />
             </ListItem>
+            <input
+                type="file"
+                class="form-control"
+                placeholder="select backup file"
+                @change="onFileChange"
+                accept="hypersign-identity-wallet.txt"
+                v-if="this.activeNetwork==='local'"
+                style="width:100%; height:100%"
+                />
           </div>
          
-        <Button >
+        <Button @click="restore()">
           {{ $t('pages.restore-wallet.button') }}
         </Button>
       </div>
@@ -38,11 +53,14 @@
 <script>
 import ListItem from '../components/ListItem';
 import CheckBox from '../components/CheckBox';
+import Input from '../components/Input';
+const { decrypt } = require('../../../lib/symmericCrypto') ;
 
 export default {
   components: {
     ListItem,
-    CheckBox
+    CheckBox,
+    Input
   },
   data() {
     return {
@@ -53,41 +71,23 @@ export default {
         title: '',
       },
       seedPhrase: '',
+      password: '',
       options: [
         { 
-          text: this.$t('pages.restore-wallet.select-option-1'), 
+          text: this.$t('pages.backup-wallet.select-option-1'), 
           value: "local",
           disabled:false,
         },
         { 
-          text: this.$t('pages.restore-wallet.select-option-2'), 
+          text: this.$t('pages.backup-wallet.select-option-2'), 
           value: "cloud",
           disabled:true,
         }
       ],
-      alert: {
-        fill: 'neutral',
-        show: false,
-        content: '',
-      },
-      type: '',
-      seeds: [
-        { id: 0, name: 'volcano', selected: false },
-        { id: 1, name: 'entire', selected: false },
-        { id: 2, name: 'magnet', selected: false },
-        { id: 3, name: 'glow', selected: false },
-        { id: 4, name: 'zero', selected: false },
-        { id: 5, name: 'crack', selected: false },
-        { id: 6, name: 'arena', selected: false },
-        { id: 7, name: 'episode', selected: false },
-        { id: 8, name: 'shrimp', selected: false },
-        { id: 9, name: 'buffalo', selected: false },
-        { id: 10, name: 'tiny', selected: false },
-        { id: 11, name: 'aunt', selected: false },
-      ],
-      selectedSeed: [],
       seedError: {},
       seed_verified: false,
+      walletJson: '',
+      type: ''
     };
   },
   methods: {
@@ -95,11 +95,53 @@ export default {
       if(!network.disabled){
         this.activeNetwork = network.value
       } else {
-        alert('Feature coming soon ...')
-        // await this.$store.dispatch('modals/open', {
-        // name: 'default',
-        // ...this.$t('modals.coming-soon'),
-        // });
+        this.$store.dispatch('modals/open', { name: 'default', msg: 'Feature coming soon...'});
+      }
+    },
+    onFileChange(){
+      try{
+       const file = event.target.files[0];
+       console.log(file)
+       if(!file) throw Error('Error loading backup file')
+
+       if(file.name != 'hypersign-identity-wallet-backup.txt') throw Error('Incorrect file. Please select hypersign backup file')
+       // TODO:  check if file name is correct
+       console.log('Reading file start')
+       this.readFile(file, this.onfileLoadSuccess);
+      }catch(e){
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    },
+    readFile(file, cb){
+      //console.log('Inside reaffileDs')
+      const reader = new FileReader();
+      reader.onload = cb
+      reader.readAsText(file);
+    },
+    onfileLoadSuccess (evt){
+     this.walletJson = evt.target.result;
+     console.log(this.walletJson);
+     console.log('Reading file done')
+    },
+
+    async restore(){
+      try{
+        // Check the password
+        if(this.password === "")throw new Error('Please enter a password.')
+        if(this.activeNetwork === "")throw new Error('Please choose a backup type.')
+        if(this.walletJson === "") throw new Error('Incorrect data')
+
+        // const walletDataStr = JSON.parse(this.walletJson);
+        const walletData = await decrypt(this.walletJson, this.password);
+        console.log(walletData)
+
+        this.$store.commit('restoreHypersign',JSON.parse(walletData));
+        this.$store.dispatch('modals/open', { name: 'default', msg: 'Restore successful' });
+        this.$router.push('/account');
+
+
+      }catch(e){
+          if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     }
   }
@@ -155,14 +197,6 @@ export default {
   margin: 0 !important;
 }
 
-.input-group-addon {
-  background: #ececec;
-  border: 1px solid #ccc;
-  width: 79%;
-  height: 56px;
-  float: left;
-}
-
 .addon-input {
   width: 75%;
   outline: none;
@@ -178,11 +212,7 @@ export default {
   color: #828282;
 }
 
-input:active,
-input:focus {
-  border: none;
-  outline: none;
-}
+
 
 .notround {
   border-radius: 0 !important;
@@ -209,4 +239,5 @@ small {
     color: #fff;
   }
 }
+
 </style>
