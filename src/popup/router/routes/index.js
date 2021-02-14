@@ -144,7 +144,7 @@ export default [{
         component: RestoreWallet,
         meta: {
             title: 'restore-wallet',
-        },
+            ifNotAuthOnly: true        },
     },
     {
         path: '/aboutSettings',

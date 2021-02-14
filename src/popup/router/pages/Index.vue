@@ -40,9 +40,11 @@
       {{ $t('pages.index.generateWallet') }}
     </Button>
     <label class="sett_info">OR</label>
-    <Button @click="gotoRestore" :disabled="!termsAgreed">
+    <br/>
+    <a href="#" @click="gotoRestore">{{ $t('pages.index.restoreWallet') }}</a>
+    <!-- <Button @click="gotoRestore" :disabled="!termsAgreed">
       {{ $t('pages.index.restoreWallet') }}
-    </Button>
+    </Button> -->
   </div>
 </template>
 
@@ -70,7 +72,7 @@ export default {
   }),
   methods: {
     gotoRestore(){
-      this.$router.push('/restoreWallet') 
+      this.$router.push('restoreWallet') 
     },
     async createWallet() {
       this.mnemonic = generateMnemonic();
@@ -156,7 +158,7 @@ input.input {
     width: 15px  !important;
 }
 .index {
-
+  text-align: center !important;
   .checkbox-container {
     margin: 0 auto 25px auto;
     max-width: 282px;
