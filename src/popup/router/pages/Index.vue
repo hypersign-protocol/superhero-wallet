@@ -45,6 +45,7 @@
     <!-- <Button @click="gotoRestore" :disabled="!termsAgreed">
       {{ $t('pages.index.restoreWallet') }}
     </Button> -->
+     <Loader v-if="loading" />
   </div>
 </template>
 
@@ -69,6 +70,7 @@ export default {
     termsAgreed: false,
     IS_WEB: process.env.PLATFORM === 'web',
     IN_FRAME,
+    loading:  false
   }),
   methods: {
     gotoRestore(){
@@ -102,32 +104,37 @@ export default {
 
         const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
         //console.log(HS_CORE_DID_REGISTER);
-        await axios
-          .get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)
-          .then(result => {
-            result = result.data;
-            if (!result) throw new Error('Could not fetch from hypersign');
-            if (result && result.error) throw new Error(result.error);
-            const { keys, did } = result.message;
-            keys['privateKeyBase58'] = hskeys.privateKey;
-            this.$store.commit('setHSkeys', {
-              keys,
-              did,
-            });
+        let result = await axios.get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)//.then(result => result.json());
+        console.log(result)
+        result = result.data;
+        if (!result) throw new Error('Could not fetch from hypersign');
+        if (result && result.error) throw new Error(result.error);
+        
+        const { keys, did } = result.message;
+        keys['privateKeyBase58'] = hskeys.privateKey;
+        console.log(this.profile)
+        this.profile.did = did;
+        
+        this.$store.commit('setHSkeys', {
+          keys,
+          did,
+        });
 
-            this.loading = false;
-          })
-          .catch(console.error);
+        console.log('Before calling setupprofile')
+        await this.setupProfile();
+        console.log('After calling setupprofile')
+
+        await this.$store.dispatch('setLogin', { keypair });
+        this.loading = false;
+        Object.assign(this.profile, {});
+        this.$router.push(this.$store.state.loginTargetLocation);
+
       } catch (e) {
         this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
-
-      await this.$store.dispatch('setLogin', { keypair });
-      await this.setupProfile();
-      this.$router.push(this.$store.state.loginTargetLocation)
-      // this.next();
     }
   }
 };
