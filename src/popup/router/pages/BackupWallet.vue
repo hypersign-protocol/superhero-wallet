@@ -48,7 +48,7 @@
 import ListItem from '../components/ListItem';
 import CheckBox from '../components/CheckBox';
 const { encrypt } = require('../../../lib/symmericCrypto') ;
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Input from '../components/Input';
 export default {
   components: {
@@ -88,6 +88,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(['mnemonic']),
     ...mapGetters(['hypersign']),
   },
   methods: {
@@ -125,9 +126,15 @@ export default {
         // Encrypt everything
         if(confirmed){
             this.loading = true;
-            const walletDataJson = this.hypersign ? JSON.stringify(this.hypersign): "";
+            const dataToEncrypt = {
+              mnemonic : this.mnemonic,
+              hypersign:  this.hypersign
+            }
+
+            console.log(this.mnemonic)
+            const walletDataJson = JSON.stringify(dataToEncrypt)
             // console.log(walletDataJson)
-            if(walletDataJson == " ") throw new Error('Invalid data');
+            if(walletDataJson == "") throw new Error('Invalid data');
 
             const encryptedMessage = await encrypt(walletDataJson, this.password);
 
@@ -136,8 +143,6 @@ export default {
             if(this.activeBackup == 'local'){
               //download the file in local
               this.forceFileDownload(encryptedMessage);
-
-
             }else{
               // send the file to server...
             }

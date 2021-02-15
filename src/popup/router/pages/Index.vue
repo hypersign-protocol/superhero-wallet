@@ -78,14 +78,20 @@ export default {
     },
     async createWallet() {
       this.mnemonic = generateMnemonic();
+      
+      console.log(this.mnemonic);
+
       const seed = mnemonicToSeed(this.mnemonic).toString('hex');
+      
+      console.log(seed)
+
       const address = await this.$store.dispatch('generateWallet', { seed });
       this.$store.commit('setMnemonic', this.mnemonic);
       const keypair = {
         publicKey: address,
         privateKey: seed,
       };
-
+      console.log(keypair)
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
       try {
@@ -114,7 +120,7 @@ export default {
         keys['privateKeyBase58'] = hskeys.privateKey;
         console.log(this.profile)
         this.profile.did = did;
-        
+
         this.$store.commit('setHSkeys', {
           keys,
           did,
@@ -125,6 +131,7 @@ export default {
         console.log('After calling setupprofile')
 
         await this.$store.dispatch('setLogin', { keypair });
+
         this.loading = false;
         Object.assign(this.profile, {});
         this.$router.push(this.$store.state.loginTargetLocation);

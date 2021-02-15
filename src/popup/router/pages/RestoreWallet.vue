@@ -55,7 +55,7 @@ import ListItem from '../components/ListItem';
 import CheckBox from '../components/CheckBox';
 import Input from '../components/Input';
 const { decrypt } = require('../../../lib/symmericCrypto') ;
-
+import { mnemonicToSeed, validateMnemonic } from '@aeternity/bip39';
 export default {
   components: {
     ListItem,
@@ -98,6 +98,31 @@ export default {
         this.$store.dispatch('modals/open', { name: 'default', msg: 'Feature coming soon...'});
       }
     },
+    async importAccount() {
+      // this.loading = true;
+      if (!this.mnemonic)  throw new Error('Mnemonic not found in encryted file.')
+
+        this.mnemonic = this.mnemonic.trim();
+        const mnemonic = this.mnemonic.split(' ');
+        if (mnemonic.length >= 12 && mnemonic.length <= 24 && validateMnemonic(this.mnemonic)) {
+          this.errorMsg = null;
+          const seed = mnemonicToSeed(this.mnemonic).toString('hex');
+          const address = await this.$store.dispatch('generateWallet', { seed });
+          this.$store.commit('setMnemonic', this.mnemonic);
+          const keypair = {
+            publicKey: address,
+            privateKey: seed,
+          };
+          await this.$store.dispatch('setLogin', { keypair });
+          this.$store.commit('setBackedUpSeed', true);
+          setTimeout(() => this.$router.push(this.$store.state.loginTargetLocation), 1000);
+        }else{
+          throw new Error('Could not import accounts. Invalid Mnemonic');
+        }
+    },
+    validateMnemonic() {
+      return validateMnemonic(this.mnemonic);
+    },
     onFileChange(){
       try{
        const file = event.target.files[0];
@@ -133,9 +158,16 @@ export default {
 
         // const walletDataStr = JSON.parse(this.walletJson);
         const walletData = await decrypt(this.walletJson, this.password);
+        const { hypersign, mnemonic  } =  JSON.parse(walletData);
         console.log(walletData)
 
-        this.$store.commit('restoreHypersign',JSON.parse(walletData));
+        this.$store.commit('restoreHypersign',hypersign);
+
+        // setup the mnemonic for main account
+        this.mnemonic = mnemonic;
+        await this.importAccount();
+    
+
         this.$store.dispatch('modals/open', { name: 'default', msg: 'Restore successful' });
         this.$router.push('/account');
 
