@@ -60,16 +60,16 @@
               {{ $t('pages.appVUE.backup') }}
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link to="/restoreWallet" data-cy="restoreWallet">
               {{ $t('pages.appVUE.restore') }}
             </router-link>
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <router-link to="/generalSettings" data-cy="generalSettings">
               {{ $t('pages.appVUE.language') }}
             </router-link>
-          </li>
+          </li> -->
           <li>
             <router-link to="/networks" data-cy="networks">
               {{ $t('pages.appVUE.networks') }}

@@ -35,11 +35,8 @@
         <Button @click="backup()">
           {{ $t('pages.backup-wallet.button') }}
         </Button>
-          <Loader v-if="loading" />
       </div>
-      <div v-if="loading" class="loading">
-        <ae-loader />
-      </div>
+      <Loader v-if="loading" />
     </div>
   </div>
 </template>
@@ -126,33 +123,34 @@ export default {
         // Encrypt everything
         if(confirmed){
             this.loading = true;
-            const dataToEncrypt = {
-              mnemonic : this.mnemonic,
-              hypersign:  this.hypersign
-            }
+            setTimeout(async () => {
+                const dataToEncrypt = {
+                  mnemonic : this.mnemonic,
+                  hypersign:  this.hypersign
+                }
 
-            console.log(this.mnemonic)
-            const walletDataJson = JSON.stringify(dataToEncrypt)
-            // console.log(walletDataJson)
-            if(walletDataJson == "") throw new Error('Invalid data');
+                console.log(this.mnemonic)
+                const walletDataJson = JSON.stringify(dataToEncrypt)
+                // console.log(walletDataJson)
+                if(walletDataJson == "") throw new Error('Invalid data');
 
-            const encryptedMessage = await encrypt(walletDataJson, this.password);
+                const encryptedMessage = await encrypt(walletDataJson, this.password);
 
-            // console.log(encryptedMessage);
+                // console.log(encryptedMessage);
 
-            if(this.activeBackup == 'local'){
-              //download the file in local
-              this.forceFileDownload(encryptedMessage);
-            }else{
-              // send the file to server...
-            }
-            this.loading = false;
-            this.$store.dispatch('modals/open', { name: 'default', msg: 'Backup successful' });
-            this.$router.push('/account');
+                if(this.activeBackup == 'local'){
+                  // download the file in local
+                  this.forceFileDownload(encryptedMessage);
+                }else{
+                  // send the file to server...
+                  // TODO Backup on cloud
+                }
+                this.loading = false;    
+                this.$store.dispatch('modals/open', { name: 'default', msg: 'Backup successful' });
+                this.$router.push('/account');
+            }, 1000)
         }
-
         // save into a file 
-        
       }catch(e){
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });

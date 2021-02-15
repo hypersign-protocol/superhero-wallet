@@ -43,9 +43,7 @@
           {{ $t('pages.restore-wallet.button') }}
         </Button>
       </div>
-      <div v-if="loading" class="loading">
-        <ae-loader />
-      </div>
+      <Loader v-if="loading" />
     </div>
   </div>
 </template>
@@ -151,28 +149,31 @@ export default {
 
     async restore(){
       try{
+        this.loading = true;
         // Check the password
         if(this.password === "")throw new Error('Please enter a password.')
         if(this.activeNetwork === "")throw new Error('Please choose a backup type.')
         if(this.walletJson === "") throw new Error('Incorrect data')
 
-        // const walletDataStr = JSON.parse(this.walletJson);
-        const walletData = await decrypt(this.walletJson, this.password);
-        const { hypersign, mnemonic  } =  JSON.parse(walletData);
-        console.log(walletData)
+        setTimeout(async () => {
+          const walletData = await decrypt(this.walletJson, this.password);
+          const { hypersign, mnemonic  } =  JSON.parse(walletData);
+          console.log(walletData)
 
-        this.$store.commit('restoreHypersign',hypersign);
+          this.$store.commit('restoreHypersign',hypersign);
 
-        // setup the mnemonic for main account
-        this.mnemonic = mnemonic;
-        await this.importAccount();
-    
-
-        this.$store.dispatch('modals/open', { name: 'default', msg: 'Restore successful' });
-        this.$router.push('/account');
+          // setup the mnemonic for main account
+          this.mnemonic = mnemonic;
+          await this.importAccount();
+      
+          this.loading = false;
+          this.$store.dispatch('modals/open', { name: 'default', msg: 'Restore successful' });
+          this.$router.push('/account');
+        }, 1000)
 
 
       }catch(e){
+        this.loading = false;
           if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     }
