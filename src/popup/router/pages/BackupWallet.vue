@@ -47,6 +47,8 @@ import CheckBox from '../components/CheckBox';
 const { encrypt } = require('../../../lib/symmericCrypto') ;
 import { mapGetters, mapState } from 'vuex';
 import Input from '../components/Input';
+import saveFile from '../../utils/saveFile';
+
 export default {
   components: {
     ListItem,
@@ -122,7 +124,7 @@ export default {
 
         // Encrypt everything
         if(confirmed){
-            this.loading = true;
+            // this.loading = true;
             setTimeout(async () => {
                 const dataToEncrypt = {
                   mnemonic : this.mnemonic,
@@ -135,17 +137,18 @@ export default {
                 if(walletDataJson == "") throw new Error('Invalid data');
 
                 const encryptedMessage = await encrypt(walletDataJson, this.password);
+                const fileName = "hypersign-identity-wallet-backup.txt";
 
                 // console.log(encryptedMessage);
 
                 if(this.activeBackup == 'local'){
                   // download the file in local
-                  this.forceFileDownload(encryptedMessage);
+                  await saveFile(fileName,encryptedMessage);
                 }else{
                   // send the file to server...
                   // TODO Backup on cloud
                 }
-                this.loading = false;    
+                // this.loading = false;    
                 this.$store.dispatch('modals/open', { name: 'default', msg: 'Backup successful' });
                 this.$router.push('/account');
             }, 1000)
@@ -156,15 +159,10 @@ export default {
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     },
-    forceFileDownload(data) {
-      const fileName = "hypersign-identity-wallet-backup.txt";
-      const url = window.URL.createObjectURL(new Blob([data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-    },    
+    // forceFileDownload(data) {
+    //   const fileName = "hypersign-identity-wallet-backup.txt";
+    //   await saveFile(fileName,data);
+    // },    
   }
 };
 </script>

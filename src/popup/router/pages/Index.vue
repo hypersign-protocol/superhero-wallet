@@ -173,6 +173,7 @@ input.input {
 }
 .index {
   text-align: center !important;
+  margin-top: 15%;
   .checkbox-container {
     margin: 0 auto 25px auto;
     max-width: 282px;

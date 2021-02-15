@@ -18,6 +18,8 @@
         <allow-intent href="market:*" />
         <preference name="SplashMaintainAspectRatio" value="true" />
         <preference name="HeaderColor" value="#21202a" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+        <preference name="AndroidExtraFilesystems" value="files,cache, sdcard, cache-external, files-external" />
         <icon density="ldpi" src="resources/icon.png" />
         <icon density="mdpi" src="resources/icon.png" />
         <icon density="hdpi" src="resources/icon.png" />
