@@ -24,7 +24,7 @@
         {{ $t('pages.tipPage.cancel') }}
       </Button>
 
-      <Button half @click="setupProfile"
+      <Button half @click="setupProfileNow"
       :disabled="!profile.name || !profile.did ||  !profile.email"
       v-if ="ifCreate"
       >
@@ -46,7 +46,22 @@ import registration from '../../../mixins/registration';
 
 export default {
   mixins: [registration],
-  components: { Input }
+  components: { Input },
+  data: () => ({
+    loading:  false
+  }),
+  methods: {
+    async setupProfileNow(){
+      try{
+        this.loading = true;
+        await this.setupProfile();
+      }catch (e) {
+        console.log(e)
+        this.loading = false;
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      }
+    }
+  }
 };
 </script>
 
