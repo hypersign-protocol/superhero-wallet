@@ -1,8 +1,10 @@
-const hsdk = require('lds-sdk');
-const { HS_NODE_BASE_URL, HS_DID_SCHEME } = require('./hsConstants')
+const hsdk = require('hs-ssi-sdk');
+const { HS_NODE_BASE_URL } = require('./hsConstants')
 
-const options = { nodeUrl: HS_NODE_BASE_URL, didScheme: HS_DID_SCHEME };
+const options = { nodeUrl: HS_NODE_BASE_URL};
+const hsSSISdk =  new hsdk(options);
+console.log(hsSSISdk)
 export const hypersignSDK = {
-    did: hsdk.did(options),
-    credential: hsdk.credential(options),
+    did: hsSSISdk.did,
+    credential: hsSSISdk.credential
 };

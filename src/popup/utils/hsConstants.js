@@ -1,7 +1,4 @@
-// export const HS_NODE_BASE_URL = "http://192.168.0.7:5000/"
-export const HS_NODE_DID_REGISTER_API = "api/did/register"
-export const HS_DID_SCHEME = "did:hs"
-// export const SUPERHERO_HS_AUTH_BASE_URL = "http://192.168.43.206:8000/"
-export const SUPERHERO_HS_AUTH_CREDENTIAL_ISSUE_API = "api/auth/register"
-export const HS_NODE_BASE_URL = "https://ssi.hypermine.in/core/"
-export const SUPERHERO_HS_AUTH_BASE_URL = "https://ssi.hypermine.in/hsauth/"
+export const HS_NODE_BASE_URL = "https://ssi.hypermine.in/core/";
+export const SUPERHERO_HS_AUTH_BASE_URL = "https://ssi.hypermine.in/hsauth/"; // change supero to hypersign later
+export const SUPERHERO_HS_AUTH_CREDENTIAL_ISSUE_API = "hs/api/v2/register"; // change supero to hypersign later
+

@@ -10,10 +10,10 @@
           <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
           ><br />
           <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issuance Date: {{ credDetials.formattedIssuanceDate }}</span
+          <span class="cred-card-body-detail">Issued on: {{ credDetials.formattedIssuanceDate }}</span
           ><br />
           
-          <span class="cred-card-body-detail">Expiration Date: {{ credDetials.formattedExpirationDate }}</span
+          <span class="cred-card-body-detail">Expires on: {{ credDetials.formattedExpirationDate }}</span
           ><br />
         </div>
       </div>
@@ -97,7 +97,7 @@ export default {
         if(!schemaId) throw new Error('Invalid credential request');
 
         const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
-        const credentialSchemaId = (credentialSchemaUrl.split('get/')[1]).trim();
+        const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
 
         if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
 

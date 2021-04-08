@@ -127,7 +127,7 @@ export default {
        console.log(file)
        if(!file) throw Error('Error loading backup file')
 
-       if(file.name != 'hypersign-identity-wallet-backup.txt') throw Error('Incorrect file. Please select hypersign backup file')
+       if(file.name.indexOf('hypersign-identity-wallet-backup') > 0) throw Error('Incorrect file. Please select hypersign backup file')
        // TODO:  check if file name is correct
        console.log('Reading file start')
        this.readFile(file, this.onfileLoadSuccess);

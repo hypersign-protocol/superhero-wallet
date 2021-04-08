@@ -52,9 +52,8 @@ export default {
             const HS_STUDIO_REGISTER_URL = `${SUPERHERO_HS_AUTH_BASE_URL}${SUPERHERO_HS_AUTH_CREDENTIAL_ISSUE_API}`
 
             const body = {
-                fname: this.profile.name,
-                email: this.profile.email,
-                publicKey: this.profile.did
+                name: this.profile.name,
+                email: this.profile.email
             }
 
             let res = await axios.post(HS_STUDIO_REGISTER_URL, body);
@@ -64,9 +63,7 @@ export default {
             if (res && res.status != 200) throw new Error(res.error);
 
             const msg = 'An email with a QR code has been sent to the address you provided.\
-            Scan the QR code to receieve the credential.\
-            You can use this credential to authenticate yourself in any website which\
-            supports Hypersign login.'
+            Scan the QR code to receieve the credential'
 
             if (res.message) this.$store.dispatch('modals/open', { name: 'default', msg });
             this.$store.commit('addHSProfile', this.profile);

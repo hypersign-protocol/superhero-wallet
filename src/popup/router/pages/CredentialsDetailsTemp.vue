@@ -10,10 +10,10 @@
           <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
           ><br />
           <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issuance Date: {{ credDetials.formattedIssuanceDate }}</span
+          <span class="cred-card-body-detail">Issued on: {{ credDetials.formattedIssuanceDate }}</span
           ><br />
           
-          <span class="cred-card-body-detail">Expiration Date: {{ credDetials.formattedExpirationDate }}</span
+          <span class="cred-card-body-detail">Expires on: {{ credDetials.formattedExpirationDate }}</span
           ><br />
         </div>
       </div>

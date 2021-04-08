@@ -113,11 +113,12 @@ export default {
         }
         
       } catch (e) {
+        console.log(e);
         this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       }
     },
 
-    async fetchCredential() {
+    async fetchCredential() {      
       this.credentialUrl = this.credentialUrl + '&did=' + this.hypersign.did;
       this.loading = true;
       let response = await axios.get(this.credentialUrl);
@@ -148,6 +149,7 @@ export default {
         this.$store.commit('addHSVerifiableCredentialTemp', cred);
         this.$router.push(`/credential/temp/${cred.id}`);
       } catch (e) {
+        console.log(e);
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       }
@@ -166,13 +168,14 @@ export default {
         this.$store.commit('addRequestingAppInfo', qrData);
         this.verifiableCredential = this.hypersign.credentials.find((x) => {
           const credentialSchemaUrl = x['@context'][1].hsscheme;
-          const credentialSchemaId = credentialSchemaUrl.split('get/')[1].trim();
+          const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
           if (x.issuer === appDid && credentialSchemaId === schemaId) return x;
         });
 
         if (!this.verifiableCredential) throw new Error('Credential not found');
         this.$router.push(`/credential/authorize/${this.verifiableCredential.id}`);
       } catch (e) {
+        console.log(e);
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       }
