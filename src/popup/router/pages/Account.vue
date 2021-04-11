@@ -49,6 +49,7 @@ import QrIcon from '../../../icons/qr-code-white.svg?vue-component';
 import AccountInfo from '../components/AccountInfo';
 import BoxButton from '../components/BoxButton';
 import axios from 'axios';
+import { HYPERSIGN_AUTH_SERVER_DID } from '../../utils/hsConstants';
 
 export default {
   name: 'Account',
@@ -165,11 +166,23 @@ export default {
         const { appDid, schemaId } = qrData;
 
         if (!schemaId) throw new Error('Invalid schemaId');
+        if (!HYPERSIGN_AUTH_SERVER_DID) throw new Error('Hypersign Auth Server did is not set ') // this check can go at startign of the app and not here.... bad way
+        
         this.$store.commit('addRequestingAppInfo', qrData);
         this.verifiableCredential = this.hypersign.credentials.find((x) => {
           const credentialSchemaUrl = x['@context'][1].hsscheme;
           const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
-          if (x.issuer === appDid && credentialSchemaId === schemaId) return x;
+          if (credentialSchemaId === schemaId){
+            if (x.issuer === appDid ){ // check if the app company issued this credential ;;  the registration flow
+              return x;
+            }
+
+            if(x.issuer === HYPERSIGN_AUTH_SERVER_DID){ // of the issuer is Hypersign Auth server? ;; without registration flow
+              return x;
+            }
+          }
+          // // if (x.issuer === appDid && credentialSchemaId === schemaId) return x; // we need to fix this later: should we not include x.issuer === appDid check as well?
+          // if (credentialSchemaId === schemaId) return x; 
         });
 
         if (!this.verifiableCredential) throw new Error('Credential not found');

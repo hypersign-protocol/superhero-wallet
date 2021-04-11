@@ -124,7 +124,7 @@ export default {
         // Encrypt everything
         if (confirmed) {
           this.loading = true;
-          // setTimeout(async () => {
+          
           const dataToEncrypt = {
             mnemonic: this.mnemonic,
             hypersign: this.hypersign,
@@ -143,15 +143,18 @@ export default {
             // TODO Backup on cloud
           }
 
+        setTimeout(() => {
           this.$store.dispatch('modals/open', { name: 'default', msg: 'Backup successful' });
           this.$router.push('/account');
-          // }, 1000)
+          this.loading = false;
+          }, 2000)
         }
         // save into a file
       } catch (e) {
+        this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       } finally {
-        this.loading = false;
+        
       }
     },
   },
