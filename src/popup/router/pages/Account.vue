@@ -185,7 +185,16 @@ export default {
         this.verifiableCredential = this.hypersign.credentials.find((x) => {
           const credentialSchemaUrl = x['@context'][1].hsscheme;
           const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
+          console.log({
+            credentialSchemaId, 
+            schemaId
+          })
           if (credentialSchemaId === schemaId){
+            console.log({
+              issuer: x.issuer,
+              appDid: appDid,
+              HYPERSIGN_AUTH_SERVER_DID: HYPERSIGN_AUTH_SERVER_DID
+            })
             if (x.issuer === appDid ){ // check if the app company issued this credential ;;  the registration flow
               return x;
             }
