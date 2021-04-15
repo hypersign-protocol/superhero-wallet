@@ -80,6 +80,7 @@ export default {
     //Only for deeplinking
     if(this.$route.query.url && this.$route.query.url !=''){
       const JSONData = decodeURI(this.$route.query.url)
+      console.log(JSONData)
       this.receiveOrGiveCredential(JSONData);
     }
       
@@ -99,6 +100,7 @@ export default {
       let data;
       try {
         data = JSON.parse(QRJsonString);
+        console.log(data);
         switch(data.QRType){
           case 'ISSUE_CRED': {
             this.credentialsQRData(data.url);
@@ -124,6 +126,8 @@ export default {
       this.loading = true;
       let response = await axios.get(this.credentialUrl);
       response = response.data;
+
+
       if (!response) throw new Error('Can not accept credential');
       if (response && response.status != 200) throw new Error(response.error);
       if (!response.message) throw new Error('Can not accept credential');
@@ -142,10 +146,19 @@ export default {
           throw new Error('The credential already exist in your wallet');
         }
 
+        console.log(1)
+
+        console.log({
+          hs_app_did: this.hypersign.did,
+          credentialSubjectDid: cred.credentialSubject.id
+        })
+        
         // TODO: Check if you are the owner of this credenital: otherwise reject
-        if (this.hypersign.did != cred.credentialSubject.id) {
-          throw new Error('The credential is not issued to you');
-        }
+        // if (this.hypersign.did != cred.credentialSubject.id) {
+        //   throw new Error('The credential is not issued to you');
+        // }
+
+        console.log(2)
 
         this.$store.commit('addHSVerifiableCredentialTemp', cred);
         this.$router.push(`/credential/temp/${cred.id}`);
