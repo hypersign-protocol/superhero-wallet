@@ -60,6 +60,7 @@ import { generateMnemonic, mnemonicToSeed } from '@aeternity/bip39';
 import Input from '../components/Input-light';
 import registration from '../../../mixins/registration';
 import HypersignSsiSDK from 'hs-ssi-sdk';
+import { HS_NODE_BASE_URL } from '../../utils/hsConstants'
 export default {
   mixins: [registration],
   components: { Logo,Input, SuperheroLogo, CheckBox, Button, Platforms },
@@ -74,7 +75,7 @@ export default {
       this.$router.push('restoreWallet') 
     },
     async createWallet() {
-      const hsSdk = new HypersignSsiSDK({ nodeUrl: "http://localhost:5000" }); 
+      const hsSdk = new HypersignSsiSDK({ nodeUrl: HS_NODE_BASE_URL }); 
       this.mnemonic = generateMnemonic();
       
       console.log(this.mnemonic);
