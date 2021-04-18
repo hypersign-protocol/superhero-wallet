@@ -77,6 +77,8 @@ export default {
     ...mapGetters(['hypersign']),
   },
   created() {
+    console.log('Inside account page')
+    console.log(this.$route.query.url)
     //Only for deeplinking
     if(this.$route.query.url && this.$route.query.url !=''){
       const JSONData = decodeURI(this.$route.query.url)

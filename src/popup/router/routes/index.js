@@ -56,7 +56,7 @@ import CredentialsDetails from '../pages/CredentialsDetails';
 import CredentialsDetailsTemp from '../pages/CredentialsDetailsTemp';
 import CredentialsDetailsAuthorize from '../pages/CredentialsDetailsAuthorize';
 
-
+import Deeplink  from '../pages/Deeplink';
 export default [{
         path: '/',
         component: Index,
@@ -80,6 +80,11 @@ export default [{
         meta: {
             notPersist: true,
         },
+    },
+    {
+        path: '/deeplink',
+        name: 'deeplink',
+        component: Deeplink,
     },
     {
         name: 'connect',
