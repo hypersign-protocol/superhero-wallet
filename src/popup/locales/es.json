@@ -30,6 +30,7 @@
     "notVerified": "No verificada"
   },
   "modals": {
+    "coming-soon": "Comming Soon ..",
     "transaction-failed": {
       "msg": "No podemos procesar esta transacción. Por favor, intenta más tarde."
     },
@@ -193,6 +194,7 @@
       "settings": "Ajustes",
       "general": "Idioma",
       "security": "Securidad",
+      "backup-wallet": "Backup",
       "about": "Acerca",
       "send": "Enviar Propinas",
       "claim-tips": "Reclamar Propinas",
@@ -216,10 +218,15 @@
       "add-token": "Agregar token",
       "mint-burn-token": "Crear/Quemar token",
       "allowances": "Asignaciones",
-      "sign-message": "Firmar Mensaje"
+      "sign-message": "Firmar Mensaje",
+      "credentialDetails": "Credential Details",
+      "credentialDetailsTemp": "Credential Offer",
+      "credentialDetailsAuthorize": "Proof Details"
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
+      "restore": "Restore",
       "manageNetworks": "Administrar redes",
       "manageAccounts": "Cuentas de administración",
       "airGapVault": "Crear una Bóveda AirGap",
@@ -280,6 +287,15 @@
       "updateExtension": "¡Nueva versión disponible! Por favor actualiza tu extensión.",
       "updateAvailable": "¡Nueva versión disponible en la tienda!",
       "claim-name": "Reclama tu nombre .chain"
+    },
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scanToPresent": "Scan to present this credential",
+      "scan": "Scan QR",
+      "accept": "Accept",
+      "reject": "Reject",
+      "authorize": "Authorize",
+      "decline": "Decline"
     },
     "claim": {
       "claim": "Reclamar Propinas",
@@ -555,6 +571,20 @@
       "home": "Inicio",
       "transferExchange": "Cambiar (Swap) cripto por tokens AE",
       "purchase": "Comprar tokens AE"
+    },
+    "backup-wallet": {
+      "heading": "Backup your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
+    },
+    "restore-wallet": {
+      "heading": "Restore your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
     },
     "securitySettings": {
       "backToSettings": "Volver a ajustes",

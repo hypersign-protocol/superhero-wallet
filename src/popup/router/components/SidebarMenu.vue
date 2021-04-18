@@ -29,6 +29,16 @@
         {{ $t('pages.appVUE.credential') }}
       </router-link>
     </li>
+    <li>
+            <router-link to="/backupWallet" data-cy="backupWallet">
+              {{ $t('pages.appVUE.backup') }}
+            </router-link>
+          </li>
+          <li>
+            <span data-cy="remove-account" @click="removeAccount">
+              {{ $t('pages.appVUE.removeAccount') }}
+            </span>
+          </li>
     <!-- <li>
       <router-link to="/send" data-cy="send">
         {{ $t('pages.appVUE.withdraw') }}
@@ -39,40 +49,7 @@
         {{ $t('pages.appVUE.activity') }}
       </router-link>
     </li> -->
-    <li>
-      <button
-        :class="showSettingsDropdown && 'opened'"
-        @click="showSettingsDropdown = !showSettingsDropdown"
-        data-cy="settings"
-      >
-        {{ $t('pages.appVUE.settings') }}
-        <Arrow />
-      </button>
-      <transition name="slide">
-        <ul v-if="showSettingsDropdown" data-cy="dropdown">
-          <li>
-            <router-link to="/securitySettings" data-cy="securitySettings">
-              {{ $t('pages.appVUE.security') }}
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/generalSettings" data-cy="generalSettings">
-              {{ $t('pages.appVUE.language') }}
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/networks" data-cy="networks">
-              {{ $t('pages.appVUE.networks') }}
-            </router-link>
-          </li>
-          <li>
-            <span data-cy="remove-account" @click="removeAccount">
-              {{ $t('pages.appVUE.removeAccount') }}
-            </span>
-          </li>
-        </ul>
-      </transition>
-    </li>
+    
     <!-- <li>
       <router-link to="/names" data-cy="names">
         {{ $t('pages.appVUE.names') }}

@@ -30,6 +30,7 @@
     "notVerified": "Not verified"
   },
   "modals": {
+    "coming-soon": "Comming Soon ..",
     "transaction-failed": {
       "msg": "We cannot process this transaction. Please, try again later."
     },
@@ -114,6 +115,15 @@
     }
   },
   "pages": {
+    "credential": {
+      "scanCredential": "Scan verifiable credential",
+      "scanToPresent": "Scan to present this credential",
+      "scan": "Scan QR",
+      "accept": "Accept",
+      "reject": "Reject",
+      "authorize": "Authorize",
+      "decline": "Decline"
+    },
     "intro": {
       "heading": "Intro",
       "skip": "Skip",
@@ -135,6 +145,7 @@
     },
     "titles": {
       "settings": "Settings",
+      "backup-wallet": "Backup",
       "general": "Language",
       "security": "Security",
       "about": "About",
@@ -155,10 +166,15 @@
       "home": "Home",
       "donate-error": "Donate Data",
       "address": "Send Address",
-      "sign-message": "Sign Message"
+      "sign-message": "Sign Message",
+      "credentialDetails": "Credential Details",
+      "credentialDetailsTemp": "Credential Offer",
+      "credentialDetailsAuthorize": "Proof Details"
     },
     "appVUE": {
       "systemName": "Superhero",
+      "backup": "Backup",
+      "restore": "Restore",
       "manageNetworks": "Gestisci reti",
       "manageAccounts": "Gestisci account",
       "airGapVault": "Creare un deposito per il traferro",
@@ -486,6 +502,20 @@
       "home": "Home",
       "transferExchange": "Swap crypto for AE tokens",
       "purchase": "Buy AE tokens"
+    },
+    "backup-wallet": {
+      "heading": "Backup your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
+    },
+    "restore-wallet": {
+      "heading": "Restore your wallet to protect your information from being lost or destroyed",
+      "select-info": "Choose your source",
+      "select-option-1": "Local Backup",
+      "select-option-2": "Cloud Backup",
+      "button": "Continue"
     },
     "securitySettings": {
       "backToSettings": "Torna alle impostazioni",

@@ -7,6 +7,8 @@ import PopupMessageSign from '../pages/Popups/MessageSign';
 import Settings from '../pages/Settings';
 import GeneralSettings from '../pages/GeneralSettings';
 import SecuritySettings from '../pages/SecuritySettings';
+import BackupWallet from '../pages/BackupWallet';
+import RestoreWallet from '../pages/RestoreWallet';
 import AboutSettings from '../pages/AboutSettings';
 import Tip from '../pages/Tip';
 import Retip from '../pages/Retip';
@@ -51,8 +53,10 @@ import webIframePopups from './web-iframe-popups';
 import Credentials from '../pages/Credentials';
 import Profile from '../pages/Profile';
 import CredentialsDetails from '../pages/CredentialsDetails';
+import CredentialsDetailsTemp from '../pages/CredentialsDetailsTemp';
+import CredentialsDetailsAuthorize from '../pages/CredentialsDetailsAuthorize';
 
-
+import Deeplink  from '../pages/Deeplink';
 export default [{
         path: '/',
         component: Index,
@@ -76,6 +80,11 @@ export default [{
         meta: {
             notPersist: true,
         },
+    },
+    {
+        path: '/deeplink',
+        name: 'deeplink',
+        component: Deeplink,
     },
     {
         name: 'connect',
@@ -125,6 +134,22 @@ export default [{
         meta: {
             title: 'security',
         },
+    },
+    {
+        path: '/backupWallet',
+        name: 'backup-wallet',
+        component: BackupWallet,
+        meta: {
+            title: 'backup-wallet',
+        },
+    },
+    {
+        path: '/restoreWallet',
+        name: 'restore-wallet',
+        component: RestoreWallet,
+        meta: {
+            title: 'restore-wallet',
+            ifNotAuthOnly: true        },
     },
     {
         path: '/aboutSettings',
@@ -448,6 +473,24 @@ export default [{
         props: true,
         meta: {
             title: 'credentialDetails',
+        }
+    },
+    {
+        name: 'CredentialsDetailsTemp',
+        path: '/credential/temp/:credentialId',
+        component: CredentialsDetailsTemp,
+        props: true,
+        meta: {
+            title: 'credentialDetailsTemp'
+        }
+    },
+    {
+        name: 'CredentialsDetailsAuthorize',
+        path: '/credential/authorize/:credentialId',
+        component: CredentialsDetailsAuthorize,
+        props: true,
+        meta: {
+            title: 'credentialDetailsAuthorize'
         }
     },
     ...webIframePopups,

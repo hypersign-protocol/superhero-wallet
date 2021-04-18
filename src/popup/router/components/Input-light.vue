@@ -5,7 +5,7 @@
     </label>
     <input
       :type="type"
-      class="input"
+      class="input-light"
       :placeholder="placeholder"
       :class="{ 'has-error': error || err, [size]: size, 'input-label': labelPosition }"
       :value="value"
@@ -43,22 +43,25 @@ export default {
 <style lang="scss">
 @import '../../../common/variables';
 
-input.input {
-    width: 100%;
-    border-bottom: 2px solid #bbb!important;
-    background: #f1f1f1!important;
-    padding-left: 0px;
-    margin-bottom: 22px;
-    color: #3e3e3e!important;
-    font-size: 14px;
-    min-height: 35px;
+input.input-light {
+  display: block;
+  width: 100%;
+  // border-radius: 5px;
+  border-bottom:  2px solid $border-color !important;
+  background: $bg-color !important;
+  color: $text-color !important;
+  font-size: 14px;
+  min-height: 35px;
+  padding-left: 0px;
+  margin-bottom: 22px;
+  
 
   &:focus {
-    border-color: $input-focus-color !important;
+    border-bottom: 2px solid $input-focus-color !important;
   }
 
   &.has-error {
-    border-color: $input-error-color !important;
+    border-bottom: 2px solid $input-error-color !important;
   }
 
   &.sm {
@@ -106,7 +109,7 @@ input.input {
   display: inline-block;
   margin: 8px auto;
 
-  .input {
+  .input-light {
     padding-right: 50px;
     margin-bottom: 0;
   }

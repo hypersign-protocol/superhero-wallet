@@ -1,35 +1,29 @@
 <template>
   <div class="popup">
     <div class="">
-      <div class="cred-card">
-        <div class="cred-card-header">
-          <span>{{ credDetials.formattedSchemaName }}</span>
-        </div>
-        <div class="cred-card-body">
-          <!-- <span class="cred-card-body-detail">Issuer Did:</span><br /> -->
-          <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
-          ><br />
-          <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issued on: {{ credDetials.formattedIssuanceDate }}</span
-          ><br />
-          
-          <span class="cred-card-body-detail">Expires on: {{ credDetials.formattedExpirationDate }}</span
-          ><br />
-        </div>
+      <div class="appInfo">
+        <p>This organisation <span style="font-style:oblique">{{hypersign.requestingAppInfo.appName}}</span>
+        is requesting the following information.</p>
       </div>
-      <ul class="list-group">
+      <ul class="list-group credential-item">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
           <div class="list-title">{{ claim }}: </div>
           <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
         </li>
       </ul>
       <Loader v-if="loading" />
-      <!-- <div class="">
-        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
-      </div> -->
+       
     </div>
+      <div class="scanner d-flex">
+        <Button class="scan"  data-cy="scan-button" @click="authorize">
+          <VerifiedIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.authorize') }}</span>
+        </Button>
+      </div>
+      <div class="scanner d-flex">
+        <Button class="scan"  data-cy="scan-button" @click="reject">
+          <CloseIcon width="20" height="20" class="scan-icon"/><span class="scan-text">{{ $t('pages.credential.decline') }}</span>
+        </Button>
+      </div>
     <!-- <div class="scanner d-flex">
       <div class="scan" data-cy="scan-button" @click="scan">
         <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
@@ -40,12 +34,15 @@
 <script>
 import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
+import VerifiedIcon from '../../../icons/badges/verified.svg?vue-component';
+import CloseIcon from '../../../icons/badges/not-verified.svg?vue-component';
 import Url from 'url-parse';
 import axios from 'axios';
 import { hypersignSDK } from '../../utils/hypersign';
 import {toFormattedDate, toStringShorner} from '../../utils/helper'
+
 export default {
-  components: { QrIcon },
+  components: { QrIcon,CloseIcon,VerifiedIcon },
   data() {
     return {
       verifiableCredential: {},
@@ -59,14 +56,17 @@ export default {
       }
     };
   },
+  beforeDestroy() {
+    this.reject()
+  },
   created() {
     const credentialId = this.$route.params.credentialId;
     if (credentialId) {
-          this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
-          this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
-          this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
-          this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
-          this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
+      this.verifiableCredential = this.hypersign.credentials.find(x => x.id == credentialId);
+      this.credDetials.formattedExpirationDate = toFormattedDate(this.verifiableCredential.expirationDate) ;
+      this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
+      this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
+      this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
       this.claims = Object.keys(this.verifiableCredential.credentialSubject);
     }
   },
@@ -74,46 +74,12 @@ export default {
     ...mapGetters(['hypersign']),
   },
   methods: {    
-    async scan() {
+    async authorize() {
       try {
-        let qrJson = await this.$store.dispatch('modals/open', {
-          name: 'read-qr-code',
-          title: this.$t('pages.credential.scanToPresent'),
-        });
-
-        if(!qrJson) throw new Error('Empty QR code json');
-        //console.log(qrJson)
-        let qrData;
-        try{
-          qrData = JSON.parse(qrJson)
-        }catch(e){
-          throw new Error('Could not parse QR json');
-        }
-
-        if(qrData == {}) throw new Error('Parsed QR data is empty');
-
-        const { serviceEndpoint, appDid, appName, schemaId } = qrData;
-
-        if(!schemaId) throw new Error('Invalid credential request');
-
         const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
         const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
-
-        if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
-
-        const credentialName = this.verifiableCredential.type[1];
-
-        // TODO: 
-        const confirmed = await this.$store.dispatch('modals/open', {
-          name: 'confirm',
-          title: 'Credential Request',
-          msg: `Application: '${appName}' \
-          is requesting credential: '${credentialName}'. \
-          Do you want to allow?`,
-        })
-        .catch(() => false);
-
-        if(confirmed){
+            const { serviceEndpoint, schemaId } = this.hypersign.requestingAppInfo;
+            if(schemaId != credentialSchemaId) throw new Error('Invalid credential request: Requesting schema does not exist. Make sure you register first to get credential');
             const url = Url(serviceEndpoint, true);
             const challenge = url.query.challenge;
             this.loading= true;
@@ -122,34 +88,50 @@ export default {
               this.verifiableCredential,
               this.hypersign.did,
             );
-            //console.log('Unsigned vp created..');
+          
             const vp_signed = await hypersignSDK.credential.signPresentation(
               vp_unsigned,
               this.hypersign.did,
               this.hypersign.keys.privateKeyBase58,
               challenge,
             );
-            //console.log('Signed vp created..');
+
+            console.log('Signed vp created..');
             const body = {
               challenge,
               vp: JSON.stringify(vp_signed),
             };
+
             let response = await axios.post(verifyUrl, body);
             response = response.data;
+          
+
             if (!response) throw new Error('Could not verify the presentation');
-            if (response && response.status != 200) throw new Error(response.error);
+            if(response.status == 401 || response.status == 403) {
+              throw new Error('Unauthorized')
+            }else if(response.status == 200){
             if (response.message)
-              this.$store.dispatch('modals/open', {
+            await this.$store.dispatch('modals/open', {
                 name: 'default',
                 msg: 'Credential successfully verified',
               });
-        }
+            this.reject()
+            }else {
+              throw new Error(response.error)
+            }
+            
+        // }
         this.loading=false;
       } catch (e) {
         this.loading=false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
+        this.reject()
       }
     },
+    async reject () {
+      this.$store.commit('clearRequestingAppInfo');
+      this.$router.push('/account')
+    }
   },
 };
 </script>
@@ -161,26 +143,15 @@ export default {
   margin-top: 27%;
   padding-bottom: 5%;
 }
-.scan-text{
-  margin-left: 20px;
-  margin-bottom: 2px;
-  // float: right;
+
+.scan { 
+  border-radius: 49px;
+  text-align: center;
 }
 .scanner {
-  // position: fixed;
-  bottom: 0;
-  margin-top: 3%;
-  width: 59%;
+  bottom:15px;
+  width: 50%;
   border-radius: 49px;
-  margin-left: 13%;
-}
-.credential-list {
-    min-height: 700px;
-overflow-y: auto;
-border-radius: 5px;
-overflow-x: hidden;
-max-height: 700px;
-    
 }
 .cred-card {
   background: #21222a !important;
@@ -194,12 +165,9 @@ max-height: 700px;
 }
 .cred-card-header {
   color: #fff;
-
   border-bottom: 1px solid #80808061;
   border-top: 1px solid gray;
-
   background-color: #808080f0;
-
   font-size: larger;
   text-align: right;
   padding-right: 8px;
@@ -210,6 +178,7 @@ max-height: 700px;
   font-size: 12px;
   text-transform:capitalize;
 }
+
 
 .list-group {
   padding: 0 !important;
