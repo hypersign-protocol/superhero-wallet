@@ -49,7 +49,7 @@ import QrIcon from '../../../icons/qr-code-white.svg?vue-component';
 import AccountInfo from '../components/AccountInfo';
 import BoxButton from '../components/BoxButton';
 import axios from 'axios';
-import { HYPERSIGN_AUTH_SERVER_DID } from '../../utils/hsConstants';
+import { HS_AUTH_DID_URL } from '../../utils/hsConstants';
 
 export default {
   name: 'Account',
@@ -70,6 +70,7 @@ export default {
       credentialUrl: '',
       loading: false,
       verifiableCredential: {},
+      hsAuthDid: ""
     };
   },
   computed: {
@@ -85,6 +86,14 @@ export default {
       console.log(JSONData)
       this.receiveOrGiveCredential(JSONData);
     }
+
+
+    axios.get(HS_AUTH_DID_URL).then(res => {
+        console.log(res)
+        if(res && res.data){
+          this.hsAuthDid = res.data.message
+        }
+    })
       
   },
   methods: {
@@ -181,7 +190,6 @@ export default {
         const { appDid, schemaId } = qrData;
 
         if (!schemaId) throw new Error('Invalid schemaId');
-        if (!HYPERSIGN_AUTH_SERVER_DID) throw new Error('Hypersign Auth Server did is not set ') // this check can go at startign of the app and not here.... bad way
         
         this.$store.commit('addRequestingAppInfo', qrData);
         this.verifiableCredential = this.hypersign.credentials.find((x) => {
@@ -192,16 +200,11 @@ export default {
             schemaId
           })
           if (credentialSchemaId === schemaId){
-            console.log({
-              issuer: x.issuer,
-              appDid: appDid,
-              HYPERSIGN_AUTH_SERVER_DID: HYPERSIGN_AUTH_SERVER_DID
-            })
             if (x.issuer === appDid ){ // check if the app company issued this credential ;;  the registration flow
               return x;
             }
 
-            if(x.issuer === HYPERSIGN_AUTH_SERVER_DID){ // of the issuer is Hypersign Auth server? ;; without registration flow
+            if(x.issuer === this.hsAuthDid){ // of the issuer is Hypersign Auth server? ;; without registration flow
               return x;
             }
           }
