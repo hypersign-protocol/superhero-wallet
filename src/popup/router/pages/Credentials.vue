@@ -11,12 +11,6 @@
         />
       </Panel>
       <Loader v-if="loading" />
-
-      <!-- <div class="">
-        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
-      </div> -->
     </div>
 </template>
 
