@@ -2,24 +2,16 @@
   <div class="popup">
     <div data-cy="seed-phrase-backup-window" v-if="type == ''">
       <div class="maindiv_input-group-addon">
+          <p class="heading sett_info">{{ $t('pages.restore-wallet.heading') }}</p>
           <img src="../../../icons/cloud-download-down-arrow.svg" alt="Upload logo" class="icon" />
+          
+          
           <div class="margin-20">
-            <Input
-            placeholder="Enter your password"
-            label=""
-            type="password"
-            v-model="password"
-          />
-          </div>
-          <div class="margin-20">
-            <label class="sett_info">{{ $t('pages.restore-wallet.select-info') }}</label>
-            <ListItem v-for="network in options" :key="network.text" @click.native="selectNetwork(network)" class="network-row">
+            <!-- <label class="sett_info">{{ $t('pages.restore-wallet.select-info') }}</label> -->
+            <!-- <ListItem v-for="network in options" :key="network.text" @click.native="selectNetwork(network)" class="network-row">
               <div class="margin-10">
                 {{network.text}}
               </div>
-              <!-- <div class="mr-auto text-left">
-                <p class="f-16" data-cy="network-name">{{ network.name }}</p>
-              </div> -->
               <CheckBox
                 :value="network.value === activeNetwork"
                 type="radio"
@@ -27,7 +19,7 @@
                 name="activeNetwork"
                 prevent
               />
-            </ListItem>
+            </ListItem> -->
             <input
                 type="file"
                 class="form-control"
@@ -38,8 +30,16 @@
                 style="width:100%; height:100%"
                 />
           </div>
+      <div class="margin-20">
+         <Input
+                  placeholder="Enter your password"
+                  label=""
+                  type="password"
+                  v-model="password"
+                  />
+      </div>
          
-        <Button @click="restore()">
+        <Button @click="restore()" style="margin-top: 30%;">
           {{ $t('pages.restore-wallet.button') }}
         </Button>
       </div>
@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       loading: false,
-      activeNetwork:'',
+      activeNetwork:'local',
       modal: {
         visible: false,
         title: '',
@@ -151,29 +151,37 @@ export default {
       try{
         this.loading = true;
         // Check the password
-        if(this.password === "")throw new Error('Please enter a password.')
+        if(this.password === "")throw new Error("Please enter a password")
         if(this.activeNetwork === "")throw new Error('Please choose a backup type.')
         if(this.walletJson === "") throw new Error('Incorrect data')
 
         setTimeout(async () => {
-          const walletData = await decrypt(this.walletJson, this.password);
-          const { hypersign, mnemonic  } =  JSON.parse(walletData);
-          console.log(walletData)
+          try{
+            const walletData = await decrypt(this.walletJson, this.password);
+            const { hypersign, mnemonic  } =  JSON.parse(walletData);
+            console.log(walletData)
 
-          this.$store.commit('restoreHypersign',hypersign);
+            this.$store.commit('restoreHypersign',hypersign);
 
-          // setup the mnemonic for main account
-          this.mnemonic = mnemonic;
-          await this.importAccount();
-      
-          this.loading = false;
-          this.$store.dispatch('modals/open', { name: 'default', msg: 'Restore successful' });
-          this.$router.push('/account');
+            // setup the mnemonic for main account
+            this.mnemonic = mnemonic;
+            await this.importAccount();
+        
+            this.loading = false;
+            this.$store.dispatch('modals/open', { name: 'default', msg: 'Restore successful' });
+            this.$router.push('/account');  
+          }catch(e){
+            this.loading = false;  
+            this.password = "";
+            if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: "Incorrect password" });
+          }
+          
         }, 1000)
 
 
       }catch(e){
-        this.loading = false;
+          this.loading = false;  
+            this.password = "";
           if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
     }
@@ -195,9 +203,10 @@ export default {
   max-width:55%;
   margin-left: 23%;
   display:block;
-  margin-top: 75px;
-  width: 55%;
+  margin-top: 10%;
+  width: 50%;
   filter: invert(51%) sepia(63%) saturate(10%) hue-rotate(37deg) brightness(88%) contrast(89%);
+  margin-bottom: 17%;
 }
 .heading {
   margin-top: 10px !important;

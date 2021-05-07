@@ -611,7 +611,7 @@
             "button": "Continue"
         },
         "restore-wallet": {
-            "heading": "Restore your wallet to protect your information from being lost or destroyed",
+            "heading": "Restore your wallet using encrypted backup file",
             "select-info": "Choose your source",
             "select-option-1": "Local Backup",
             "select-option-2": "Cloud Backup",

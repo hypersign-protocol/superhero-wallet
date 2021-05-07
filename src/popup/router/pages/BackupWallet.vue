@@ -9,6 +9,15 @@
           <Input placeholder="Enter your password" label="" type="password" v-model="password" />
         </div>
         <div class="margin-20">
+          <Input
+            placeholder="Re-enter your password"
+            label=""
+            type="password"
+            v-model="repassword"
+          />
+        </div>
+
+        <!-- <div class="margin-20">
           <label class="sett_info">{{ $t('pages.backup-wallet.select-info') }}</label>
           <ListItem
             v-for="backupType in options"
@@ -30,7 +39,7 @@
               prevent
             />
           </ListItem>
-        </div>
+        </div> -->
 
         <Button @click="backup()">
           {{ $t('pages.backup-wallet.button') }}
@@ -58,13 +67,14 @@ export default {
   data() {
     return {
       loading: false,
-      activeBackup: '',
+      activeBackup: 'local',
       modal: {
         visible: false,
         title: '',
       },
       seedPhrase: '',
       password: '',
+      repassword: '',
       options: [
         {
           text: this.$t('pages.backup-wallet.select-option-1'),
@@ -101,14 +111,12 @@ export default {
     async backup() {
       try {
         // Check the password
-        if (this.password === '') {
-          throw new Error('Please enter a password.');
-        }
+        if (this.password === '') throw new Error('Please enter a password.');
+        
+        if (this.password != this.repassword) throw new Error('Password mismatch');
 
-        if (this.activeBackup === '') {
-          throw new Error('Please choose a backup type.');
-        }
-
+        if (this.activeBackup === '') throw new Error('Please choose a backup type.');
+        
         // Give notificaiton and ask for confirmation
         const confirmed = await this.$store
           .dispatch('modals/open', {
@@ -124,7 +132,7 @@ export default {
         // Encrypt everything
         if (confirmed) {
           this.loading = true;
-          
+
           const dataToEncrypt = {
             mnemonic: this.mnemonic,
             hypersign: this.hypersign,
@@ -136,6 +144,7 @@ export default {
           const encryptedMessage = await encrypt(walletDataJson, this.password);
           const fileName = 'hypersign-identity-wallet-backup.txt';
 
+          // local
           if (this.activeBackup == 'local') {
             await saveFile(fileName, encryptedMessage);
           } else {
@@ -143,18 +152,15 @@ export default {
             // TODO Backup on cloud
           }
 
-        setTimeout(() => {
           this.$store.dispatch('modals/open', { name: 'default', msg: 'Backup successful' });
           this.$router.push('/account');
           this.loading = false;
-          }, 2000)
         }
         // save into a file
       } catch (e) {
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
       } finally {
-        
       }
     },
   },
