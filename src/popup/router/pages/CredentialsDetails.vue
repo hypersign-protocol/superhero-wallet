@@ -65,7 +65,7 @@ export default {
         return t;
     },   
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

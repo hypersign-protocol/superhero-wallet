@@ -193,7 +193,7 @@ export default {
 @import '../../../common/variables';
 .margin-20 {
   margin-top:20px;
-  margin-bottom:20px
+  margin-bottom:28px;
 }
 .margin-10 {
   margin-top:10px;
