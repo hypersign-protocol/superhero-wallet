@@ -7,7 +7,7 @@
           :key="credential.id"
           :to="`/credential/${credential.id}`"
           :title="credential.type[1]"
-          :info="credential.issuanceDate"
+          :info="toFormattedDate(credential.issuanceDate)"
         />
       </Panel>
       <Loader v-if="loading" />
@@ -62,7 +62,11 @@ export default {
       this.deeplink(this.$route.query.url)
   },
 
-  methods: {    
+  methods: {  
+    toFormattedDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toDateString();
+    },
     async scan() {
       try {
         //console.log('scanning...')

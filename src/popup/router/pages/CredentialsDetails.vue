@@ -6,43 +6,24 @@
           <span>{{ credDetials.formattedSchemaName }}</span>
         </div>
         <div class="cred-card-body">
-          <!-- <span class="cred-card-body-detail">Issuer Did:</span><br /> -->
-          <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
-          ><br />
-          <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issued on: {{ credDetials.formattedIssuanceDate }}</span
-          ><br />
-          
-          <span class="cred-card-body-detail">Expires on: {{ credDetials.formattedExpirationDate }}</span
-          ><br />
+          <span class="cred-card-body-detail">SCHEMA ID: {{ credDetials.schemaId }}</span><br />
+          <span class="cred-card-body-detail">ISSUER ID: {{ credDetials.formattedIssuer }}</span><br />
+          <span class="cred-card-body-detail">ISSUED ON: {{ credDetials.formattedIssuanceDate }}</span><br />
         </div>
       </div>
       <ul class="list-group">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
-          <div class="list-title">{{ claim }}: </div>
+          <div class="list-title">{{ toUpper(claim) }}: </div>
           <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
         </li>
       </ul>
       <Loader v-if="loading" />
-      <!-- <div class="">
-        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
-      </div> -->
     </div>
-    <!-- <div class="scanner d-flex">
-      <div class="scan" data-cy="scan-button" @click="scan">
-        <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import QrIcon from '../../../icons/qr-code.svg?vue-component';
-import Url from 'url-parse';
-import axios from 'axios';
-import { hypersignSDK } from '../../utils/hypersign';
 import {toFormattedDate, toStringShorner} from '../../utils/helper'
 export default {
   components: { QrIcon },
@@ -55,7 +36,8 @@ export default {
         formattedIssuer: "",
         formattedExpirationDate: "",
         formattedIssuanceDate: "",
-        formattedSchemaName: ""
+        formattedSchemaName: "",
+        schemaId: ""
       }
     };
   },
@@ -67,89 +49,21 @@ export default {
           this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
           this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
           this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
-      this.claims = Object.keys(this.verifiableCredential.credentialSubject);
+          const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
+          this.credDetials.schemaId = toStringShorner(credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim(),32, 15);
+          this.claims = Object.keys(this.verifiableCredential.credentialSubject);
     }
   },
   computed: {
     ...mapGetters(['hypersign']),
   },
-  methods: {    
-    async scan() {
-      try {
-        let qrJson = await this.$store.dispatch('modals/open', {
-          name: 'read-qr-code',
-          title: this.$t('pages.credential.scanToPresent'),
-        });
-
-        if(!qrJson) throw new Error('Empty QR code json');
-        //console.log(qrJson)
-        let qrData;
-        try{
-          qrData = JSON.parse(qrJson)
-        }catch(e){
-          throw new Error('Could not parse QR json');
-        }
-
-        if(qrData == {}) throw new Error('Parsed QR data is empty');
-
-        const { serviceEndpoint, appDid, appName, schemaId } = qrData;
-
-        if(!schemaId) throw new Error('Invalid credential request');
-
-        const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
-        const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
-
-        if(schemaId != credentialSchemaId) throw new Error('Invalid credential request');
-
-        const credentialName = this.verifiableCredential.type[1];
-
-        // TODO: 
-        const confirmed = await this.$store.dispatch('modals/open', {
-          name: 'confirm',
-          title: 'Credential Request',
-          msg: `Application: '${appName}' \
-          is requesting credential: '${credentialName}'. \
-          Do you want to allow?`,
-        })
-        .catch(() => false);
-
-        if(confirmed){
-            const url = Url(serviceEndpoint, true);
-            const challenge = url.query.challenge;
-            this.loading= true;
-            const verifyUrl = url.origin + url.pathname;
-            const vp_unsigned = await hypersignSDK.credential.generatePresentation(
-              this.verifiableCredential,
-              this.hypersign.did,
-            );
-            //console.log('Unsigned vp created..');
-            const vp_signed = await hypersignSDK.credential.signPresentation(
-              vp_unsigned,
-              this.hypersign.did,
-              this.hypersign.keys.privateKeyBase58,
-              challenge,
-            );
-            //console.log('Signed vp created..');
-            const body = {
-              challenge,
-              vp: JSON.stringify(vp_signed),
-            };
-            let response = await axios.post(verifyUrl, body);
-            response = response.data;
-            if (!response) throw new Error('Could not verify the presentation');
-            if (response && response.status != 200) throw new Error(response.error);
-            if (response.message)
-              this.$store.dispatch('modals/open', {
-                name: 'default',
-                msg: 'Credential successfully verified',
-              });
-        }
-        this.loading=false;
-      } catch (e) {
-        this.loading=false;
-        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
-      }
-    },
+  methods: { 
+    toUpper(t){
+      if(t)
+        return t.toString().toUpperCase();
+      else 
+        return t;
+    },   
   },
 };
 </script>
