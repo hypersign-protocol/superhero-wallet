@@ -1,19 +1,37 @@
 <template>
   <div class="popup">
     <Panel>
-      <PanelItem
+      <!-- <PanelItem
         to="/generalSettings"
         :title="$t('pages.settings.tabGeneral')"
         :info="$t('pages.settings.tabGeneralsmall')"
+      /> -->
+
+       <PanelItem
+        to="/credential"
+        :title="$t('pages.settings.credentials')"
+        :info="$t('pages.settings.credentialsSmall')"
       />
     
+
+    <PanelItem
+        to="/backupWallet"
+        :title="$t('pages.settings.backupWallet')"
+        :info="$t('pages.settings.backupWalletSmall')"
+      />
+
+        
       <PanelItem
         @click="removeAccount"
         :title="$t('pages.settings.tabRemoveAccount')"
         :info="$t('pages.settings.tabRemoveAccountSmall')"
       />
 
-      <PanelItem
+      
+
+     
+
+      <!-- <PanelItem
         :title="$t('pages.settings.tabSaveErrorLog')"
         :info="$t('pages.settings.tabSaveErrorLogSmall')"
       >
@@ -24,7 +42,7 @@
           type="checkbox"
           @input="val => $store.commit('setSaveErrorLog', val)"
         />
-      </PanelItem>
+      </PanelItem> -->
     </Panel>
   </div>
 </template>

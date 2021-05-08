@@ -712,7 +712,11 @@
             "tabRemoveAccount": "Remove account",
             "tabRemoveAccountSmall": "Remove account from the wallet and delete extension storage",
             "tabSaveErrorLog": "Save error log",
-            "tabSaveErrorLogSmall": "This will help us identify what's causing the errors."
+            "tabSaveErrorLogSmall": "This will help us identify what's causing the errors.",
+            "backupWallet": "Backup",
+            "backupWalletSmall": "Backup your data to protect from being lost",
+            "credentials": "Credentials",
+            "credentialsSmall": "See the list of credentials"
         },
         "signAndVerifyMsg": {
             "backToSignVerifyMsg": "Back to Sign/Verify Message",

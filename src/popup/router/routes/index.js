@@ -1,7 +1,5 @@
 import Index from '../pages/Index';
 import Account from '../pages/Account';
-import PopupSignTransaction from '../pages/Popups/SignTx';
-import PopupConnect from '../pages/Popups/Connect';
 import Settings from '../pages/Settings';
 import GeneralSettings from '../pages/GeneralSettings';
 import SecuritySettings from '../pages/SecuritySettings';
@@ -15,7 +13,6 @@ import Intro from '../pages/Intro';
 import Networks from '../pages/Networks';
 import NotFound from '../pages/NotFound';
 import Address from '../pages/Address';
-import SignMessage from '../pages/SignMessage';
 import webIframePopups from './web-iframe-popups';
 
 // Hypersign related
@@ -42,27 +39,9 @@ export default [{
         component: Account,
     },
     {
-        name: 'popup-sign-tx',
-        path: '/popup-sign-tx',
-        component: PopupSignTransaction,
-        props: true,
-        meta: {
-            notPersist: true,
-        },
-    },
-    {
         path: '/deeplink',
         name: 'deeplink',
         component: Deeplink,
-    },
-    {
-        name: 'connect',
-        path: '/connect',
-        component: PopupConnect,
-        props: true,
-        meta: {
-            notPersist: true,
-        },
     },
     {
         path: '/settings',
@@ -163,15 +142,6 @@ export default [{
         component: NotFound,
         meta: {
             ifNotAuth: true,
-        },
-    },
-    {
-        name: 'sign-message',
-        path: '/sign-message',
-        component: SignMessage,
-        meta: {
-            title: 'sign-message',
-            notPersist: true,
         },
     },
     {
