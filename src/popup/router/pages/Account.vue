@@ -51,6 +51,7 @@ import BoxButton from '../components/BoxButton';
 import axios from 'axios';
 import { HS_AUTH_DID_URL } from '../../utils/hsConstants';
 
+
 export default {
   name: 'Account',
   components: {
@@ -77,7 +78,22 @@ export default {
     ...mapState(['tourRunning', 'backedUpSeed']),
     ...mapGetters(['hypersign']),
   },
-  created() {
+  async created() {
+    // put it somewhere eles other whise it wont work... like somewhere when the app loads
+if(!this.hypersign.hsAuthDID){
+    const res = await axios.get(HS_AUTH_DID_URL);
+    const json = await res.json();
+    console.log("HsDid is not set json = " + JSON.stringify(json))
+    this.$store.commit('addHypersignAuthDid', json.message);
+    this.hsAuthDid = json.message;
+}else{
+  console.log("HsDid is not set json " + this.hypersign.hsAuthDID);
+  this.hsAuthDid = this.hypersign.hsAuthDID;
+
+}
+    
+
+    
     //Only for deeplinking
     if(this.$route.query.url && this.$route.query.url !=''){
       const JSONData = decodeURI(this.$route.query.url)
@@ -85,12 +101,9 @@ export default {
       this.receiveOrGiveCredential(JSONData);
     }
 
-    axios.get(HS_AUTH_DID_URL).then(res => {
-        console.log(res)
-        if(res && res.data){
-          this.hsAuthDid = res.data.message
-        }
-    })
+
+
+    
       
   },
   methods: {
@@ -194,14 +207,15 @@ export default {
           const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
           console.log({
             credentialSchemaId, 
-            schemaId
+            schemaId,
+            authDid: this.hsAuthDid
           })
           if (credentialSchemaId === schemaId){
             if (x.issuer === appDid ){ // check if the app company issued this credential ;;  the registration flow
               return x;
             }
 
-            if(x.issuer === this.hsAuthDid){ // of the issuer is Hypersign Auth server? ;; without registration flow
+            if(x.issuer === this.hsAuthDid ){ // of the issuer is Hypersign Auth server? ;; without registration flow
               return x;
             }
           }
@@ -210,6 +224,7 @@ export default {
         });
 
         if (!this.verifiableCredential) throw new Error('Credential not found');
+        
         this.$router.push(`/credential/authorize/${this.verifiableCredential.id}`);
       } catch (e) {
         console.log(e);
