@@ -82,12 +82,12 @@ export default {
     // put it somewhere eles other whise it wont work... like somewhere when the app loads
 if(!this.hypersign.hsAuthDID){
     const res = await axios.get(HS_AUTH_DID_URL);
-    const json = await res.json();
-    console.log("HsDid is not set json = " + JSON.stringify(json))
-    this.$store.commit('addHypersignAuthDid', json.message);
-    this.hsAuthDid = json.message;
+    // const json = await res.json();
+    console.log("HsDid is not set json = " + JSON.stringify(res.data))
+    this.$store.commit('addHypersignAuthDid', res.data.message);
+    this.hsAuthDid = res.data.message;
 }else{
-  console.log("HsDid is not set json " + this.hypersign.hsAuthDID);
+  console.log("HsDid is set  " + this.hypersign.hsAuthDID);
   this.hsAuthDid = this.hypersign.hsAuthDID;
 
 }
