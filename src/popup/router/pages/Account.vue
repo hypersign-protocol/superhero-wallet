@@ -175,9 +175,9 @@ if(!this.hypersign.hsAuthDID){
         })
         
         // TODO: Check if you are the owner of this credenital: otherwise reject
-        // if (this.hypersign.did != cred.credentialSubject.id) {
-        //   throw new Error('The credential is not issued to you');
-        // }
+        if (this.hypersign.did != cred.credentialSubject.id) {
+          throw new Error('The credential is not issued to you');
+        }
 
         console.log(2)
 
