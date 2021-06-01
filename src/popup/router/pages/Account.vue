@@ -79,32 +79,30 @@ export default {
     ...mapGetters(['hypersign']),
   },
   async created() {
-    // put it somewhere eles other whise it wont work... like somewhere when the app loads
-if(!this.hypersign.hsAuthDID){
-    const res = await axios.get(HS_AUTH_DID_URL);
-    // const json = await res.json();
-    console.log("HsDid is not set json = " + JSON.stringify(res.data))
-    this.$store.commit('addHypersignAuthDid', res.data.message);
-    this.hsAuthDid = res.data.message;
-}else{
-  console.log("HsDid is set  " + this.hypersign.hsAuthDID);
-  this.hsAuthDid = this.hypersign.hsAuthDID;
+    try {
+      // put it somewhere eles other whise it wont work... like somewhere when the app loads
+      if (!this.hypersign.hsAuthDID) {
+        const res = await axios.get(HS_AUTH_DID_URL);
 
-}
-    
+        if(!res){
+          throw new Error("Could not fetch auth did.")  
+        }
 
-    
-    //Only for deeplinking
-    if(this.$route.query.url && this.$route.query.url !=''){
-      const JSONData = decodeURI(this.$route.query.url)
-      console.log(JSONData)
-      this.receiveOrGiveCredential(JSONData);
+        this.$store.commit('addHypersignAuthDid', res.data.message);
+        this.hsAuthDid = res.data.message;
+        
+      } else {
+        this.hsAuthDid = this.hypersign.hsAuthDID;
+      }
+
+      //Only for deeplinking
+      if (this.$route.query.url && this.$route.query.url != '') {
+        const JSONData = decodeURI(this.$route.query.url);
+        this.receiveOrGiveCredential(JSONData);
+      }
+    } catch (e) {
+      if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
     }
-
-
-
-    
-      
   },
   methods: {
     async scan() {
