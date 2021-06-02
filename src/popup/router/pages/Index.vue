@@ -81,10 +81,18 @@ export default {
 
     async createWallet() {
 
-      if(this.profile.name == "") throw new Error("Name can not be blank");
-      if(this.profile.email == "") throw new Error("Email can not be blank");
-      if(!this.isemail(this.profile.email)) throw new Error("Enter a valid email address");
 
+      try{
+        if(this.profile.name == "") throw new Error("Name can not be blank");
+        if(this.profile.email == "") throw new Error("Email can not be blank");
+        if(!this.isemail(this.profile.email)) throw new Error("Enter a valid email address");
+
+
+      }catch(e){
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+        return;
+      }
+      
       const hsSdk = new HypersignSsiSDK({ nodeUrl: HS_NODE_BASE_URL }); 
       this.mnemonic = generateMnemonic();
       
