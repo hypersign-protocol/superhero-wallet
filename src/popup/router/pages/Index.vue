@@ -61,6 +61,7 @@ import Input from '../components/Input-light';
 import registration from '../../../mixins/registration';
 import HypersignSsiSDK from 'hs-ssi-sdk';
 import { HS_NODE_BASE_URL } from '../../utils/hsConstants'
+import {apiCall} from "../../utils/apiCalls";
 export default {
   mixins: [registration],
   components: { Logo,Input, SuperheroLogo, CheckBox, Button, Platforms },
@@ -70,6 +71,18 @@ export default {
     IN_FRAME,
     loading:  false
   }),
+  async created(){
+
+    const res = await apiCall.get("https://jsonplaceholder.typicode.com/todos/1")
+    console.log(res)
+    
+    if(res.err){
+      console.log("ERROR");
+    } else{
+      console.log("SUCCESS");
+    }
+
+  },
   methods: {
     gotoRestore(){
       this.$router.push('restoreWallet') 
@@ -111,59 +124,59 @@ export default {
       console.log(keypair)
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
-      try {
-        this.loading = true;
-        // We will not use native aeternity keys, instead will use hypersign keys.
-        // The reason to do this, because giving flexibility to use different algorithm for keys
-        // const newKeyPair = await hypersignSDK.did.generateKeys({seed});  
-        // if(!newKeyPair)       throw Error('Error: could not generate keypair');
-        // console.log(newKeyPair);
-        // const hskeys = {
-        //   publicKey: newKeyPair.publicKey.publicKeyBase58,
-        //   privateKey: newKeyPair.privateKeyBase58,
-        // };
-        // if(!hskeys.publicKey)  throw new Error('Error: Public key is empty')
-        // const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
-        // //console.log(HS_CORE_DID_REGISTER);
-        // let result = await axios.get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)//.then(result => result.json());
-        // console.log(result)
-        // result = result.data;
-        // if (!result) throw new Error('Could not fetch from hypersign');
-        // if (result && result.error) throw new Error(result.error);
+      // try {
+      //   this.loading = true;
+      //   // We will not use native aeternity keys, instead will use hypersign keys.
+      //   // The reason to do this, because giving flexibility to use different algorithm for keys
+      //   // const newKeyPair = await hypersignSDK.did.generateKeys({seed});  
+      //   // if(!newKeyPair)       throw Error('Error: could not generate keypair');
+      //   // console.log(newKeyPair);
+      //   // const hskeys = {
+      //   //   publicKey: newKeyPair.publicKey.publicKeyBase58,
+      //   //   privateKey: newKeyPair.privateKeyBase58,
+      //   // };
+      //   // if(!hskeys.publicKey)  throw new Error('Error: Public key is empty')
+      //   // const HS_CORE_DID_REGISTER = `${HS_NODE_BASE_URL}${HS_NODE_DID_REGISTER_API}`;
+      //   // //console.log(HS_CORE_DID_REGISTER);
+      //   // let result = await axios.get(`${HS_CORE_DID_REGISTER}?publicKey=${hskeys.publicKey}`)//.then(result => result.json());
+      //   // console.log(result)
+      //   // result = result.data;
+      //   // if (!result) throw new Error('Could not fetch from hypersign');
+      //   // if (result && result.error) throw new Error(result.error);
         
-        // const { keys, did } = result.message;
-        // keys['privateKeyBase58'] = hskeys.privateKey;
-        // console.log(this.profile)
-        console.log('Before getting did')
-        console.log(hsSdk.did)
-        const response1  = await hsSdk.did.getDid({user: { name: this.profile.name }});
-        console.log(response1);
-        const {didDoc, keys, did} = response1
-        console.log({didDoc, keys, did})
+      //   // const { keys, did } = result.message;
+      //   // keys['privateKeyBase58'] = hskeys.privateKey;
+      //   // console.log(this.profile)
+      //   console.log('Before getting did')
+      //   console.log(hsSdk.did)
+      //   const response1  = await hsSdk.did.getDid({user: { name: this.profile.name }});
+      //   console.log(response1);
+      //   const {didDoc, keys, did} = response1
+      //   console.log({didDoc, keys, did})
 
-        const res = await hsSdk.did.register(didDoc);
+      //   const res = await hsSdk.did.register(didDoc);
 
-        console.log('After registration')
-        this.profile.did = did;
-        this.$store.commit('setHSkeys', {
-          keys,
-          did,
-        });
+      //   console.log('After registration')
+      //   this.profile.did = did;
+      //   this.$store.commit('setHSkeys', {
+      //     keys,
+      //     did,
+      //   });
 
-        console.log('Before calling setupprofile')
-        await this.setupProfile();
-        console.log('After calling setupprofile')
+      //   console.log('Before calling setupprofile')
+      //   await this.setupProfile();
+      //   console.log('After calling setupprofile')
 
-        await this.$store.dispatch('setLogin', { keypair });
+      //   await this.$store.dispatch('setLogin', { keypair });
 
-        this.loading = false;
-        Object.assign(this.profile, {});
-        this.$router.push(this.$store.state.loginTargetLocation);
+      //   this.loading = false;
+      //   Object.assign(this.profile, {});
+      //   this.$router.push(this.$store.state.loginTargetLocation);
 
-      } catch (e) {
-        this.loading = false;
-        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
-      }
+      // } catch (e) {
+      //   this.loading = false;
+      //   if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+      // }
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
     }
