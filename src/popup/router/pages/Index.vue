@@ -74,7 +74,25 @@ export default {
     gotoRestore(){
       this.$router.push('restoreWallet') 
     },
+    isemail(email) {
+      var emailReg = /^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
+      return emailReg.test(email);
+    },
+
     async createWallet() {
+
+
+      try{
+        if(this.profile.name == "") throw new Error("Name can not be blank");
+        if(this.profile.email == "") throw new Error("Email can not be blank");
+        if(!this.isemail(this.profile.email)) throw new Error("Enter a valid email address");
+
+
+      }catch(e){
+        if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+        return;
+      }
+      
       const hsSdk = new HypersignSsiSDK({ nodeUrl: HS_NODE_BASE_URL }); 
       this.mnemonic = generateMnemonic();
       

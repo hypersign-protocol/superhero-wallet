@@ -6,20 +6,14 @@
           <span>{{ credDetials.formattedSchemaName }}</span>
         </div>
         <div class="cred-card-body">
-          <!-- <span class="cred-card-body-detail">Issuer Did:</span><br /> -->
-          <span class="cred-card-body-detail">Issuer: {{ credDetials.formattedIssuer }}</span
-          ><br />
-          <!-- <span class="cred-card-body-detail">Issance Date:</span><br /> -->
-          <span class="cred-card-body-detail">Issued on: {{ credDetials.formattedIssuanceDate }}</span
-          ><br />
-          
-          <span class="cred-card-body-detail">Expires on: {{ credDetials.formattedExpirationDate }}</span
-          ><br />
+          <span class="cred-card-body-detail">SCHEMA ID: {{ credDetials.schemaId }}</span><br />
+          <span class="cred-card-body-detail">ISSUER ID: {{ credDetials.formattedIssuer }}</span><br />
+          <span class="cred-card-body-detail">ISSUED ON: {{ credDetials.formattedIssuanceDate }}</span><br />
         </div>
       </div>
       <ul class="list-group credential-item">
         <li class="list-group-item" v-for="claim in claims" :key="claim">
-          <div class="list-title">{{ claim }}: </div>
+          <div class="list-title">{{ toUpper(claim) }}: </div>
           <div>{{ verifiableCredential.credentialSubject[claim] }}</div>
         </li>
       </ul>
@@ -58,7 +52,8 @@ export default {
         formattedIssuer: "",
         formattedExpirationDate: "",
         formattedIssuanceDate: "",
-        formattedSchemaName: ""
+        formattedSchemaName: "",
+        schemaId: ""
       }
     };
   },
@@ -74,6 +69,8 @@ export default {
       this.credDetials.formattedIssuanceDate = toFormattedDate(this.verifiableCredential.issuanceDate) ;
       this.credDetials.formattedIssuer =  toStringShorner(this.verifiableCredential.issuer, 32, 15);
       this.credDetials.formattedSchemaName =  this.verifiableCredential.type[1]; //toStringShorner(this.verifiableCredential.type[1], 26, 15);
+      const credentialSchemaUrl = this.verifiableCredential['@context'][1].hsscheme;
+      this.credDetials.schemaId = toStringShorner(credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim(),32, 15);
       this.claims = Object.keys(this.verifiableCredential.credentialSubject);
     }
   },
@@ -81,6 +78,12 @@ export default {
     ...mapGetters(['hypersign']),
   },
   methods: {    
+    toUpper(t){
+      if(t)
+        return t.toString().toUpperCase();
+      else 
+        return t;
+    },   
     async acceptCredential(){
       this.$store.commit('addHSVerifiableCredential', this.verifiableCredential);
       this.$store.commit('clearHSVerifiableCredentialTemp', []);

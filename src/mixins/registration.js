@@ -41,7 +41,7 @@ export default {
             this.ifEdit = false;
             this.ifCreate = true;
         },
-        async setupProfile() {
+        async setupProfile() {            
             // try {
             //     this.loading = true;
             //// HS_TODO::
@@ -57,9 +57,9 @@ export default {
             }
 
             let res = await axios.post(HS_STUDIO_REGISTER_URL, body);
-
+            
+            if (!res) throw new Error("Could not register the user");
             res = res.data;
-            if (!res) throw new Error("Could not register for hsauth credential");
             if (res && res.status != 200) throw new Error(res.error);
 
             const msg = 'An email with a QR code has been sent to the address you provided.\

@@ -51,6 +51,7 @@ import BoxButton from '../components/BoxButton';
 import axios from 'axios';
 import { HS_AUTH_DID_URL } from '../../utils/hsConstants';
 
+
 export default {
   name: 'Account',
   components: {
@@ -77,24 +78,31 @@ export default {
     ...mapState(['tourRunning', 'backedUpSeed']),
     ...mapGetters(['hypersign']),
   },
-  created() {
-    console.log('Inside account page')
-    console.log(this.$route.query.url)
-    //Only for deeplinking
-    if(this.$route.query.url && this.$route.query.url !=''){
-      const JSONData = decodeURI(this.$route.query.url)
-      console.log(JSONData)
-      this.receiveOrGiveCredential(JSONData);
-    }
+  async created() {
+    try {
+      // put it somewhere eles other whise it wont work... like somewhere when the app loads
+      if (!this.hypersign.hsAuthDID) {
+        const res = await axios.get(HS_AUTH_DID_URL);
 
-
-    axios.get(HS_AUTH_DID_URL).then(res => {
-        console.log(res)
-        if(res && res.data){
-          this.hsAuthDid = res.data.message
+        if(!res){
+          throw new Error("Could not fetch auth did.")  
         }
-    })
-      
+
+        this.$store.commit('addHypersignAuthDid', res.data.message);
+        this.hsAuthDid = res.data.message;
+        
+      } else {
+        this.hsAuthDid = this.hypersign.hsAuthDID;
+      }
+
+      //Only for deeplinking
+      if (this.$route.query.url && this.$route.query.url != '') {
+        const JSONData = decodeURI(this.$route.query.url);
+        this.receiveOrGiveCredential(JSONData);
+      }
+    } catch (e) {
+      if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg: e.message });
+    }
   },
   methods: {
     async scan() {
@@ -165,9 +173,9 @@ export default {
         })
         
         // TODO: Check if you are the owner of this credenital: otherwise reject
-        // if (this.hypersign.did != cred.credentialSubject.id) {
-        //   throw new Error('The credential is not issued to you');
-        // }
+        if (this.hypersign.did != cred.credentialSubject.id) {
+          throw new Error('The credential is not issued to you');
+        }
 
         console.log(2)
 
@@ -197,14 +205,15 @@ export default {
           const credentialSchemaId = credentialSchemaUrl.substr(credentialSchemaUrl.indexOf("sch_")).trim();
           console.log({
             credentialSchemaId, 
-            schemaId
+            schemaId,
+            authDid: this.hsAuthDid
           })
           if (credentialSchemaId === schemaId){
             if (x.issuer === appDid ){ // check if the app company issued this credential ;;  the registration flow
               return x;
             }
 
-            if(x.issuer === this.hsAuthDid){ // of the issuer is Hypersign Auth server? ;; without registration flow
+            if(x.issuer === this.hsAuthDid ){ // of the issuer is Hypersign Auth server? ;; without registration flow
               return x;
             }
           }
@@ -213,6 +222,7 @@ export default {
         });
 
         if (!this.verifiableCredential) throw new Error('Credential not found');
+        
         this.$router.push(`/credential/authorize/${this.verifiableCredential.id}`);
       } catch (e) {
         console.log(e);

@@ -111,6 +111,9 @@ export default {
         ////HS_TODO
         state.hypersign.requestingAppInfo = ''
     },
+    addHypersignAuthDid(state, payload){
+        state.hypersign.hsAuthDID = payload;
+    },
     addHSVerifiableCredentialTemp(state, payload) {
         ////HS_TODO
         state.hypersign.credentialsTemp.push(payload)

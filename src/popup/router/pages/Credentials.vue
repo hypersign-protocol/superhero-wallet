@@ -7,16 +7,10 @@
           :key="credential.id"
           :to="`/credential/${credential.id}`"
           :title="credential.type[1]"
-          :info="credential.issuanceDate"
+          :info="toFormattedDate(credential.issuanceDate)"
         />
       </Panel>
       <Loader v-if="loading" />
-
-      <!-- <div class="">
-        <Button @click="scan" class="scan scanner"  data-cy="scan-button">
-          <QrIcon width="20" height="20" /><span class="scan-text">{{ $t('pages.credential.scan') }}</span>
-        </Button>
-      </div> -->
     </div>
 </template>
 
@@ -62,7 +56,11 @@ export default {
       this.deeplink(this.$route.query.url)
   },
 
-  methods: {    
+  methods: {  
+    toFormattedDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toDateString();
+    },
     async scan() {
       try {
         //console.log('scanning...')
