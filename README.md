@@ -104,16 +104,28 @@ If you want to help us with building this amazing project submit your PR!
    ```
 
 If you face dimensions error in the third step replace image files in /resources/ directory with [these files](https://drive.google.com/file/d/1OZzAJ_GHOk34SpqBg0ArmZG-Dcml5EbY/view?usp=sharing)
-`npx cordova platform add android`
+
+3. Run
+
+   ```
+   npx cordova platform add android
+   ```
+
 If you face problem in adding android into the project, due to jdk ,
 download the JDK version 1.8 from [this link](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
 
 Follow either of the below steps to get an apk
 
 - Place your build.json and hypersign.keystore file in the root directory and run
-  `npx cordova build android`
+  ```
+  npx cordova build android
+  ```
 
-  ### OR
+### OR
 
 - Open up the android folder in your android studio, and run it in a emulator
 - Go to Build, and click on Build APK(s), to build the apk
+
+```
+
+```
