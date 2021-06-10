@@ -114,7 +114,7 @@ If you face dimensions error in the last command, replace image files in /resour
 If you face problem in adding android into the project, due to jdk ,
 download the JDK version 1.8 from [this link](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
 
-Follow either of the below steps to get an apk
+4. Follow either of the below steps to get an apk
 
 - Place your build.json and hypersign.keystore file in the root directory and run
   ```
