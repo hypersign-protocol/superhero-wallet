@@ -103,7 +103,7 @@ If you want to help us with building this amazing project submit your PR!
    npm run gen:cordova-resources
    ```
 
-If you face dimensions error in the third step replace image files in /resources/ directory with [these files](https://drive.google.com/file/d/1OZzAJ_GHOk34SpqBg0ArmZG-Dcml5EbY/view?usp=sharing)
+If you face dimensions error in the last command, replace image files in /resources/ directory with [these files](https://drive.google.com/file/d/1OZzAJ_GHOk34SpqBg0ArmZG-Dcml5EbY/view?usp=sharing)
 
 3. Run
 
