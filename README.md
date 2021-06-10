@@ -97,13 +97,14 @@ If you want to help us with building this amazing project submit your PR!
    ```
 
 2. Run the following commands
-     
-    `1. npm install 2. npm run build 3. npm run gen:cordova-resources`
+   ```
+   npm install
+   npm run build
+   npm run gen:cordova-resources
+   ```
 
 If you face dimensions error in the third step replace image files in /resources/ directory with [these files](https://drive.google.com/file/d/1OZzAJ_GHOk34SpqBg0ArmZG-Dcml5EbY/view?usp=sharing)
-
-        `npx cordova platform add android`
-
+`npx cordova platform add android`
 If you face problem in adding android into the project, due to jdk ,
 download the JDK version 1.8 from [this link](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
 
