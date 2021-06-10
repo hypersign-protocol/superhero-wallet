@@ -51,8 +51,8 @@ $ npm run test
 - Firefox
 
 1. Open the Firefox menu and select `Add-ons` section.
-2. Click the `Tools for  all add-ons` button and select `Debug Add-ons`
-3. Click `Load a temorary add-on` navigate to the generated `dist` folder in the cloned repo  or the unacrhived release folder and select the `manifest.json` file.
+2. Click the `Tools for all add-ons` button and select `Debug Add-ons`
+3. Click `Load a temorary add-on` navigate to the generated `dist` folder in the cloned repo or the unacrhived release folder and select the `manifest.json` file.
 
 ### Build Cordova version for production
 
@@ -64,17 +64,19 @@ $ npm run test
 - enable signing by the corresponding development team
 - ensure that `applinks:wallet.superhero.com` is in Associated domains feature
 - open Build Settings
-- switch "Code Signing Identity => Release" and "Code Signing Identity => Release => Any iOS SDK" from "iOS Distribution" to "iOS Developer" 
+- switch "Code Signing Identity => Release" and "Code Signing Identity => Release => Any iOS SDK" from "iOS Distribution" to "iOS Developer"
 - choose Product => Archive and follow the instructions
 
 #### Android
 
 build a production version signed by the [corresponding key](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#using-buildjson):
+
 ```bash
 cordova build android --release --buildConfig=build.json
 ```
 
 ## Security
+
 If you discover a security vulnerability within this application, please get in touch with us. All security vulnerabilities will be promptly addressed.
 
 ## Contribution
@@ -84,3 +86,31 @@ Contributions are more than welcome.
 If you spot an issue while testing/using the extension - [submit an issue](https://github.com/aeternity/superhero-wallet/issues)
 
 If you want to help us with building this amazing project submit your PR!
+
+## Steps to build the apk
+
+1. Clone the repo
+   `git clone https://github.com/hypersign-protocol/hypersign-identity-wallet.git`
+   `cd hypersign-identity-wallet`
+
+2. Run the following commands
+     
+     
+    1. npm install 2. npm run build 3. npm run gen:cordova-resources
+
+If you face dimensions error in the third step replace image files in /resources/ directory with [these files](https://drive.google.com/file/d/1OZzAJ_GHOk34SpqBg0ArmZG-Dcml5EbY/view?usp=sharing)
+
+`4.npx cordova platform add android`
+
+If you face problem in adding android into the project, due to jdk ,
+download the JDK version 1.8 from [this link](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
+
+Follow either of the below steps to get an apk
+
+- Place your build.json and hypersign.keystore file in the root directory and run
+  `npx cordova build android`
+
+  ### OR
+
+- Open up the android folder in your android studio, and run it in a emulator
+- Go to Build, and click on Build APK(s), to build the apk
