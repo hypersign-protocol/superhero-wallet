@@ -141,26 +141,34 @@ export default {
         const {didDoc, keys, did} = response1
         console.log({didDoc, keys, did})
 
+        console.log('Before calling register')
         const res = await hsSdk.did.register(didDoc);
-
+        console.log(2)
         console.log('After registration')
+
         this.profile.did = did;
+        console.log(3)
         this.$store.commit('setHSkeys', {
           keys,
           did,
         });
 
+        console.log(4)
+
         console.log('Before calling setupprofile')
         await this.setupProfile();
         console.log('After calling setupprofile')
 
+console.log(5)
         await this.$store.dispatch('setLogin', { keypair });
+        console.log(6)
 
         this.loading = false;
         Object.assign(this.profile, {});
         this.$router.push(this.$store.state.loginTargetLocation);
 
       } catch (e) {
+        console.log(e);
         this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
       }
