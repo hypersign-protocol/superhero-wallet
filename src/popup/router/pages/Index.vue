@@ -96,11 +96,10 @@ export default {
       const hsSdk = new HypersignSsiSDK({ nodeUrl: HS_NODE_BASE_URL }); 
       this.mnemonic = generateMnemonic();
       
-      console.log(this.mnemonic);
 
       const seed = mnemonicToSeed(this.mnemonic).toString('hex');
       
-      console.log(seed)
+      // console.log(seed)
 
       const address = await this.$store.dispatch('generateWallet', { seed });
       this.$store.commit('setMnemonic', this.mnemonic);
@@ -108,7 +107,7 @@ export default {
         publicKey: address,
         privateKey: seed,
       };
-      console.log(keypair)
+      // console.log(keypair)
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
       try {
@@ -134,34 +133,34 @@ export default {
         // const { keys, did } = result.message;
         // keys['privateKeyBase58'] = hskeys.privateKey;
         // console.log(this.profile)
-        console.log('Before getting did')
-        console.log(hsSdk.did)
+        // console.log('Before getting did')
+        // console.log(hsSdk.did)
         const response1  = await hsSdk.did.getDid({user: { name: this.profile.name }});
-        console.log(response1);
+        // console.log(response1);
         const {didDoc, keys, did} = response1
-        console.log({didDoc, keys, did})
+        // console.log({didDoc, keys, did})
 
-        console.log('Before calling register')
+        // console.log('Before calling register')
         const res = await hsSdk.did.register(didDoc);
-        console.log(2)
-        console.log('After registration')
+        // console.log(2)
+        // console.log('After registration')
 
         this.profile.did = did;
-        console.log(3)
+        // console.log(3)
         this.$store.commit('setHSkeys', {
           keys,
           did,
         });
 
-        console.log(4)
+        // console.log(4)
 
-        console.log('Before calling setupprofile')
+        // console.log('Before calling setupprofile')
         await this.setupProfile();
-        console.log('After calling setupprofile')
+        // console.log('After calling setupprofile')
 
-console.log(5)
+// console.log(5)
         await this.$store.dispatch('setLogin', { keypair });
-        console.log(6)
+        // console.log(6)
 
         this.loading = false;
         Object.assign(this.profile, {});
