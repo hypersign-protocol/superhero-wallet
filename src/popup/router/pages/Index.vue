@@ -152,24 +152,34 @@ export default {
           did,
         });
 
-        // console.log(4)
+        
+        // this.$store.commit('switchLoggedIn', true);
+        // this.$store.commit('updateAccount', keypair);
+        // this.$store.commit('setActiveAccount', { publicKey: keypair.publicKey, index: 0 });
+        console.log("Before setting profile")
+        if(await this.setupProfile()){
+            console.log("After setting profile");
+            console.log("Calling setLogin")
+            await this.$store.dispatch('setLogin', { keypair });
+            this.$store.commit('switchLoggedIn', true);
 
-        // console.log('Before calling setupprofile')
-        await this.setupProfile();
-        // console.log('After calling setupprofile')
+            const msg = 'An email with a QR code has been sent to the address you provided.\
+            Scan the QR code to receieve the credential'
+            this.$store.dispatch('modals/open', { name: 'default', msg });
 
-// console.log(5)
-        await this.$store.dispatch('setLogin', { keypair });
-        // console.log(6)
-
-        this.loading = false;
-        Object.assign(this.profile, {});
-        this.$router.push(this.$store.state.loginTargetLocation);
+            Object.assign(this.profile, {});
+            console.log("Moving to next route")
+            this.$router.push(this.$store.state.loginTargetLocation);
+        }else{
+          throw new Error("Could not setup profile");
+        }
 
       } catch (e) {
         console.log(e);
-        this.loading = false;
         if (e.message) this.$store.dispatch('modals/open', { name: 'default', msg:e.message });
+        this.loading = false;
+      }finally{
+        this.loading = false;
       }
       ////HYPERSIGN Related
       ////////////////////////////////////////////////
