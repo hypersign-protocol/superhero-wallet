@@ -112,9 +112,13 @@ export default {
               throw new Error('Could not authorize the user')
             }else if(response.status == 200){
 
-              console.log("IS MOBILE WALLET", localStorage.getItem("isMobileWallet"))
+            const isMobileWallet = JSON.parse(localStorage.getItem("isMobileWallet"));
             if (response.message){
-              // window.close()
+
+              if(!isMobileWallet){
+                  window.close()
+              }
+            
               await this.$store.dispatch('modals/open', {
                 name: 'default',
                 msg: 'Credential successfully verified',
