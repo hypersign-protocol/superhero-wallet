@@ -80,6 +80,7 @@ export default {
   },
   async created() {
     try {
+      
       // put it somewhere eles other whise it wont work... like somewhere when the app loads
       if (!this.hypersign.hsAuthDID) {
         const res = await axios.get(HS_AUTH_DID_URL);
@@ -94,6 +95,7 @@ export default {
       } else {
         this.hsAuthDid = this.hypersign.hsAuthDID;
       }
+      localStorage.setItem("isMobileWallet", false)
 
       //Only for deeplinking
       if (this.$route.query.url && this.$route.query.url != '') {
@@ -106,6 +108,7 @@ export default {
   },
   methods: {
     async scan() {
+      localStorage.setItem("isMobileWallet", true)
       const QRData = await this.$store.dispatch('modals/open', {
         name: 'read-qr-code',
         title: this.$t('pages.credential.scan'),

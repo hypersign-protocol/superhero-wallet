@@ -111,6 +111,8 @@ export default {
             if(response.status == 401 || response.status == 403) {
               throw new Error('Could not authorize the user')
             }else if(response.status == 200){
+
+              console.log("IS MOBILE WALLET", localStorage.getItem("isMobileWallet"))
             if (response.message){
               window.close()
               await this.$store.dispatch('modals/open', {
