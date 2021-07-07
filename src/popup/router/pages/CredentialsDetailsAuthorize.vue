@@ -114,7 +114,7 @@ export default {
 
               console.log("IS MOBILE WALLET", localStorage.getItem("isMobileWallet"))
             if (response.message){
-              window.close()
+              // window.close()
               await this.$store.dispatch('modals/open', {
                 name: 'default',
                 msg: 'Credential successfully verified',
