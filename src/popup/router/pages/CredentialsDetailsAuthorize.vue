@@ -116,7 +116,7 @@ export default {
             if (response.message){
 
               if(!isMobileWallet){
-                  window.close()
+                 return window.close()
               }
             
               await this.$store.dispatch('modals/open', {
