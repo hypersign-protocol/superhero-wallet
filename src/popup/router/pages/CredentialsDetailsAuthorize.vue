@@ -112,6 +112,7 @@ export default {
               throw new Error('Could not authorize the user')
             }else if(response.status == 200){
             if (response.message)
+            window.close();
             await this.$store.dispatch('modals/open', {
                 name: 'default',
                 msg: 'Credential successfully verified',
