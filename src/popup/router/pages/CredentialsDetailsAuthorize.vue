@@ -113,7 +113,7 @@ export default {
             }else if(response.status == 200){
            
               console.log("RESPONSE 200, successfull")
-              consol.log(response.message);
+              console.log(response.message);
               setTimeout(() => {
                 window.close();
               }, 10000)
