@@ -113,6 +113,10 @@ export default {
             }else if(response.status == 200){
            
               console.log("RESPONSE 200, successfull")
+              consol.log(response.message);
+              setTimeout(() => {
+                window.close();
+              }, 10000)
               window.close();
             if (response.message)
             await this.$store.dispatch('modals/open', {
